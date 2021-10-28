@@ -3,11 +3,12 @@
 	"version": "0.0.1",
 	"description": "",
 	"repository": {
-		"url": "https://github.com/jamesatjaminit/"
+		"url": "https://github.com/jamesatjaminit/classcharts-api"
 	},
-	"main": "dist/index.js",
+	"main": "./index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepublishOnly": "npx tsc && node dist/release.js"
 	},
 	"author": "",
 	"license": "ISC",
