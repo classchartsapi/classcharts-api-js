@@ -23,6 +23,7 @@ function main() {
         Buffer.from(sourceObj.version, 'utf-8')
     )
     fs.copyFileSync(__dirname + '/../.npmignore', __dirname + '/.npmignore')
+    fs.copyFileSync(__dirname + '/../README.MD', __dirname + '/README.MD')
 }
 
 main()

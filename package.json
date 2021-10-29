@@ -1,13 +1,13 @@
 {
 	"name": "classcharts-api",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "",
 	"repository": {
 		"url": "https://github.com/jamesatjaminit/classcharts-api"
 	},
 	"main": "./index.js",
 	"scripts": {
-		"prepublishOnly": "pnpm tsc && node dist/release.js",
+		"buildReady": "pnpm tsc && node dist/release.js",
 		"generateDocs": "pnpm typedoc --entryPointStrategy expand ./src"
 	},
 	"author": "",
