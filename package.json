@@ -7,13 +7,12 @@
 	},
 	"main": "./index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"prepublishOnly": "npx tsc && node dist/release.js"
+		"prepublishOnly": "pnpm tsc && node dist/release.js"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"undici": "^4.9.1"
+		"undici": "^4.9.2"
 	},
 	"devDependencies": {
 		"@types/node": "^16.11.6",

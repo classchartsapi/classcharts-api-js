@@ -82,11 +82,6 @@ export class ClasschartsClient {
         this.studentId = user.id
         this.studentName = user.name
     }
-
-    /**
-     *
-     * @returns {Promise<Student>}
-     */
     async getStudentInfo(): Promise<Student> {
         if (!this.authCookies) throw new Error('Not authenticated')
         const data = await this.makeAuthedRequest(API_BASE + '/ping', {
@@ -122,13 +117,6 @@ export class ClasschartsClient {
             }
         )
     }
-    /**
-     * Gets all the homework from
-     * @param displayDate {DisplayDate}
-     * @param fromDate
-     * @param toDate
-     * @returns {Promise<Array<Homework>>}
-     */
     async listHomeworks(
         options: GetHomeworkOptions | null
     ): Promise<HomeworksResponse> {
@@ -154,11 +142,6 @@ export class ClasschartsClient {
         }
         return data
     }
-    /**
-     *
-     * @param date
-     * @returns {Promise<LessonsResponse>}
-     */
     async getLessons(options: GetLessonsOptions): Promise<LessonsResponse> {
         if (!this.authCookies) throw new Error('Not authenticated')
         if (!options?.date) throw new Error('No date specified')
