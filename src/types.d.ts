@@ -51,10 +51,10 @@ export interface ActivityResponse {
     timeline: Array<ActivityTimelinePoint>
     positiveReasons: Record<string, string>
     negative_reasons: Record<string, string>
-    other_positive: Array
-    other_negative: Array
-    other_positive_count: Array
-    other_negative_count: Array
+    other_positive: Array<any>
+    other_negative: Array<any>
+    other_positive_count: Array<any>
+    other_negative_count: Array<any>
 }
 export interface GetBehaviourOptions {
     from: string | undefined
@@ -114,11 +114,11 @@ export interface Homework {
         allow_attachments: string
         first_seen_date: string
         last_seen_date: string
-        attachments: Array
+        attachments: Array<any>
         has_feedback: boolean
     }
-    validated_links: Array
-    validated_attachments: Array
+    validated_links: Array<any>
+    validated_attachments: Array<any>
 }
 export type HomeworksResponse = Array<Homework>
 export interface GetLessonsOptions {

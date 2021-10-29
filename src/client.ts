@@ -11,8 +11,11 @@ import {
     HomeworksResponse,
     LessonsResponse,
     Student,
-} from '../types'
+} from './types'
 import { API_BASE, BASE_URL } from './consts'
+/**
+ * The base client
+ */
 export class ClasschartsClient {
     public studentCode = ''
     public dateOfBirth = ''
@@ -20,7 +23,12 @@ export class ClasschartsClient {
     public studentName = ''
     private authCookies: Array<string> | undefined
     private sessionId = ''
-    constructor(studentCode: unknown, dateOfBirth: unknown) {
+    /**
+     *
+     * @param studentCode Classcharts student code
+     * @param dateOfBirth Student's date of birth
+     */
+    constructor(studentCode: string, dateOfBirth: string | null) {
         this.studentCode = String(studentCode)
         this.dateOfBirth = String(dateOfBirth)
     }
@@ -48,8 +56,10 @@ export class ClasschartsClient {
         }
         return responseJSON.data
     }
-
-    async init() {
+    /**
+     * Initialises the client and authenticates with classcharts
+     */
+    async init(): Promise<void> {
         if (!this.studentCode) throw new Error('Student Code not inputted')
         const formData = new URLSearchParams()
         formData.append('_method', 'POST')
@@ -82,6 +92,10 @@ export class ClasschartsClient {
         this.studentId = user.id
         this.studentName = user.name
     }
+    /**
+     * Gets general information about the logged in student
+     * @returns Student object
+     */
     async getStudentInfo(): Promise<Student> {
         if (!this.authCookies) throw new Error('Not authenticated')
         const data = await this.makeAuthedRequest(API_BASE + '/ping', {
@@ -90,6 +104,11 @@ export class ClasschartsClient {
         })
         return data?.user
     }
+    /**
+     * Get's the logged in student's general activity
+     * @param options GetActivityOptions
+     * @returns Activity data
+     */
     async getActivity(
         options: GetActivityOptions | null
     ): Promise<ActivityResponse> {
@@ -103,6 +122,11 @@ export class ClasschartsClient {
             }
         )
     }
+    /**
+     * Gets the logged in students behaviour points
+     * @param options GetBehaviourOptions
+     * @returns Array of behaviour points
+     */
     async getBehaviour(
         options: GetBehaviourOptions | null
     ): Promise<BehaviourResponse> {
@@ -117,6 +141,11 @@ export class ClasschartsClient {
             }
         )
     }
+    /**
+     * Gets a list of the logged in student's homeworks
+     * @param options GetHomeworkOptions
+     * @returns Array of homeworks
+     */
     async listHomeworks(
         options: GetHomeworkOptions | null
     ): Promise<HomeworksResponse> {
@@ -142,6 +171,11 @@ export class ClasschartsClient {
         }
         return data
     }
+    /**
+     * Gets the logged in student's lessons for a day
+     * @param options GetLessonsOptions
+     * @returns Array of lessons
+     */
     async getLessons(options: GetLessonsOptions): Promise<LessonsResponse> {
         if (!this.authCookies) throw new Error('Not authenticated')
         if (!options?.date) throw new Error('No date specified')

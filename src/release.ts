@@ -22,14 +22,6 @@ function main() {
         __dirname + '/version.txt',
         Buffer.from(sourceObj.version, 'utf-8')
     )
-    try {
-        fs.mkdirSync(__dirname + '/types/')
-    } catch {}
-
-    fs.copyFileSync(
-        __dirname + '/../types/index.d.ts',
-        __dirname + '/types/index.d.ts'
-    )
     fs.copyFileSync(__dirname + '/../.npmignore', __dirname + '/.npmignore')
 }
 
