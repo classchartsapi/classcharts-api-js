@@ -11,7 +11,7 @@ import {
 	HomeworksResponse,
 	LessonsResponse,
 	Student,
-} from './types'
+} from '../types'
 import { API_BASE, BASE_URL } from './consts'
 /**
  * The base client

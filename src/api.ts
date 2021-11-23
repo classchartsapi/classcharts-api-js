@@ -13,7 +13,7 @@ import {
 	HomeworksResponse,
 	LessonsResponse,
 	Student,
-} from './types'
+} from '../types'
 export async function getStudentInfo(
 	studentCode: string,
 	dateOfBirth?: string

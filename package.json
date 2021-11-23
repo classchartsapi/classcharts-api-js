@@ -1,6 +1,6 @@
 {
 	"name": "classcharts-api",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "",
 	"repository": {
 		"url": "https://github.com/jamesatjaminit/classcharts-api"
@@ -17,7 +17,8 @@
 		"undici": "^4.9.2"
 	},
 	"files": [
-		"dist/**"
+		"dist/**",
+		"types.d.ts"
 	],
 	"devDependencies": {
 		"@types/node": "^16.11.6",
