@@ -5,9 +5,8 @@
 	"repository": {
 		"url": "https://github.com/jamesatjaminit/classcharts-api"
 	},
-	"main": "./index.js",
+	"main": "./dist/index.js",
 	"scripts": {
-		"buildReady": "pnpm tsc && node dist/release.js",
 		"generateDocs": "pnpm typedoc --entryPointStrategy expand ./src"
 	},
 	"author": "",
@@ -15,10 +14,13 @@
 	"dependencies": {
 		"undici": "^4.9.2"
 	},
+	"files": [
+		"dist/**"
+	],
 	"devDependencies": {
 		"@types/node": "^16.11.6",
 		"typedoc": "^0.22.7",
 		"typescript": "^4.4.4"
 	},
-	"types": "./types.d.ts"
+	"types": "./dist/index.d.ts"
 }

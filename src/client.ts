@@ -28,7 +28,7 @@ export class ClasschartsClient {
 	 * @param studentCode Classcharts student code
 	 * @param dateOfBirth Student's date of birth
 	 */
-	constructor(studentCode: string, dateOfBirth: string) {
+	constructor(studentCode: string, dateOfBirth?: string) {
 		this.studentCode = String(studentCode)
 		this.dateOfBirth = String(dateOfBirth)
 	}
@@ -110,7 +110,7 @@ export class ClasschartsClient {
 	 * @returns Activity data
 	 */
 	async getActivity(
-		options: GetActivityOptions | null
+		options?: GetActivityOptions
 	): Promise<ActivityResponse> {
 		const params = new URLSearchParams()
 		options?.from && params.append('form', options?.from)
@@ -128,7 +128,7 @@ export class ClasschartsClient {
 	 * @returns Array of behaviour points
 	 */
 	async getBehaviour(
-		options: GetBehaviourOptions | null
+		options?: GetBehaviourOptions
 	): Promise<BehaviourResponse> {
 		const params = new URLSearchParams()
 		options?.from && params.append('form', options?.from)
@@ -147,7 +147,7 @@ export class ClasschartsClient {
 	 * @returns Array of homeworks
 	 */
 	async listHomeworks(
-		options: GetHomeworkOptions | null
+		options?: GetHomeworkOptions
 	): Promise<HomeworksResponse> {
 		if (!this.authCookies) throw new Error('Not authenticated')
 		const params = new URLSearchParams()
@@ -176,7 +176,7 @@ export class ClasschartsClient {
 	 * @param options GetLessonsOptions
 	 * @returns Array of lessons
 	 */
-	async getLessons(options: GetLessonsOptions): Promise<LessonsResponse> {
+	async getLessons(options?: GetLessonsOptions): Promise<LessonsResponse> {
 		if (!this.authCookies) throw new Error('Not authenticated')
 		if (!options?.date) throw new Error('No date specified')
 		const params = new URLSearchParams()

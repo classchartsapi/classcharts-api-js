@@ -37,8 +37,8 @@ export interface Student {
 	detention_alias_plural_uc: string
 }
 export interface GetActivityOptions {
-	from: string | undefined
-	to: string | undefined
+	from?: string
+	to?: string
 }
 export interface ActivityTimelinePoint {
 	positive: number
@@ -57,9 +57,9 @@ export interface ActivityResponse {
 	other_negative_count: Array<any>
 }
 export interface GetBehaviourOptions {
-	from: string | undefined
-	to: string | undefined
-	last_id: string | undefined
+	from?: string
+	to?: string
+	last_id?: string
 }
 export interface BehaviourPoint {
 	id: number
