@@ -151,7 +151,7 @@ export class ClasschartsClient {
 	): Promise<HomeworksResponse> {
 		if (!this.authCookies) throw new Error('Not authenticated')
 		const params = new URLSearchParams()
-		params.append('display_date', String(options?.displayDate))
+		if (options?.displayDate) params.append('display_date', String(options?.displayDate))
 		options?.fromDate && params.append('from', String(options?.fromDate))
 		options?.toDate && params.append('to', String(options?.toDate))
 		let data: Array<Homework> = await this.makeAuthedRequest(
