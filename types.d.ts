@@ -110,7 +110,7 @@ export interface Homework {
 		state: null
 		mark: null
 		mark_relative: number
-		ticked: boolean
+		ticked: 'yes' | 'no'
 		allow_attachments: string
 		first_seen_date: string
 		last_seen_date: string
