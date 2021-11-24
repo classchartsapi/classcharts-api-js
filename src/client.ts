@@ -32,7 +32,7 @@ export class ClasschartsClient {
 		this.studentCode = String(studentCode)
 		this.dateOfBirth = String(dateOfBirth)
 	}
-	private async makeAuthedRequest(
+	public async makeAuthedRequest(
 		path: string,
 		options: Omit<RequestOptions, 'origin' | 'path'>
 	) {

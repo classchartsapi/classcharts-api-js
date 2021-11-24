@@ -87,9 +87,9 @@ export interface BehaviourPoint {
 export type BehaviourResponse = Array<BehaviourPoint>
 export type DisplayDate = 'due_date' | 'issue_date'
 export interface GetHomeworkOptions {
-	displayDate: DisplayDate
-	fromDate: string
-	toDate: string
+	displayDate?: DisplayDate
+	fromDate?: string
+	toDate?: string
 }
 export interface Homework {
 	lesson: string
