@@ -1,29 +1,31 @@
 {
-	"name": "classcharts-api",
-	"version": "0.0.8",
-	"description": "",
-	"repository": {
-		"url": "https://github.com/jamesatjaminit/classcharts-api"
-	},
-	"main": "./dist/index.js",
-	"scripts": {
-		"prepare": "npm run build",
-		"build": "tsc",
-		"generateDocs": "pnpm typedoc --entryPointStrategy expand ./src"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"undici": "^4.10.3"
-	},
-	"files": [
-		"dist/**",
-		"types.d.ts"
-	],
-	"devDependencies": {
-		"@types/node": "^16.11.10",
-		"typedoc": "^0.22.9",
-		"typescript": "^4.5.2"
-	},
-	"types": "./dist/index.d.ts"
+  "name": "classcharts-api",
+  "version": "0.0.10",
+  "description": "",
+  "repository": {
+    "url": "https://github.com/jamesatjaminit/classcharts-api"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "generateDocs": "pnpm typedoc --entryPointStrategy expand ./src",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "undici": "^4.11.3"
+  },
+  "files": [
+    "dist/**",
+    "types.d.ts"
+  ],
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "dotenv": "^10.0.0",
+    "typedoc": "^0.22.10",
+    "typescript": "^4.5.3"
+  },
+  "types": "./dist/index.d.ts"
 }

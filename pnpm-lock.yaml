@@ -1,23 +1,25 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@types/node': ^16.11.6
-  typedoc: ^0.22.7
-  typescript: ^4.4.4
-  undici: ^4.9.2
+  '@types/node': ^16.11.12
+  dotenv: ^10.0.0
+  typedoc: ^0.22.10
+  typescript: ^4.5.3
+  undici: ^4.11.3
 
 dependencies:
-  undici: 4.9.2
+  undici: 4.11.3
 
 devDependencies:
-  '@types/node': 16.11.6
-  typedoc: 0.22.7_typescript@4.4.4
-  typescript: 4.4.4
+  '@types/node': 16.11.12
+  dotenv: 10.0.0
+  typedoc: 0.22.10_typescript@4.5.3
+  typescript: 4.5.3
 
 packages:
 
-  /@types/node/16.11.6:
-    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
+  /@types/node/16.11.12:
+    resolution: {integrity: sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==}
     dev: true
 
   /balanced-match/1.0.2:
@@ -33,6 +35,11 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    dev: true
+
+  /dotenv/10.0.0:
+    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
+    engines: {node: '>=10'}
     dev: true
 
   /fs.realpath/1.0.0:
@@ -112,29 +119,29 @@ packages:
       vscode-textmate: 5.2.0
     dev: true
 
-  /typedoc/0.22.7_typescript@4.4.4:
-    resolution: {integrity: sha512-ndxxp+tU1Wczvdxp4u2/PvT1qjD6hdFdSdehpORHjE+JXmMkl2bftXCR0upHmsnesBG7VCcr8vfgloGHIH8glQ==}
+  /typedoc/0.22.10_typescript@4.5.3:
+    resolution: {integrity: sha512-hQYZ4WtoMZ61wDC6w10kxA42+jclWngdmztNZsDvIz7BMJg7F2xnT+uYsUa7OluyKossdFj9E9Ye4QOZKTy8SA==}
     engines: {node: '>= 12.10.0'}
     hasBin: true
     peerDependencies:
-      typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
+      typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x || 4.5.x
     dependencies:
       glob: 7.2.0
       lunr: 2.3.9
       marked: 3.0.8
       minimatch: 3.0.4
       shiki: 0.9.12
-      typescript: 4.4.4
+      typescript: 4.5.3
     dev: true
 
-  /typescript/4.4.4:
-    resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==}
+  /typescript/4.5.3:
+    resolution: {integrity: sha512-eVYaEHALSt+s9LbvgEv4Ef+Tdq7hBiIZgii12xXJnukryt3pMgJf6aKhoCZ3FWQsu6sydEnkg11fYXLzhLBjeQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
 
-  /undici/4.9.2:
-    resolution: {integrity: sha512-O8D4fp0cT7/bOMe7XE2oc0PaBCyc0GsahzQ+nMSeWW0o0+EB2ykXYNhU0kY2nKP589zzS91pLj979NtJrBRwFQ==}
+  /undici/4.11.3:
+    resolution: {integrity: sha512-bLOCH2juB9gAkqE4a4zb+eMGhI8XD4SH1tF9Qu9J3Y8TA379Xxg7lWRMiDvc36pRWV1z9/HICv05fXkeeLw1Dg==}
     engines: {node: '>=12.18'}
     dev: false
 
