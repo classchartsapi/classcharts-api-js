@@ -10,7 +10,7 @@
     "prepare": "npm run build",
     "build": "tsc",
     "generateDocs": "pnpm typedoc --entryPointStrategy expand ./src",
-    "test": "jest"
+    "test": "echo TEST"
   },
   "author": "",
   "license": "ISC",
