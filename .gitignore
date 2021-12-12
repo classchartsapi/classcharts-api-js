@@ -118,4 +118,4 @@ dist
 .pnp.*
 
 
-src/tests/config.json
+tests/config.json
