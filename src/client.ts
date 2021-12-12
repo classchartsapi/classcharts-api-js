@@ -11,7 +11,7 @@ import {
 	HomeworksResponse,
 	LessonsResponse,
 	Student,
-} from '../types'
+} from './types'
 import { API_BASE, BASE_URL } from './consts'
 /**
  * The base client
@@ -97,7 +97,6 @@ export class ClasschartsClient {
 	 * @returns Student object
 	 */
 	async getStudentInfo(): Promise<Student> {
-		if (!this.authCookies) throw new Error('Not authenticated')
 		const data = await this.makeAuthedRequest(API_BASE + '/ping', {
 			method: 'POST',
 			body: 'include_date=true',
@@ -149,7 +148,6 @@ export class ClasschartsClient {
 	async listHomeworks(
 		options?: GetHomeworkOptions
 	): Promise<HomeworksResponse> {
-		if (!this.authCookies) throw new Error('Not authenticated')
 		const params = new URLSearchParams()
 		if (options?.displayDate) params.append('display_date', String(options?.displayDate))
 		options?.fromDate && params.append('from', String(options?.fromDate))
@@ -177,7 +175,6 @@ export class ClasschartsClient {
 	 * @returns Array of lessons
 	 */
 	async getLessons(options?: GetLessonsOptions): Promise<LessonsResponse> {
-		if (!this.authCookies) throw new Error('Not authenticated')
 		if (!options?.date) throw new Error('No date specified')
 		const params = new URLSearchParams()
 		params.append('date', String(options?.date))

@@ -18,8 +18,7 @@
     "undici": "^4.11.3"
   },
   "files": [
-    "dist/**",
-    "types.d.ts"
+    "dist/**"
   ],
   "devDependencies": {
     "@types/node": "^16.11.12",
