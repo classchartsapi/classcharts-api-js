@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "generateDocs": "pnpm typedoc --entryPointStrategy expand ./src",
-    "test": "echo do tests"
+    "test": "echo do tests",
+    "prepublishOnly": "npm run build"
   },
   "author": "",
   "license": "ISC",
