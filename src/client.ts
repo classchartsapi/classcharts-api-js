@@ -2,6 +2,7 @@ import Undici from "undici";
 import { RequestOptions } from "undici/types/dispatcher";
 import {
   ActivityResponse,
+  BadgesResponse,
   BehaviourResponse,
   GetActivityOptions,
   GetBehaviourOptions,
@@ -59,7 +60,7 @@ export class ClasschartsClient {
   /**
    * Initialises the client and authenticates with classcharts
    */
-  async init(): Promise<void> {
+  async login(): Promise<void> {
     if (!this.studentCode) throw new Error("Student Code not inputted");
     const formData = new URLSearchParams();
     formData.append("_method", "POST");
@@ -80,7 +81,7 @@ export class ClasschartsClient {
     for (let i = 0; i < cookies.length; i++) {
       cookies[i] = cookies[i].substring(0, cookies[i].indexOf(";"));
     }
-    this.authCookies = cookies
+    this.authCookies = cookies;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let sessionID: any = decodeURI(cookies[2])
       .replace(/%3A/g, ":")
@@ -177,6 +178,18 @@ export class ClasschartsClient {
     params.append("date", String(options?.date));
     return await this.makeAuthedRequest(
       API_BASE + "/timetable/" + this.studentId + "?" + params.toString(),
+      {
+        method: "GET",
+      }
+    );
+  }
+  /**
+   * Gets a list of the students badges
+   * @returns Array of badges
+   */
+  async getBadges(): Promise<BadgesResponse> {
+    return await this.makeAuthedRequest(
+      API_BASE + "/eventbadges/" + this.studentId,
       {
         method: "GET",
       }

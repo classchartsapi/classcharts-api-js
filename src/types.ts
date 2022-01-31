@@ -150,3 +150,33 @@ export interface Lesson {
   pupil_note_raw: string;
 }
 export type LessonsResponse = Array<Lesson>;
+export interface LessonPupilBehaviour {
+  // Not sure what to call this
+  reason: string;
+  score: number;
+  icon: string;
+  polarity: string;
+  timestamp: string;
+  teacher: {
+    title: string;
+    first_name: string;
+    last_name: string;
+  };
+}
+export interface PupilEvent {
+  timestamp: string;
+  lesson_pupil_behaviour: LessonPupilBehaviour;
+  event: {
+    label: string;
+  };
+}
+export interface Badge {
+  id: number;
+  name: string;
+  icon: string;
+  colour: string;
+  created_date: string;
+  pupil_badges: Array<PupilEvent>;
+  icon_url: string;
+}
+export type BadgesResponse = Array<Badge>;
