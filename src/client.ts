@@ -76,11 +76,12 @@ export class ClasschartsClient {
     });
     if (request.statusCode != 302 || !request.headers["set-cookie"])
       throw new Error("Unauthenticated: Classcharts returned an error");
-    let cookies = request.headers["set-cookie"];
+    const cookies = request.headers["set-cookie"];
     for (let i = 0; i < cookies.length; i++) {
       cookies[i] = cookies[i].substring(0, cookies[i].indexOf(";"));
     }
-    this.authCookies = cookies;
+    this.authCookies = cookies
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let sessionID: any = decodeURI(cookies[2])
       .replace(/%3A/g, ":")
       .replace(/%2C/g, ",");
@@ -151,7 +152,7 @@ export class ClasschartsClient {
       params.append("display_date", String(options?.displayDate));
     options?.fromDate && params.append("from", String(options?.fromDate));
     options?.toDate && params.append("to", String(options?.toDate));
-    let data: Array<Homework> = await this.makeAuthedRequest(
+    const data: Array<Homework> = await this.makeAuthedRequest(
       API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
