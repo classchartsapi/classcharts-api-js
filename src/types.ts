@@ -79,7 +79,7 @@ export interface BehaviourPoint {
   teacher_name: string;
   room_name: string | null;
   note: string;
-  _can_delete: string;
+  _can_delete: boolean;
   detention_date: string | null;
   detention_time: string | null;
   detention_location: string | null;
@@ -91,6 +91,12 @@ export interface GetHomeworkOptions {
   displayDate?: DisplayDate;
   fromDate?: string;
   toDate?: string;
+}
+export interface ValidatedHomeworkAttachment {
+  id: number;
+  file_name: string;
+  file: string;
+  validated_file: string;
 }
 export interface Homework {
   lesson: string;
@@ -108,18 +114,18 @@ export interface Homework {
   publish_time: string;
   status: {
     id: number;
-    state: null;
-    mark: null;
+    state: any | null;
+    mark: any | null;
     mark_relative: number;
     ticked: "yes" | "no";
-    allow_attachments: string;
+    allow_attachments: "yes" | "no";
     first_seen_date: string;
     last_seen_date: string;
     attachments: Array<any>;
     has_feedback: boolean;
   };
   validated_links: Array<any>;
-  validated_attachments: Array<any>;
+  validated_attachments: Array<ValidatedHomeworkAttachment>;
 }
 export type HomeworksResponse = Array<Homework>;
 export interface GetLessonsOptions {
