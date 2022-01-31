@@ -18,10 +18,10 @@ async function main() {
             toDate: '01/02/2000',
         })
     )
-    console.log(await client.getActivity(null))
+    console.log(await client.getActivity())
     console.log(await client.getStudentInfo())
-    console.log(await client.getActivity(null))
-    console.log(await client.getActivity(null))
+    console.log(await client.getActivity())
+    console.log(await client.getActivity())
 }
 
 main()
