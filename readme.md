@@ -7,22 +7,22 @@ A very WIP client for the classcharts API
 # Examples
 
 ```typescript
-import { ClasschartsClient } from 'classcharts-api'
+import { ClasschartsClient } from "classcharts-api";
 async function main() {
-    const client = new ClasschartsClient('classchartsCode', '01/1/2000')
-    await client.init()
-    console.log(
-        await client.getBehaviour({
-            displayDate: 'due_date',
-            fromDate: '20/01/2000',
-            toDate: '01/02/2000',
-        })
-    )
-    console.log(await client.getActivity())
-    console.log(await client.getStudentInfo())
-    console.log(await client.getActivity())
-    console.log(await client.getActivity())
+  const client = new ClasschartsClient("classchartsCode", "01/1/2000");
+  await client.init();
+  console.log(
+    await client.getBehaviour({
+      displayDate: "due_date",
+      fromDate: "20/01/2000",
+      toDate: "01/02/2000",
+    })
+  );
+  console.log(await client.getActivity());
+  console.log(await client.getStudentInfo());
+  console.log(await client.getActivity());
+  console.log(await client.getActivity());
 }
 
-main()
+main();
 ```
