@@ -277,4 +277,4 @@ export interface Annoucement {
   pupil_consents: Array<any>;
 }
 
-export type AnnoucementsResponse = Array<Annoucement>
+export type AnnouncementsResponse = Array<Annoucement>
