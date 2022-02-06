@@ -37,32 +37,32 @@ export interface Student {
   survey_id: number | null;
   detention_alias_plural_uc: string;
 }
-export interface GetActivityOptions {
+export interface GetBehaviourOptions {
   from?: string;
   to?: string;
 }
-export interface ActivityTimelinePoint {
+export interface BehaviourTimelinePoint {
   positive: number;
   negative: number;
   name: string;
   start: string;
   end: string;
 }
-export interface ActivityResponse {
-  timeline: Array<ActivityTimelinePoint>;
-  positiveReasons: Record<string, string>;
-  negative_reasons: Record<string, string>;
-  other_positive: Array<any>;
-  other_negative: Array<any>;
-  other_positive_count: Array<any>;
-  other_negative_count: Array<any>;
+export interface BehaviourResponse {
+  timeline: Array<BehaviourTimelinePoint>;
+  positive_reasons: Record<string, number>;
+  negative_reasons: Record<string, number>;
+  other_positive: Array<string>;
+  other_negative: Array<string>;
+  other_positive_count: Array<Record<string, number>>;
+  other_negative_count: Array<Record<string, number>>;
 }
-export interface GetBehaviourOptions {
+export interface GetActivityOptions {
   from?: string;
   to?: string;
   last_id?: string;
 }
-export interface BehaviourPoint {
+export interface ActivityPoint {
   id: number;
   type: string;
   polarity: string;
@@ -80,12 +80,13 @@ export interface BehaviourPoint {
   room_name: string | null;
   note: string;
   _can_delete: boolean;
+  badges: string | undefined;
   detention_date: string | null;
   detention_time: string | null;
   detention_location: string | null;
   detention_type: string | null;
 }
-export type BehaviourResponse = Array<BehaviourPoint>;
+export type ActivityResponse = Array<ActivityPoint>;
 export type DisplayDate = "due_date" | "issue_date";
 export interface GetHomeworkOptions {
   displayDate?: DisplayDate;

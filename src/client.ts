@@ -122,6 +122,7 @@ export class ClasschartsClient {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
+    options?.last_id && params.append("last_id", options?.last_id);
     return this.makeAuthedRequest(
       API_BASE + "/activity/" + this.sessionId + "?" + params.toString(),
       {
@@ -140,7 +141,6 @@ export class ClasschartsClient {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
-    options?.last_id && params.append("last_id", options?.last_id);
     return await this.makeAuthedRequest(
       API_BASE + "/behaviour/" + this.studentId + "?" + params.toString(),
       {
