@@ -95,6 +95,13 @@ export class ClasschartsClient {
     this.studentName = user.name;
   }
   /**
+   * @deprecated Use .login() instead
+   */
+  async init(): Promise<void> {
+    console.warn(".init() is deprecated, please use .login()");
+    await this.login();
+  }
+  /**
    * Gets general information about the logged in student
    * @returns Student object
    */
