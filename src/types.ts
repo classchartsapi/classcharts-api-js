@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+type BooleanHumean = "yes" | "no";
 export interface Student {
   id: number;
   name: string;
@@ -143,8 +144,8 @@ export interface Homework {
     state: "not_completed" | "late" | "completed" | null;
     mark: any | null;
     mark_relative: number;
-    ticked: "yes" | "no";
-    allow_attachments: "yes" | "no";
+    ticked: BooleanHumean;
+    allow_attachments: BooleanHumean;
     first_seen_date: string;
     last_seen_date: string;
     attachments: Array<any>;
@@ -212,7 +213,7 @@ export type BadgesResponse = Array<Badge>;
 
 export interface Detention {
   id: number;
-  attended: "yes" | "no" | "upscaled" | "pending";
+  attended: BooleanHumean | "upscaled" | "pending";
   date: string | null;
   length: number | null;
   location: string | null;
@@ -223,9 +224,9 @@ export interface Detention {
     first_name: string;
     last_name: string;
     school: {
-      opt_notes_names: "yes" | "no";
-      opt_notes_comments: "yes" | "no";
-      opt_notes_comments_pupils: "yes" | "no";
+      opt_notes_names: BooleanHumean;
+      opt_notes_comments: BooleanHumean;
+      opt_notes_comments_pupils: BooleanHumean;
     };
   };
   lesson: {
@@ -258,7 +259,7 @@ export interface Annoucement {
   school_name: string;
   teacher_name: string;
   school_logo: string | null;
-  sticky: "yes" | "no";
+  sticky: BooleanHumean;
   state: string | null;
   timestamp: string;
   attachments: Array<{
@@ -267,14 +268,14 @@ export interface Annoucement {
   }>;
   for_pupils: Array<any>;
   comment_visibility: string;
-  allow_comments: "yes" | "no";
-  allow_reactions: "yes" | "no";
-  allow_consent: "yes" | "no";
-  priority_pinned: "yes" | "no";
-  requires_consent: "yes" | "no";
+  allow_comments: BooleanHumean;
+  allow_reactions: BooleanHumean;
+  allow_consent: BooleanHumean;
+  priority_pinned: BooleanHumean;
+  requires_consent: BooleanHumean;
   can_change_consent: boolean;
   consent: string | null;
   pupil_consents: Array<any>;
 }
 
-export type AnnoucementsResponse = Array<Annoucement>
+export type AnnoucementsResponse = Array<Annoucement>;
