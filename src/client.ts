@@ -4,6 +4,7 @@ import {
   ActivityResponse,
   BadgesResponse,
   BehaviourResponse,
+  DetentionsResponse,
   GetActivityOptions,
   GetBehaviourOptions,
   GetHomeworkOptions,
@@ -119,7 +120,7 @@ export class ClasschartsClient {
    */
   async getActivity(options?: GetActivityOptions): Promise<ActivityResponse> {
     const params = new URLSearchParams();
-    options?.from && params.append("form", options?.from);
+    options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
     return this.makeAuthedRequest(
       API_BASE + "/activity/" + this.sessionId + "?" + params.toString(),
@@ -137,7 +138,7 @@ export class ClasschartsClient {
     options?: GetBehaviourOptions
   ): Promise<BehaviourResponse> {
     const params = new URLSearchParams();
-    options?.from && params.append("form", options?.from);
+    options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
     options?.last_id && params.append("last_id", options?.last_id);
     return await this.makeAuthedRequest(
@@ -158,6 +159,7 @@ export class ClasschartsClient {
     const params = new URLSearchParams();
     if (options?.displayDate)
       params.append("display_date", String(options?.displayDate));
+
     options?.fromDate && params.append("from", String(options?.fromDate));
     options?.toDate && params.append("to", String(options?.toDate));
     const data: Array<Homework> = await this.makeAuthedRequest(
@@ -166,12 +168,16 @@ export class ClasschartsClient {
         method: "GET",
       }
     );
+
     for (let i = 0; i < data.length; i++) {
+      data[i].description_raw = data[i].description;
+
       // homework.lesson.replace(/\\/g, '')
       data[i].description = data[i].description.replace(/(<([^>]+)>)/gi, "");
       data[i].description = data[i].description.replace(/&nbsp;/g, "");
       data[i].description = data[i].description.trim();
     }
+
     return data;
   }
   /**
@@ -197,6 +203,18 @@ export class ClasschartsClient {
   async getBadges(): Promise<BadgesResponse> {
     return await this.makeAuthedRequest(
       API_BASE + "/eventbadges/" + this.studentId,
+      {
+        method: "GET",
+      }
+    );
+  }
+  /**
+   * Gets the logged in student's detentions
+   * @returns Array of detentions
+   */
+  async getDetentions(): Promise<DetentionsResponse> {
+    return await this.makeAuthedRequest(
+      API_BASE + "/detentions/" + this.studentId,
       {
         method: "GET",
       }
