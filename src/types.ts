@@ -252,7 +252,7 @@ export interface Detention {
 }
 export type DetentionsResponse = Array<Detention>;
 
-export interface Annoucement {
+export interface Announcement {
   id: number;
   title: string;
   description: string | null;
@@ -278,4 +278,4 @@ export interface Annoucement {
   pupil_consents: Array<any>;
 }
 
-export type AnnoucementsResponse = Array<Annoucement>;
+export type AnnouncementsResponse = Array<Announcement>;

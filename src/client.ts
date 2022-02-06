@@ -2,7 +2,7 @@ import Undici from "undici";
 import { RequestOptions } from "undici/types/dispatcher";
 import {
   ActivityResponse,
-  AnnoucementsResponse,
+  AnnouncementsResponse,
   BadgesResponse,
   BehaviourResponse,
   DetentionsResponse,
@@ -210,12 +210,12 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Lists the logged in student's annoucements
-   * @returns Array of annoucements
+   * Lists the logged in student's announcements
+   * @returns Array of announcements
    */
-  async listAnnoucements(): Promise<AnnoucementsResponse> {
+  async listAnnouncements(): Promise<AnnouncementsResponse> {
     return await this.makeAuthedRequest(
-      API_BASE + "/annoucements/" + this.studentId,
+      API_BASE + "/announcements/" + this.studentId,
       {
         method: "GET",
       }
