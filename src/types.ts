@@ -38,7 +38,13 @@ export interface Student {
   detention_alias_plural_uc: string;
 }
 export interface GetBehaviourOptions {
+  /**
+   * From date, in format YYYY-MM-DD
+   */
   from?: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
   to?: string;
 }
 export interface BehaviourTimelinePoint {
@@ -58,8 +64,17 @@ export interface BehaviourResponse {
   other_negative_count: Array<Record<string, number>>;
 }
 export interface GetActivityOptions {
+  /**
+   * From date, in format YYYY-MM-DD
+   */
   from?: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
   to?: string;
+  /**
+   *  ID of the last activityPoint (used in pagination)
+   */
   last_id?: string;
 }
 export interface ActivityPoint {
@@ -89,8 +104,17 @@ export interface ActivityPoint {
 export type ActivityResponse = Array<ActivityPoint>;
 export type DisplayDate = "due_date" | "issue_date";
 export interface GetHomeworkOptions {
+  /**
+   * Way to sort homeworks
+   */
   displayDate?: DisplayDate;
+  /**
+   * From date, in format YYYY-MM-DD
+   */
   fromDate?: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
   toDate?: string;
 }
 export interface ValidatedHomeworkAttachment {
@@ -108,7 +132,7 @@ export interface Homework {
   title: string;
   meta_title: string;
   description: string;
-  description_raw: string,
+  description_raw: string;
   issue_date: string;
   due_date: string;
   completion_time_unit: string;
@@ -131,6 +155,9 @@ export interface Homework {
 }
 export type HomeworksResponse = Array<Homework>;
 export interface GetLessonsOptions {
+  /**
+   * Date to get lessons for, in format YYYY-MM-DD
+   */
   date: string;
 }
 export interface Lesson {
