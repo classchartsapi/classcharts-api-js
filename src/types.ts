@@ -107,6 +107,7 @@ export interface Homework {
   title: string;
   meta_title: string;
   description: string;
+  description_raw: string,
   issue_date: string;
   due_date: string;
   completion_time_unit: string;
@@ -114,7 +115,7 @@ export interface Homework {
   publish_time: string;
   status: {
     id: number;
-    state: any | null;
+    state: "not_completed" | "late" | "completed" | null;
     mark: any | null;
     mark_relative: number;
     ticked: "yes" | "no";
@@ -180,3 +181,44 @@ export interface Badge {
   icon_url: string;
 }
 export type BadgesResponse = Array<Badge>;
+
+export interface Detention {
+  id: number;
+  attended: "yes" | "no" | "upscaled" | "pending";
+  date: string | null;
+  length: number | null;
+  location: string | null;
+  notes: string | null;
+  time: string | null;
+  pupil: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    school: {
+      opt_notes_names: "yes" | "no";
+      opt_notes_comments: "yes" | "no";
+      opt_notes_comments_pupils: "yes" | "no";
+    };
+  };
+  lesson: {
+    id: number;
+    name: string;
+    subject: {
+      id: number;
+      name: string;
+    };
+  };
+  lesson_pupil_behaviour: {
+    reason: string;
+  };
+  teacher: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    title: string;
+  };
+  detention_type: {
+    name: string;
+  };
+}
+export type DetentionsResponse = Array<Detention>;
