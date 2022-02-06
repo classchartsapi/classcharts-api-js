@@ -250,3 +250,31 @@ export interface Detention {
   };
 }
 export type DetentionsResponse = Array<Detention>;
+
+export interface Annoucement {
+  id: number;
+  title: string;
+  description: string | null;
+  school_name: string;
+  teacher_name: string;
+  school_logo: string | null;
+  sticky: "yes" | "no";
+  state: string | null;
+  timestamp: string;
+  attachments: Array<{
+    filename: string;
+    url: string;
+  }>;
+  for_pupils: Array<any>;
+  comment_visibility: string;
+  allow_comments: "yes" | "no";
+  allow_reactions: "yes" | "no";
+  allow_consent: "yes" | "no";
+  priority_pinned: "yes" | "no";
+  requires_consent: "yes" | "no";
+  can_change_consent: boolean;
+  consent: string | null;
+  pupil_consents: Array<any>;
+}
+
+export type AnnoucementsResponse = Array<Annoucement>
