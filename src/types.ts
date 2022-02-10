@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type BooleanHumean = "yes" | "no";
+type BooleanHuman = "yes" | "no";
 export interface Student {
   id: number;
   name: string;
@@ -144,8 +144,8 @@ export interface Homework {
     state: "not_completed" | "late" | "completed" | null;
     mark: any | null;
     mark_relative: number;
-    ticked: BooleanHumean;
-    allow_attachments: BooleanHumean;
+    ticked: BooleanHuman;
+    allow_attachments: BooleanHuman;
     first_seen_date: string;
     last_seen_date: string;
     attachments: Array<any>;
@@ -213,7 +213,7 @@ export type BadgesResponse = Array<Badge>;
 
 export interface Detention {
   id: number;
-  attended: BooleanHumean | "upscaled" | "pending";
+  attended: BooleanHuman | "upscaled" | "pending";
   date: string | null;
   length: number | null;
   location: string | null;
@@ -224,9 +224,9 @@ export interface Detention {
     first_name: string;
     last_name: string;
     school: {
-      opt_notes_names: BooleanHumean;
-      opt_notes_comments: BooleanHumean;
-      opt_notes_comments_pupils: BooleanHumean;
+      opt_notes_names: BooleanHuman;
+      opt_notes_comments: BooleanHuman;
+      opt_notes_comments_pupils: BooleanHuman;
     };
   };
   lesson: {
@@ -259,7 +259,7 @@ export interface Announcement {
   school_name: string;
   teacher_name: string;
   school_logo: string | null;
-  sticky: BooleanHumean;
+  sticky: BooleanHuman;
   state: string | null;
   timestamp: string;
   attachments: Array<{
@@ -268,11 +268,11 @@ export interface Announcement {
   }>;
   for_pupils: Array<any>;
   comment_visibility: string;
-  allow_comments: BooleanHumean;
-  allow_reactions: BooleanHumean;
-  allow_consent: BooleanHumean;
-  priority_pinned: BooleanHumean;
-  requires_consent: BooleanHumean;
+  allow_comments: BooleanHuman;
+  allow_reactions: BooleanHuman;
+  allow_consent: BooleanHuman;
+  priority_pinned: BooleanHuman;
+  requires_consent: BooleanHuman;
   can_change_consent: boolean;
   consent: string | null;
   pupil_consents: Array<any>;
