@@ -51,8 +51,8 @@ export class ClasschartsClient {
     let responseJSON;
     try {
       responseJSON = await request.body.json();
-    } catch (err) {
-      throw new Error("Invalid JSON response, check your dates");
+    } catch {
+      throw new Error("Invalid JSON response recieved");
     }
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
@@ -125,7 +125,7 @@ export class ClasschartsClient {
     options?.to && params.append("to", options?.to);
     options?.last_id && params.append("last_id", options?.last_id);
     return this.makeAuthedRequest(
-      API_BASE + "/activity/" + this.sessionId + "?" + params.toString(),
+      API_BASE + "/activity/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
       }
