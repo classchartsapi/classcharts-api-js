@@ -15,7 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "undici": "^4.13.0"
+    "undici": "^4.13.0",
+    "yarn": "^1.22.17"
   },
   "files": [
     "dist/**"

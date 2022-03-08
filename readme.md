@@ -7,9 +7,9 @@ A very WIP client for the classcharts API
 # Examples
 
 ```typescript
-import { ClasschartsClient } from "classcharts-api";
+import { ClasschartsClientStudent } from "classcharts-api";
 async function main() {
-  const client = new ClasschartsClient("classchartsCode", "01/1/2000");
+  const client = new ClasschartsClientStudent("classchartsCode", "01/1/2000");
   await client.init();
   console.log(
     await client.getBehaviour({
