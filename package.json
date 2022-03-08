@@ -15,21 +15,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "undici": "^4.13.0",
-    "yarn": "^1.22.17"
+    "undici": "^4.15.1"
   },
   "files": [
     "dist/**"
   ],
   "devDependencies": {
-    "@types/node": "^17.0.15",
-    "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
-    "eslint": "^8.8.0",
-    "eslint-config-prettier": "^8.3.0",
+    "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.5.1",
-    "typedoc": "^0.22.11",
-    "typescript": "^4.5.5"
+    "typedoc": "^0.22.13",
+    "typescript": "^4.6.2"
   },
   "types": "./dist/index.d.ts",
   "volta": {
