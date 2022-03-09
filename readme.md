@@ -1,11 +1,12 @@
 # Classcharts API
 
-A very WIP client for the classcharts API
+A API client for Classcharts
 
-[Documentation](https://jamesatjaminit.github.io/classcharts-api/index.html)
-[Discord Server](https://discord.gg/985yaqxPuy)
+* [Documentation](https://jamesatjaminit.github.io/classcharts-api/index.html)  
+* [Discord Server](https://discord.gg/985yaqxPuy)
 # Examples
-
+### Documentation is very much WIP, better documentation is planned :D
+For any help with the lib, please join the discord!
 ```typescript
 import { ClasschartsClient } from "classcharts-api";
 async function main() {
