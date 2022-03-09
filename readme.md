@@ -13,9 +13,8 @@ async function main() {
   await client.init();
   console.log(
     await client.getBehaviour({
-      displayDate: "due_date",
-      fromDate: "20/01/2000",
-      toDate: "01/02/2000",
+      from: "2020-12-23",
+      to: "2022-03-09",
     })
   );
   console.log(await client.getActivity());
