@@ -21,7 +21,7 @@ import {ClasschartsClient} from "./client"
  * The base client
  */
 
-export class ClasschartsClientStudent extends ClasschartsClient {
+export class ClasschartsStudentClient extends ClasschartsClient {
   public studentCode = "";
   public dateOfBirth = "";
 

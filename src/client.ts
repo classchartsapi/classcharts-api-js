@@ -96,17 +96,6 @@ export class ClasschartsClient {
   }
 
 
-  async getPupil(options?: GetActivityOptions): Promise<ActivityResponse> {
-    let pupils =   this.makeAuthedRequest(
-        this.API_BASE + "/pupils",
-        {
-          method: "GET",
-        }
-      );
-
-    return pupils
-
-  }
 
   /**
    * Gets the logged in students behaviour points
@@ -155,7 +144,7 @@ export class ClasschartsClient {
       data[i].description = data[i].description.replace(/&nbsp;/g, "");
       data[i].description = data[i].description.trim();
     }
-
+    console.log(data)
     return data;
   }
   /**

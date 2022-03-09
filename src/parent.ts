@@ -21,7 +21,7 @@ import { API_BASE_PARENT, BASE_URL } from "./consts";
 /**
  * The base client
  */
-export class ClasschartsClientParent extends ClasschartsClient {
+export class ClasschartsParentClient extends ClasschartsClient {
   public password = "";
   public email = "";
   /**
@@ -78,5 +78,18 @@ export class ClasschartsClientParent extends ClasschartsClient {
     this.studentId = pupil[0].id;
     this.studentName = pupil[0].pupil_name;
   }
+  /**
+   * Get Pupil details
+   */
+    async getPupil(options?: GetActivityOptions): Promise<ActivityResponse> {
+      let pupils =   this.makeAuthedRequest(
+          this.API_BASE + "/pupils",
+          {
+            method: "GET",
+          }
+        );
 
+      return pupils
+
+    }
 }
