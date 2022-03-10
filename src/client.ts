@@ -27,8 +27,7 @@ export class ClasschartsClient {
   protected API_BASE = "";
   /**
    *
-   * @param studentCode Classcharts student code
-   * @param dateOfBirth Student's date of birth
+   * @param API_BASE Base API URL, this is different depending if its called as a parent or student
    */
   constructor(API_BASE: string) {
     this.API_BASE = API_BASE

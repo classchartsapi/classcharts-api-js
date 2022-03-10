@@ -22,12 +22,12 @@ import { API_BASE_PARENT, BASE_URL } from "./consts";
  * The base client
  */
 export class ClasschartsParentClient extends ClasschartsClient {
-  public password = "";
-  public email = "";
+  private  password = "";
+  private  email = "";
   /**
    *
-   * @param studentCode Classcharts student code
-   * @param dateOfBirth Student's date of birth
+   * @param email Parents email address
+   * @param password Parents password
    */
   constructor(email: string, password: string) {
     super(API_BASE_PARENT)
@@ -36,7 +36,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
   }
 
   /**
-   * Initialises the client and authenticates with classcharts
+   * Logs the user in the client and authenticates with classcharts
    */
   async login(): Promise<void> {
     if (!this.email) throw new Error("Email not inputted");
@@ -73,15 +73,16 @@ export class ClasschartsParentClient extends ClasschartsClient {
 
     this.sessionId = sessionID.session_id;
 
-    let pupil = await this.getPupil();
+    let pupil = await this.getPupils();
 
     this.studentId = pupil[0].id;
     this.studentName = pupil[0].pupil_name;
   }
   /**
    * Get Pupil details
+   * @returns an array fo Pupils connected to this parent's account
    */
-    async getPupil(options?: GetActivityOptions): Promise<ActivityResponse> {
+    async getPupils(): Promise<ActivityResponse> {
       let pupils =   this.makeAuthedRequest(
           this.API_BASE + "/pupils",
           {
