@@ -30,13 +30,12 @@ export class ClasschartsClient {
    * @param API_BASE Base API URL, this is different depending if its called as a parent or student
    */
   constructor(API_BASE: string) {
-    this.API_BASE = API_BASE
+    this.API_BASE = API_BASE;
   }
   public async makeAuthedRequest(
     path: string,
     options: Omit<RequestOptions, "origin" | "path">
   ) {
-
     if (!this.authCookies) throw new Error("Not authenticated");
     const requestOptions: Omit<RequestOptions, "origin" | "path"> = {
       ...options,
@@ -45,7 +44,6 @@ export class ClasschartsClient {
         authorization: "Basic " + this.sessionId,
       },
     };
-
 
     const request = await Undici.request(path, requestOptions);
 
@@ -56,13 +54,11 @@ export class ClasschartsClient {
       throw new Error("Invalid JSON response recieved");
     }
     if (responseJSON.success == 0) {
-
       throw new Error(responseJSON.error);
     }
 
     return responseJSON.data;
   }
-
 
   /**
    * Gets general information about the logged in student
@@ -93,8 +89,6 @@ export class ClasschartsClient {
       }
     );
   }
-
-
 
   /**
    * Gets the logged in students behaviour points
@@ -143,7 +137,7 @@ export class ClasschartsClient {
       data[i].description = data[i].description.replace(/&nbsp;/g, "");
       data[i].description = data[i].description.trim();
     }
-    console.log(data)
+    console.log(data);
     return data;
   }
   /**

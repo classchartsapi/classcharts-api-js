@@ -1,22 +1,6 @@
 import Undici from "undici";
-import { RequestOptions } from "undici/types/dispatcher";
-import {
-  ActivityResponse,
-  AnnouncementsResponse,
-  BadgesResponse,
-  BehaviourResponse,
-  DetentionsResponse,
-  GetActivityOptions,
-  GetBehaviourOptions,
-  GetHomeworkOptions,
-  GetLessonsOptions,
-  Homework,
-  HomeworksResponse,
-  LessonsResponse,
-  Student,
-} from "./types";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
-import {ClasschartsClient} from "./client"
+import { ClasschartsClient } from "./client";
 /**
  * The base client
  */
@@ -31,7 +15,7 @@ export class ClasschartsStudentClient extends ClasschartsClient {
    * @param dateOfBirth Student's date of birth
    */
   constructor(studentCode: string, dateOfBirth?: string) {
-    super(API_BASE_STUDENT)
+    super(API_BASE_STUDENT);
     this.studentCode = String(studentCode);
     this.dateOfBirth = String(dateOfBirth);
   }

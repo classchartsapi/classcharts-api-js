@@ -1,21 +1,5 @@
 import Undici from "undici";
-import { RequestOptions } from "undici/types/dispatcher";
-import {
-  ActivityResponse,
-  AnnouncementsResponse,
-  BadgesResponse,
-  BehaviourResponse,
-  DetentionsResponse,
-  GetActivityOptions,
-  GetBehaviourOptions,
-  GetHomeworkOptions,
-  GetLessonsOptions,
-  GetPupilsResponse,
-  Homework,
-  HomeworksResponse,
-  LessonsResponse,
-  Student,
-} from "./types";
+import type { GetPupilsResponse } from "./types";
 
 import { ClasschartsClient } from "./client";
 import { API_BASE_PARENT, BASE_URL } from "./consts";
@@ -74,7 +58,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
 
     this.sessionId = sessionID.session_id;
 
-    let pupil = await this.getPupils();
+    const pupil = await this.getPupils();
 
     this.studentId = pupil[0].id;
     this.studentName = pupil[0].name;
@@ -84,10 +68,8 @@ export class ClasschartsParentClient extends ClasschartsClient {
    * @returns an array fo Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
-    let pupils = this.makeAuthedRequest(this.API_BASE + "/pupils", {
+    return this.makeAuthedRequest(this.API_BASE + "/pupils", {
       method: "GET",
     });
-
-    return pupils;
   }
 }
