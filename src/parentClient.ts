@@ -1,7 +1,7 @@
 import Undici from "undici";
 import type { GetPupilsResponse } from "./types";
 
-import { ClasschartsClient } from "./client";
+import { ClasschartsClient } from "./baseClient";
 import { API_BASE_PARENT, BASE_URL } from "./consts";
 /**
  * The base client

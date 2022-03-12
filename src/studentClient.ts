@@ -1,6 +1,6 @@
 import Undici from "undici";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
-import { ClasschartsClient } from "./client";
+import { ClasschartsClient } from "./baseClient";
 /**
  * The base client
  */
