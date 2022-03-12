@@ -9,6 +9,8 @@ import { API_BASE_PARENT, BASE_URL } from "./consts";
 export class ClasschartsParentClient extends ClasschartsClient {
   private password = "";
   private email = "";
+  // @ts-expect-error Init in .login
+  public pupils: GetPupilsResponse;
   /**
    *
    * @param email Parents email address
@@ -55,13 +57,11 @@ export class ClasschartsParentClient extends ClasschartsClient {
     sessionID = JSON.parse(
       sessionID.substring(sessionID.indexOf("{"), sessionID.length)
     );
-
     this.sessionId = sessionID.session_id;
-
-    const pupil = await this.getPupils();
-
-    this.studentId = pupil[0].id;
-    this.studentName = pupil[0].name;
+    this.pupils = await this.getPupils();
+    if (!this.pupils) throw new Error("Account has no pupils attached");
+    this.studentId = this.pupils[0].id;
+    this.studentName = this.pupils[0].name;
   }
   /**
    * Get Pupil details
@@ -71,5 +71,22 @@ export class ClasschartsParentClient extends ClasschartsClient {
     return this.makeAuthedRequest(this.API_BASE + "/pupils", {
       method: "GET",
     });
+  }
+  /**
+   *
+   * @param pupilId Pupil ID obtained from this.pupils or getPupils
+   */
+  async selectPupil(pupilId: number): Promise<void> {
+    if (!pupilId) throw new Error("No pupil ID specified");
+    const pupils = this.pupils;
+    for (let i = 0; i < pupils.length; i++) {
+      const pupil = pupils[i];
+      if (pupil.id == pupilId) {
+        this.studentId = pupil.id;
+        this.studentName = pupil.name;
+        return;
+      }
+    }
+    throw new Error("No pupil with specified ID returned");
   }
 }
