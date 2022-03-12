@@ -2,11 +2,12 @@
 
 A client for the classcharts API
 
-* [Documentation](https://jamesatjaminit.github.io/classcharts-api/index.html)
-* [API Documentation (with libary examples)](https://github.com/Classcharts-API/api-docs)
+* [Documentation](https://jamesatjaminit.github.io/classcharts-api/)
+* [API Documentation (with library examples)](https://github.com/Classcharts-API/api-docs)
 * [Discord](https://discord.gg/DTcwugcgZ2)
 # Examples
-Docs are very much a WIP, for any help with the libary, please join the discord above
+Docs are very much a WIP, for any help with the library, please join the discord above
+
 ```typescript
 import { ClasschartsStudentClient } from "classcharts-api";
 async function main() {
