@@ -1,1 +1,2 @@
-export * from "./client";
+export * from "./parent";
+export * from "./student";

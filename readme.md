@@ -8,9 +8,9 @@ A API client for Classcharts
 ### Documentation is very much WIP, better documentation is planned :D
 For any help with the lib, please join the discord!
 ```typescript
-import { ClasschartsClient } from "classcharts-api";
+import { ClasschartsStudentClient } from "classcharts-api";
 async function main() {
-  const client = new ClasschartsClient("classchartsCode", "01/1/2000");
+  const client = new ClasschartsStudentClient("classchartsCode", "01/1/2000");
   await client.init();
   console.log(
     await client.getBehaviour({
