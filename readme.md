@@ -3,6 +3,7 @@
 A client for the classcharts API
 
 * [Documentation](https://jamesatjaminit.github.io/classcharts-api/index.html)
+* [API Documentation (with libary examples)](https://github.com/Classcharts-API/api-docs)
 * [Discord](https://discord.gg/DTcwugcgZ2)
 # Examples
 Docs are very much a WIP, for any help with the libary, please join the discord above
