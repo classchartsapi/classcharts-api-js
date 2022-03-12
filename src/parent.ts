@@ -73,7 +73,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
     });
   }
   /**
-   *
+   * Selects a pupil to be used with API requests
    * @param pupilId Pupil ID obtained from this.pupils or getPupils
    */
   async selectPupil(pupilId: number): Promise<void> {
