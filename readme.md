@@ -1,6 +1,6 @@
 # Classcharts API
 
-A very WIP client for the classcharts API
+A client for the classcharts API
 
 * [Documentation](https://jamesatjaminit.github.io/classcharts-api/index.html)
 * [Discord](https://discord.gg/DTcwugcgZ2)
