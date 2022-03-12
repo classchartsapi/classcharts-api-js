@@ -10,27 +10,28 @@ import {
   GetBehaviourOptions,
   GetHomeworkOptions,
   GetLessonsOptions,
+  GetPupilsResponse,
   Homework,
   HomeworksResponse,
   LessonsResponse,
   Student,
 } from "./types";
 
-import {ClasschartsClient} from "./client"
+import { ClasschartsClient } from "./client";
 import { API_BASE_PARENT, BASE_URL } from "./consts";
 /**
  * The base client
  */
 export class ClasschartsParentClient extends ClasschartsClient {
-  private  password = "";
-  private  email = "";
+  private password = "";
+  private email = "";
   /**
    *
    * @param email Parents email address
    * @param password Parents password
    */
   constructor(email: string, password: string) {
-    super(API_BASE_PARENT)
+    super(API_BASE_PARENT);
     this.email = String(email);
     this.password = String(password);
   }
@@ -76,21 +77,17 @@ export class ClasschartsParentClient extends ClasschartsClient {
     let pupil = await this.getPupils();
 
     this.studentId = pupil[0].id;
-    this.studentName = pupil[0].pupil_name;
+    this.studentName = pupil[0].name;
   }
   /**
    * Get Pupil details
    * @returns an array fo Pupils connected to this parent's account
    */
-    async getPupils(): Promise<Object> {
-      let pupils =   this.makeAuthedRequest(
-          this.API_BASE + "/pupils",
-          {
-            method: "GET",
-          }
-        );
+  async getPupils(): Promise<GetPupilsResponse> {
+    let pupils = this.makeAuthedRequest(this.API_BASE + "/pupils", {
+      method: "GET",
+    });
 
-      return pupils
-
-    }
+    return pupils;
+  }
 }

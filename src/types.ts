@@ -279,3 +279,24 @@ export interface Announcement {
 }
 
 export type AnnouncementsResponse = Array<Announcement>;
+
+export interface Pupil extends Student {
+  school_name: string;
+  school_logo: string;
+  timezone: string;
+  display_covid_tests: boolean;
+  can_record_covid_tests: boolean;
+  detention_yes_count: number;
+  detention_no_count: number;
+  detention_pending_count: number;
+  detention_upscaled_count: number;
+  homework_todo_count: number;
+  homework_late_count: number;
+  homework_not_completed_count: number;
+  homework_excused_count: number;
+  homework_completed_count: number;
+  homework_submitted_count: number;
+  announcements_count: number;
+  messages_count: number;
+}
+export type GetPupilsResponse = Array<Pupil>;
