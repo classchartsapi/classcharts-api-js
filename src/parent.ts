@@ -82,7 +82,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
    * Get Pupil details
    * @returns an array fo Pupils connected to this parent's account
    */
-    async getPupils(): Promise<ActivityResponse> {
+    async getPupils(): Promise<Object> {
       let pupils =   this.makeAuthedRequest(
           this.API_BASE + "/pupils",
           {
