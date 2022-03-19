@@ -32,6 +32,6 @@
   },
   "types": "./dist/index.d.ts",
   "volta": {
-    "node": "16.13.2"
+    "node": "16.14.2"
   }
 }
