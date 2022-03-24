@@ -1,4 +1,4 @@
-import Undici from "undici";
+import axios from "axios";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
 import { ClasschartsClient } from "./baseClient";
 /**
@@ -31,14 +31,17 @@ export class ClasschartsStudentClient extends ClasschartsClient {
     formData.append("dob", this.dateOfBirth);
     formData.append("remember_me", "1");
     formData.append("recaptcha-token", "no-token-avaliable");
-    const request = await Undici.request(BASE_URL + "/student/login", {
+    const request = await axios.request({
+      url: BASE_URL + "/student/login",
       method: "POST",
-      body: formData.toString(),
+      data: formData.toString(),
+      maxRedirects: 0,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
+      validateStatus: () => true,
     });
-    if (request.statusCode != 302 || !request.headers["set-cookie"])
+    if (request.status != 302 || !request.headers["set-cookie"])
       throw new Error("Unauthenticated: Classcharts returned an error");
     const cookies = request.headers["set-cookie"];
     for (let i = 0; i < cookies.length; i++) {
