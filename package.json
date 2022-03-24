@@ -18,7 +18,8 @@
     "axios": "^0.26.1"
   },
   "files": [
-    "dist/**"
+    "dist/**",
+    "build/**"
   ],
   "devDependencies": {
     "@types/node": "^17.0.21",
