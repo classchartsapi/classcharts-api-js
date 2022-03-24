@@ -1,4 +1,4 @@
-import Undici from "undici";
+import axios from "axios";
 import type { GetPupilsResponse } from "./types";
 
 import { ClasschartsClient } from "./baseClient";
@@ -34,14 +34,17 @@ export class ClasschartsParentClient extends ClasschartsClient {
     formData.append("password", this.password);
     formData.append("recaptcha-token", "no-token-avaliable");
 
-    const request = await Undici.request(BASE_URL + "/parent/login", {
+    const request = await axios.request({
+      url: BASE_URL + "/parent/login",
       method: "POST",
-      body: formData.toString(),
+      data: formData.toString(),
+      maxRedirects: 0,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
+      validateStatus: () => true,
     });
-    if (request.statusCode != 302 || !request.headers["set-cookie"])
+    if (request.status != 302 || !request.headers["set-cookie"])
       throw new Error("Unauthenticated: Classcharts returned an error");
 
     const cookies = request.headers["set-cookie"];

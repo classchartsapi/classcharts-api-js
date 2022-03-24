@@ -1,6 +1,6 @@
-import Undici from "undici";
-import { RequestOptions } from "undici/types/dispatcher";
-import {
+import axios from "axios";
+import { AxiosRequestConfig } from "axios";
+import type {
   ActivityResponse,
   AnnouncementsResponse,
   BadgesResponse,
@@ -34,29 +34,24 @@ export class ClasschartsClient {
   }
   public async makeAuthedRequest(
     path: string,
-    options: Omit<RequestOptions, "origin" | "path">
+    options: Omit<AxiosRequestConfig, "path">
   ) {
     if (!this.authCookies) throw new Error("Not authenticated");
-    const requestOptions: Omit<RequestOptions, "origin" | "path"> = {
+    const requestOptions: AxiosRequestConfig = {
       ...options,
+      url: path,
       headers: {
+        ...options.headers,
         Cookie: this.authCookies.join(";"),
         authorization: "Basic " + this.sessionId,
       },
+      validateStatus: () => true,
     };
-
-    const request = await Undici.request(path, requestOptions);
-
-    let responseJSON;
-    try {
-      responseJSON = await request.body.json();
-    } catch {
-      throw new Error("Invalid JSON response recieved");
-    }
+    const request = await axios.request(requestOptions);
+    const responseJSON = request.data;
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-
     return responseJSON.data;
   }
 
@@ -67,7 +62,7 @@ export class ClasschartsClient {
   async getStudentInfo(): Promise<Student> {
     const data = await this.makeAuthedRequest(this.API_BASE + "/ping", {
       method: "POST",
-      body: "include_data=true",
+      data: "include_data=true",
     });
 
     return data?.user;
