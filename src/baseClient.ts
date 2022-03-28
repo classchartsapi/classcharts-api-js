@@ -68,7 +68,7 @@ export class ClasschartsClient {
     return data?.user;
   }
   /**
-   * Get's the logged in student's general activity
+   * Gets the logged in student's general activity
    * @param options GetActivityOptions
    * @returns Activity data
    */
@@ -83,6 +83,35 @@ export class ClasschartsClient {
         method: "GET",
       }
     );
+  }
+  
+  /**
+   * Returns all of the activities from and to the indicated dates.
+   * An abstraction on top of the getActivity method, it fetches everything in the given interval instead of returning a fragment.
+   */
+  async getFullActivity(from: string, to: string, client: ClasschartsClient) {
+    let data: ActivityResponse = [];
+    let prevLast: number | undefined;
+    
+    while (true) {
+      const params: GetActivityOptions = {
+        from,
+        to,
+      };
+      if (prevLast) {
+        params.last_id = `${prevLast}`;
+      }
+      const fragment = await client.getActivity(params);
+  
+      if (!fragment || !fragment.length) {
+        break;
+      }
+      
+      data = data.concat(fragment);
+      prevLast = fragment[fragment.length - 1].id;
+    }
+  
+    return data;
   }
 
   /**
