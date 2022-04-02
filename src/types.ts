@@ -300,3 +300,14 @@ export interface Pupil extends Student {
   messages_count: number;
 }
 export type GetPupilsResponse = Array<Pupil>;
+
+export interface GetFullActivityOptions {
+  /**
+   * From date, in format YYYY-MM-DD
+   */
+  from: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
+  to: string;
+}

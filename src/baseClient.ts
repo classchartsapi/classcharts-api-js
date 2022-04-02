@@ -8,6 +8,7 @@ import type {
   DetentionsResponse,
   GetActivityOptions,
   GetBehaviourOptions,
+  GetFullActivityOptions,
   GetHomeworkOptions,
   GetLessonsOptions,
   Homework,
@@ -68,7 +69,7 @@ export class ClasschartsClient {
     return data?.user;
   }
   /**
-   * Get's the logged in student's general activity
+   * This function is only used for pagination, you likely want client.getFullActivity
    * @param options GetActivityOptions
    * @returns Activity data
    */
@@ -84,7 +85,35 @@ export class ClasschartsClient {
       }
     );
   }
-
+  /**
+   * Helper function for getActivity, returns all the data from the selected dates
+   * @param options GetFullActivityOptions
+   * @returns Activity Data
+   */
+  async getFullActivity(
+    options: GetFullActivityOptions
+  ): Promise<ActivityResponse> {
+    let data: ActivityResponse = [];
+    let prevLast: number | undefined;
+    let gotData = true;
+    while (gotData) {
+      const params: GetActivityOptions = {
+        from: options.from,
+        to: options.to,
+      };
+      if (prevLast) {
+        params.last_id = String(prevLast);
+      }
+      const fragment = await this.getActivity(params);
+      if (!fragment || !fragment.length) {
+        gotData = false;
+      } else {
+        data = data.concat(fragment);
+        prevLast = fragment[fragment.length - 1].id;
+      }
+    }
+    return data;
+  }
   /**
    * Gets the logged in students behaviour points
    * @param options GetBehaviourOptions
