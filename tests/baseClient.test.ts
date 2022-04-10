@@ -31,7 +31,6 @@ test("client returns full activity", () => {
 });
 
 test("client returns behaviour data", () => {
-  pending();
   return expect(client.getBehaviour()).resolves.toBeObject();
 });
 
