@@ -1,10 +1,15 @@
 {
   "name": "classcharts-api",
   "version": "1.2.0",
-  "description": "",
+  "description": "A javascript wrapper for getting information from the Classcharts API",
+  "keywords": ["node", "typescript", "classcharts", "class charts"],
   "type": "module",
+  "bugs": {
+    "url": "https://github.com/Classcharts-API/js/issues"
+  },
   "repository": {
-    "url": "https://github.com/jamesatjaminit/classcharts-api"
+    "type": "git",
+    "url": "https://github.com/Classcharts-API/js.git"
   },
   "main": "./dist/index.js",
   "scripts": {
@@ -13,7 +18,7 @@
     "test": "jest",
     "prepublishOnly": "npm run build"
   },
-  "author": "",
+  "author": "James Cook",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1"
