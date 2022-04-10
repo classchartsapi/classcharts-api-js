@@ -2,6 +2,7 @@
   "name": "classcharts-api",
   "version": "1.2.0",
   "description": "",
+  "type": "module",
   "repository": {
     "url": "https://github.com/jamesatjaminit/classcharts-api"
   },
@@ -9,7 +10,7 @@
   "scripts": {
     "build": "tsc && webpack",
     "generateDocs": "npx typedoc --entryPointStrategy expand ./src",
-    "test": "echo do tests",
+    "test": "jest",
     "prepublishOnly": "npm run build"
   },
   "author": "",
@@ -22,12 +23,16 @@
     "build/**"
   ],
   "devDependencies": {
+    "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
+    "jest": "^27.5.1",
+    "jest-extended": "^2.0.0",
     "prettier": "^2.5.1",
+    "ts-jest": "^27.1.4",
     "ts-loader": "^9.2.8",
     "typedoc": "^0.22.13",
     "typescript": "^4.6.2",
