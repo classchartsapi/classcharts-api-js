@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { AxiosRequestConfig } from "axios";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
 import { ClasschartsClient } from "./baseClient";
 /**
@@ -14,8 +15,12 @@ export class ClasschartsStudentClient extends ClasschartsClient {
    * @param studentCode Classcharts student code
    * @param dateOfBirth Student's date of birth
    */
-  constructor(studentCode: string, dateOfBirth?: string) {
-    super(API_BASE_STUDENT);
+  constructor(
+    studentCode: string,
+    dateOfBirth?: string,
+    axiosConfig?: AxiosRequestConfig
+  ) {
+    super(API_BASE_STUDENT, axiosConfig);
     this.studentCode = String(studentCode);
     this.dateOfBirth = String(dateOfBirth);
   }
@@ -31,7 +36,7 @@ export class ClasschartsStudentClient extends ClasschartsClient {
     formData.append("dob", this.dateOfBirth);
     formData.append("remember_me", "1");
     formData.append("recaptcha-token", "no-token-avaliable");
-    const request = await axios.request({
+    const request = await this.axios.request({
       url: BASE_URL + "/student/login",
       method: "POST",
       data: formData.toString(),

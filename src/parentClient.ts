@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import type { GetPupilsResponse } from "./types";
 
 import { ClasschartsClient } from "./baseClient";
@@ -16,8 +16,12 @@ export class ClasschartsParentClient extends ClasschartsClient {
    * @param email Parents email address
    * @param password Parents password
    */
-  constructor(email: string, password: string) {
-    super(API_BASE_PARENT);
+  constructor(
+    email: string,
+    password: string,
+    axiosConfig?: AxiosRequestConfig
+  ) {
+    super(API_BASE_PARENT, axiosConfig);
     this.email = String(email);
     this.password = String(password);
   }
@@ -34,7 +38,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
     formData.append("password", this.password);
     formData.append("recaptcha-token", "no-token-avaliable");
 
-    const request = await axios.request({
+    const request = await this.axios.request({
       url: BASE_URL + "/parent/login",
       method: "POST",
       data: formData.toString(),

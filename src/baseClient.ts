@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig, AxiosInstance } from "axios";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
@@ -16,7 +16,6 @@ import type {
   LessonsResponse,
   Student,
 } from "./types";
-
 /**
  * The base client
  */
@@ -26,12 +25,14 @@ export class ClasschartsClient {
   protected authCookies: Array<string> | undefined;
   protected sessionId = "";
   protected API_BASE = "";
+  protected axios: AxiosInstance;
   /**
    *
    * @param API_BASE Base API URL, this is different depending if its called as a parent or student
    */
-  constructor(API_BASE: string) {
+  constructor(API_BASE: string, axiosConfig?: AxiosRequestConfig) {
     this.API_BASE = API_BASE;
+    this.axios = axios.create(axiosConfig);
   }
   public async makeAuthedRequest(
     path: string,
@@ -48,7 +49,7 @@ export class ClasschartsClient {
       },
       validateStatus: () => true,
     };
-    const request = await axios.request(requestOptions);
+    const request = await this.axios.request(requestOptions);
     const responseJSON = request.data;
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
