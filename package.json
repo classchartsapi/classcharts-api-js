@@ -2,8 +2,12 @@
   "name": "classcharts-api",
   "version": "1.2.0",
   "description": "A javascript wrapper for getting information from the Classcharts API",
-  "keywords": ["node", "typescript", "classcharts", "class charts"],
-  "type": "module",
+  "keywords": [
+    "node",
+    "typescript",
+    "classcharts",
+    "class charts"
+  ],
   "bugs": {
     "url": "https://github.com/Classcharts-API/js/issues"
   },
