@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type BooleanHuman = "yes" | "no";
 export interface Student {
   id: number;
   name: string;
@@ -144,8 +143,8 @@ export interface Homework {
     state: "not_completed" | "late" | "completed" | null;
     mark: any | null;
     mark_relative: number;
-    ticked: BooleanHuman;
-    allow_attachments: BooleanHuman;
+    ticked: "yes" | "no";
+    allow_attachments: "yes" | "no";
     first_seen_date: string;
     last_seen_date: string;
     attachments: Array<any>;
@@ -213,7 +212,7 @@ export type BadgesResponse = Array<Badge>;
 
 export interface Detention {
   id: number;
-  attended: BooleanHuman | "upscaled" | "pending";
+  attended: "yes" | "no" | "upscaled" | "pending";
   date: string | null;
   length: number | null;
   location: string | null;
@@ -224,9 +223,9 @@ export interface Detention {
     first_name: string;
     last_name: string;
     school: {
-      opt_notes_names: BooleanHuman;
-      opt_notes_comments: BooleanHuman;
-      opt_notes_comments_pupils: BooleanHuman;
+      opt_notes_names: "yes" | "no";
+      opt_notes_comments: "yes" | "no";
+      opt_notes_comments_pupils: "yes" | "no";
     };
   };
   lesson: {
@@ -259,7 +258,7 @@ export interface Announcement {
   school_name: string;
   teacher_name: string;
   school_logo: string | null;
-  sticky: BooleanHuman;
+  sticky: "yes" | "no";
   state: string | null;
   timestamp: string;
   attachments: Array<{
@@ -268,11 +267,11 @@ export interface Announcement {
   }>;
   for_pupils: Array<any>;
   comment_visibility: string;
-  allow_comments: BooleanHuman;
-  allow_reactions: BooleanHuman;
-  allow_consent: BooleanHuman;
-  priority_pinned: BooleanHuman;
-  requires_consent: BooleanHuman;
+  allow_comments: "yes" | "no";
+  allow_reactions: "yes" | "no";
+  allow_consent: "yes" | "no";
+  priority_pinned: "yes" | "no";
+  requires_consent: "yes" | "no";
   can_change_consent: boolean;
   consent: string | null;
   pupil_consents: Array<any>;
