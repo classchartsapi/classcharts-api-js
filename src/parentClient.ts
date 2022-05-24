@@ -58,7 +58,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
 
     this.authCookies = cookies;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let sessionID: any = decodeURI(cookies[2])
+    let sessionID: any = decodeURI(cookies[1])
       .replace(/%3A/g, ":")
       .replace(/%2C/g, ",");
     sessionID = JSON.parse(
