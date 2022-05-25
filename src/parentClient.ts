@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios";
 import type { GetPupilsResponse } from "./types";
 
 import { ClasschartsClient } from "./baseClient";

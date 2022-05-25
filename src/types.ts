@@ -310,3 +310,18 @@ export interface GetFullActivityOptions {
    */
   to: string;
 }
+
+export interface AttendanceDate {
+  AM: {
+    code: string;
+    status: "present" | "ignore";
+    late_minutes: number;
+  };
+  PM: {
+    code: string;
+    status: "present" | "ignore";
+    late_minutes: number;
+  };
+}
+
+export type AttendanceResponse = Array<Record<string, AttendanceDate>>;

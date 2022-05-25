@@ -3,6 +3,7 @@ import type { AxiosRequestConfig, AxiosInstance } from "axios";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
+  AttendanceResponse,
   BadgesResponse,
   BehaviourResponse,
   DetentionsResponse,
@@ -211,6 +212,18 @@ export class ClasschartsClient {
   async getDetentions(): Promise<DetentionsResponse> {
     return await this.makeAuthedRequest(
       this.API_BASE + "/detentions/" + this.studentId,
+      {
+        method: "GET",
+      }
+    );
+  }
+  /**
+   * Gets the logged in student's attendance
+   * @returns Array of dates of attendance
+   */
+  async listAttendance(): Promise<AttendanceResponse> {
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/attendance/" + this.studentId,
       {
         method: "GET",
       }

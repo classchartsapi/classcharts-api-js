@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { AxiosRequestConfig } from "axios";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
 import { ClasschartsClient } from "./baseClient";
