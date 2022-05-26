@@ -3,8 +3,6 @@ import type { AxiosRequestConfig, AxiosInstance } from "axios";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
-  AttendanceDate,
-  AttendanceResponse,
   AttendanceScheme,
   BadgesResponse,
   BehaviourResponse,
