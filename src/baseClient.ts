@@ -3,11 +3,15 @@ import type { AxiosRequestConfig, AxiosInstance } from "axios";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
+  AttendanceDate,
   AttendanceResponse,
+  AttendanceScheme,
   BadgesResponse,
   BehaviourResponse,
   DetentionsResponse,
+  ErrorResponse,
   GetActivityOptions,
+  GetAttendanceOptions,
   GetBehaviourOptions,
   GetFullActivityOptions,
   GetHomeworkOptions,
@@ -15,7 +19,9 @@ import type {
   Homework,
   HomeworksResponse,
   LessonsResponse,
+  ResponseFormat,
   Student,
+  SuccessResponse,
 } from "./types";
 /**
  * The base client
@@ -35,9 +41,17 @@ export class ClasschartsClient {
     this.API_BASE = API_BASE;
     this.axios = axios.create(axiosConfig);
   }
+    /**
+   * Utilising Axios to create authenticated requests to endpoints which have not yet been incorporated
+   * @param {string} path URL Endpoint to make request to
+   * @param {AxiosRequestConfig} options Set optional parameters for Axios Request
+   * @param {boolean} includeMeta Boolean to determine if the meta property is included in the response
+   * @returns {object | SuccessResponse} If includeMeta is false, will return standard data object
+   */
   public async makeAuthedRequest(
     path: string,
-    options: Omit<AxiosRequestConfig, "path">
+    options: Omit<AxiosRequestConfig, "path">,
+    includeMeta?: boolean,
   ) {
     if (!this.authCookies) throw new Error("Not authenticated");
     const requestOptions: AxiosRequestConfig = {
@@ -51,11 +65,14 @@ export class ClasschartsClient {
       validateStatus: () => true,
     };
     const request = await this.axios.request(requestOptions);
-    const responseJSON = request.data;
+    const responseJSON: ResponseFormat = request.data;
     if (responseJSON.success == 0) {
-      throw new Error(responseJSON.error);
+      const err: ErrorResponse = responseJSON;
+      throw new Error(err.error);
     }
-    return responseJSON.data;
+    const data = responseJSON.data, meta = responseJSON.meta;
+      const res: SuccessResponse = { data, meta };
+        return includeMeta ? res : data;
   }
 
   /**
@@ -219,14 +236,19 @@ export class ClasschartsClient {
   }
   /**
    * Gets the logged in student's attendance
+   * @param options GetAttendanceOptions
    * @returns Array of dates of attendance
    */
-  async listAttendance(): Promise<AttendanceResponse> {
+  async listAttendance(options?: GetAttendanceOptions): Promise<AttendanceScheme> {
+    const params = new URLSearchParams();
+    options?.from && params.append("from", String(options?.from));
+    options?.to && params.append("to", String(options?.to));
     return await this.makeAuthedRequest(
-      this.API_BASE + "/attendance/" + this.studentId,
+      this.API_BASE + "/attendance/" + this.studentId + '?' + params.toString(),
       {
         method: "GET",
-      }
+      },
+      true
     );
   }
 }

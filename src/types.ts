@@ -1,4 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export interface ResponseFormat {
+  success?: number;
+  expired?: number;
+  error?: string;
+  data: Record<string, unknown> | Array<object> | any;
+  meta: Record<string, unknown> | Array<object> | any;
+}
+export type SuccessResponse = Pick<ResponseFormat, "success" | "data" | "meta">;
+export type ErrorResponse = Omit<ResponseFormat, "data">;
+
 export interface Student {
   id: number;
   name: string;
@@ -310,18 +320,36 @@ export interface GetFullActivityOptions {
    */
   to: string;
 }
-
+export interface AttendanceMeta {
+  dates: Array<string>;
+  end_date: string;
+  percentage: string;
+  percentage_singe_august: string;
+  sessions: Array<string>;
+  start_date: string;
+}
+export interface GetAttendanceOptions {
+    /**
+   * From date, in format YYYY-MM-DD
+   */
+     from: string;
+     /**
+      * To date, in format YYYY-MM-DD
+      */
+     to: string;
+}
+export type AttendanceStatus = "present" | "ignore" | "absent" | "excused";
 export interface AttendanceDate {
   AM: {
     code: string;
-    status: "present" | "ignore";
+    status: AttendanceStatus;
     late_minutes: number;
   };
   PM: {
     code: string;
-    status: "present" | "ignore";
+    status: AttendanceStatus;
     late_minutes: number;
   };
 }
-
+export type AttendanceScheme = { data: AttendanceDate; meta: AttendanceMeta };
 export type AttendanceResponse = Array<Record<string, AttendanceDate>>;
