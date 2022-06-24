@@ -311,6 +311,17 @@ export interface GetFullActivityOptions {
   to: string;
 }
 
+export interface GetAttendanceOptions {
+  /**
+   * From date, in format YYYY-MM-DD
+   */
+  from: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
+  to: string;
+}
+
 export interface AttendanceDate {
   AM: {
     code: string;

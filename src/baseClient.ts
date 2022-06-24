@@ -8,6 +8,7 @@ import type {
   BehaviourResponse,
   DetentionsResponse,
   GetActivityOptions,
+  GetAttendanceOptions,
   GetBehaviourOptions,
   GetFullActivityOptions,
   GetHomeworkOptions,
@@ -219,11 +220,17 @@ export class ClasschartsClient {
   }
   /**
    * Gets the logged in student's attendance
+   * @param options GetAttendanceOptions
    * @returns Array of dates of attendance
    */
-  async listAttendance(): Promise<AttendanceResponse> {
+  async listAttendance(
+    options?: GetAttendanceOptions
+  ): Promise<AttendanceResponse> {
+    const params = new URLSearchParams();
+    options?.from && params.append("from", options?.from);
+    options?.to && params.append("to", options?.to);
     return await this.makeAuthedRequest(
-      this.API_BASE + "/attendance/" + this.studentId,
+      this.API_BASE + "/attendance/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
       }
