@@ -28,8 +28,7 @@
     "axios": "^0.26.1"
   },
   "files": [
-    "dist/**",
-    "build/**"
+    "dist/**"
   ],
   "devDependencies": {
     "@types/jest": "^27.4.1",
