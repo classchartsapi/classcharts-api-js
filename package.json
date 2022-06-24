@@ -18,9 +18,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "generateDocs": "npx typedoc --entryPointStrategy expand ./src",
+    "generateDocs": "typedoc --entryPointStrategy expand ./src",
     "test": "jest",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
   "author": "James Cook",
   "license": "ISC",
