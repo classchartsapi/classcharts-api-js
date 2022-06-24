@@ -9,11 +9,11 @@
     "class charts"
   ],
   "bugs": {
-    "url": "https://github.com/Classcharts-API/js/issues"
+    "url": "https://github.com/classchartsapi/js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Classcharts-API/js.git"
+    "url": "https://github.com/classchartsapi/js.git"
   },
   "main": "./dist/index.js",
   "scripts": {

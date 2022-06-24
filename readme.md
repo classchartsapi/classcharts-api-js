@@ -2,8 +2,8 @@
 
 A client for the classcharts API
 
-* [Documentation](https://jamesatjaminit.github.io/classcharts-api/)
-* [API Documentation (with library examples)](https://classcharts-api.github.io/api-docs/#introduction)
+* [Documentation](https://classchartsapi.github.io/classcharts-api-js/)
+* [API Documentation (with library examples)](https://classchartsapi.github.io/api-docs/#introduction)
 * [Discord](https://discord.gg/DTcwugcgZ2)
 # Examples
 Docs are very much a WIP, for any help with the library, please join the discord above
