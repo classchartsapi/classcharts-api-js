@@ -1,6 +1,5 @@
-dist
-build
-docs
-node_modules
+dist/
+docs/
+node_modules/
 .eslintrc.js
 tsconfig.json

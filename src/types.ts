@@ -179,8 +179,8 @@ export interface Lesson {
   pupil_note_raw: string;
 }
 export type LessonsResponse = Array<Lesson>;
+// Not sure what to call this
 export interface LessonPupilBehaviour {
-  // Not sure what to call this
   reason: string;
   score: number;
   icon: string;
