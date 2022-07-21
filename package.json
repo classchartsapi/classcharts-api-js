@@ -1,6 +1,6 @@
 {
   "name": "classcharts-api",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A javascript wrapper for getting information from the Classcharts API",
   "keywords": [
     "node",
@@ -9,11 +9,11 @@
     "class charts"
   ],
   "bugs": {
-    "url": "https://github.com/classchartsapi/js/issues"
+    "url": "https://github.com/classchartsapi/classcharts-api-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/classchartsapi/js.git"
+    "url": "https://github.com/classchartsapi/classcharts-api-js.git"
   },
   "main": "./dist/index.js",
   "scripts": {
