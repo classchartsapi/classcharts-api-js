@@ -155,6 +155,8 @@ export class ClasschartsClient {
 
     options?.fromDate && params.append("from", String(options?.fromDate));
     options?.toDate && params.append("to", String(options?.toDate));
+    options?.from && params.append("from", String(options?.from));
+    options?.to && params.append("to", String(options?.to));
     const data: Array<Homework> = await this.makeAuthedRequest(
       this.API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {

@@ -109,13 +109,21 @@ export interface GetHomeworkOptions {
    */
   displayDate?: DisplayDate;
   /**
-   * From date, in format YYYY-MM-DD
+   * @deprecated Use "from" instead
    */
   fromDate?: string;
   /**
-   * To date, in format YYYY-MM-DD
+   * @deprecated Use "to" instead
    */
   toDate?: string;
+  /**
+   * From date, in format YYYY-MM-DD
+   */
+  from?: string;
+  /**
+   * To date, in format YYYY-MM-DD
+   */
+  to?: string;
 }
 export interface ValidatedHomeworkAttachment {
   id: number;
