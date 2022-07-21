@@ -24,8 +24,8 @@ import type {
 export class ClasschartsClient {
   protected studentId = 0;
   protected studentName = "";
-  protected authCookies: Array<string> | undefined;
-  protected sessionId = "";
+  public authCookies: Array<string> | undefined;
+  public sessionId = "";
   protected API_BASE = "";
   protected axios: AxiosInstance;
   /**
@@ -34,7 +34,14 @@ export class ClasschartsClient {
    */
   constructor(API_BASE: string, axiosConfig?: AxiosRequestConfig) {
     this.API_BASE = API_BASE;
-    this.axios = axios.create(axiosConfig);
+    this.axios = axios.create({
+      ...axiosConfig,
+      headers: {
+        "User-Agent": "classcharts-api.js",
+        ...axiosConfig?.headers,
+      },
+      validateStatus: () => true,
+    });
   }
   public async makeAuthedRequest(
     path: string,
@@ -45,11 +52,10 @@ export class ClasschartsClient {
       ...options,
       url: path,
       headers: {
-        ...options.headers,
         Cookie: this.authCookies.join(";"),
         authorization: "Basic " + this.sessionId,
+        ...options.headers,
       },
-      validateStatus: () => true,
     };
     const request = await this.axios.request(requestOptions);
     const responseJSON = request.data;
