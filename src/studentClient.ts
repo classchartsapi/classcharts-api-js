@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from "axios";
 import { API_BASE_STUDENT, BASE_URL } from "./consts";
 import { ClasschartsClient } from "./baseClient";
+import { parseCookies } from "./utils";
 /**
  * The base client
  */
@@ -47,17 +48,11 @@ export class ClasschartsStudentClient extends ClasschartsClient {
     });
     if (request.status != 302 || !request.headers["set-cookie"])
       throw new Error("Unauthenticated: Classcharts returned an error");
-    const cookies = request.headers["set-cookie"];
-    for (let i = 0; i < cookies.length; i++) {
-      cookies[i] = cookies[i].substring(0, cookies[i].indexOf(";"));
-    }
-    this.authCookies = cookies;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let sessionID: any = decodeURI(cookies[1])
-      .replace(/%3A/g, ":")
-      .replace(/%2C/g, ",");
-    sessionID = JSON.parse(
-      sessionID.substring(sessionID.indexOf("{"), sessionID.length)
+    const cookies = String(request.headers["set-cookie"]);
+    this.authCookies = cookies.split(";");
+    const sessionCookies = parseCookies(cookies);
+    const sessionID = JSON.parse(
+      String(sessionCookies["student_session_credentials"])
     );
     this.sessionId = sessionID.session_id;
     const user = await this.getStudentInfo();
