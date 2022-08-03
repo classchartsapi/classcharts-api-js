@@ -50,9 +50,9 @@ export class ClasschartsStudentClient extends ClasschartsClient {
       throw new Error("Unauthenticated: Classcharts returned an error");
     const cookies = String(request.headers["set-cookie"]);
     this.authCookies = cookies.split(";");
-    const sessionCookie = parseCookies(cookies);
+    const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
-      String(sessionCookie["student_session_credentials"])
+      String(sessionCookies["student_session_credentials"])
     );
     this.sessionId = sessionID.session_id;
     const user = await this.getStudentInfo();

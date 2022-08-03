@@ -54,9 +54,9 @@ export class ClasschartsParentClient extends ClasschartsClient {
 
     const cookies = String(request.headers["set-cookie"]);
     this.authCookies = cookies.split(";");
-    const sessionCookie = parseCookies(cookies);
+    const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
-      String(sessionCookie["student_session_credentials"])
+      String(sessionCookies["parent_session_credentials"])
     );
     this.sessionId = sessionID.session_id;
     this.pupils = await this.getPupils();
