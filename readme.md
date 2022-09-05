@@ -12,7 +12,7 @@ Docs are very much a WIP, for any help with the library, please join the discord
 import { ClasschartsStudentClient } from "classcharts-api";
 async function main() {
   const client = new ClasschartsStudentClient("classchartsCode", "01/1/2000");
-  await client.init();
+  await client.login();
   console.log(
     await client.getBehaviour({
       displayDate: "due_date",
