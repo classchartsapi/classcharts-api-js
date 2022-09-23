@@ -2,6 +2,7 @@ import { ClasschartsStudentClient } from "../src";
 import { code, dob } from "./config.json";
 import "jest-extended";
 const client = new ClasschartsStudentClient(code, dob);
+jest.setTimeout(10000);
 
 test("client logs in with correct credentials", () => {
   return expect(client.login()).resolves.not.toThrow();
@@ -25,7 +26,7 @@ test("client returns full activity", () => {
     .getFullActivity({ from: "2022-01-01", to: "2022-09-01" })
     .then((data) => {
       let valid = false;
-      if (data.length > 50) valid = true;
+      if (data.length > 0) valid = true;
       expect(valid).toBeTrue();
     });
 });
