@@ -63,7 +63,7 @@ export class ClasschartsStudentClient extends ClasschartsClient {
       {
         method: "GET",
       },
-      { inlcudeMeta: true }
+      { includeMeta: true }
     );
     this.sessionId = pingData.meta.session_id;
   }

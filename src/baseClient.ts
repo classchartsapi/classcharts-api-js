@@ -45,7 +45,7 @@ export class ClasschartsClient {
   public async makeAuthedRequest(
     path: string,
     axiosOptions: Omit<AxiosRequestConfig, "path">,
-    options?: { inlcudeMeta?: boolean }
+    options?: { includeMeta?: boolean }
   ) {
     if (!this.authCookies) throw new Error("Not authenticated");
     const requestOptions: AxiosRequestConfig = {
@@ -62,7 +62,7 @@ export class ClasschartsClient {
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    if (options?.inlcudeMeta) {
+    if (options?.includeMeta) {
       return responseJSON;
     }
     return responseJSON.data;
