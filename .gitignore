@@ -118,3 +118,4 @@ dist
 .pnp.*
 
 tests/config.json
+tests/sandbox.js

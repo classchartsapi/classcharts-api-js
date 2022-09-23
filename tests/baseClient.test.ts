@@ -22,7 +22,7 @@ test("client returns activity data", () => {
 
 test("client returns full activity", () => {
   return client
-    .getFullActivity({ from: "2000-01-01", to: "2022-01-01" })
+    .getFullActivity({ from: "2022-01-01", to: "2022-09-01" })
     .then((data) => {
       let valid = false;
       if (data.length > 50) valid = true;
