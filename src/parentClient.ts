@@ -38,7 +38,6 @@ export class ClasschartsParentClient extends ClasschartsClient {
     formData.append("logintype", "existing");
     formData.append("password", this.password);
     formData.append("recaptcha-token", "no-token-avaliable");
-
     const request = await this.axios.request({
       url: BASE_URL + "/parent/login",
       method: "POST",

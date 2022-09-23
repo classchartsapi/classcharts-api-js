@@ -37,7 +37,6 @@ export class ClasschartsClient {
     this.axios = axios.create({
       ...axiosConfig,
       headers: {
-        "User-Agent": "classcharts-api.js",
         ...axiosConfig?.headers,
       },
       validateStatus: () => true,
@@ -45,22 +44,26 @@ export class ClasschartsClient {
   }
   public async makeAuthedRequest(
     path: string,
-    options: Omit<AxiosRequestConfig, "path">
+    axiosOptions: Omit<AxiosRequestConfig, "path">,
+    options?: { inlcudeMeta?: boolean }
   ) {
     if (!this.authCookies) throw new Error("Not authenticated");
     const requestOptions: AxiosRequestConfig = {
-      ...options,
+      ...axiosOptions,
       url: path,
       headers: {
         Cookie: this.authCookies.join(";"),
         authorization: "Basic " + this.sessionId,
-        ...options.headers,
+        ...axiosOptions.headers,
       },
     };
     const request = await this.axios.request(requestOptions);
     const responseJSON = request.data;
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
+    }
+    if (options?.inlcudeMeta) {
+      return responseJSON;
     }
     return responseJSON.data;
   }
@@ -166,7 +169,6 @@ export class ClasschartsClient {
 
     for (let i = 0; i < data.length; i++) {
       data[i].description_raw = data[i].description;
-
       // homework.lesson.replace(/\\/g, '')
       data[i].description = data[i].description.replace(/(<([^>]+)>)/gi, "");
       data[i].description = data[i].description.replace(/&nbsp;/g, "");

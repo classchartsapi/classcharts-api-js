@@ -58,5 +58,13 @@ export class ClasschartsStudentClient extends ClasschartsClient {
     const user = await this.getStudentInfo();
     this.studentId = user.id;
     this.studentName = user.name;
+    const pingData = await this.makeAuthedRequest(
+      this.API_BASE + "/ping",
+      {
+        method: "GET",
+      },
+      { inlcudeMeta: true }
+    );
+    this.sessionId = pingData.meta.session_id;
   }
 }
