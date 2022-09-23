@@ -1,6 +1,6 @@
 {
   "name": "classcharts-api",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A javascript wrapper for getting information from the Classcharts API",
   "keywords": [
     "node",
