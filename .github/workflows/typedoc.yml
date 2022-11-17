@@ -39,7 +39,7 @@ jobs:
         run: pnpm run build
 
       - name: Create the docs directory locally in CI
-        run: pnpm typedoc src/main.ts
+        run: pnpm generateDocs
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
