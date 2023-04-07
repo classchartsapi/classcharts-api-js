@@ -13,10 +13,9 @@ import type {
   GetFullActivityOptions,
   GetHomeworkOptions,
   GetLessonsOptions,
-  Homework,
+  GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
-  Student,
 } from "./types";
 import { PING_INTERVAL } from "./consts";
 
@@ -25,7 +24,7 @@ import { PING_INTERVAL } from "./consts";
  */
 export class ClasschartsClient {
   public studentId = 0;
-  public authCookies: Array<string> | undefined;
+  public authCookies: Array<string>;
   public sessionId = "";
   public lastPing = 0;
   protected API_BASE = "";
@@ -35,6 +34,7 @@ export class ClasschartsClient {
    * @param API_BASE Base API URL, this is different depending if its called as a parent or student
    */
   constructor(API_BASE: string, axiosConfig?: AxiosRequestConfig) {
+    this.authCookies = [];
     this.API_BASE = API_BASE;
     this.axios = axios.create({
       ...axiosConfig,
@@ -56,7 +56,7 @@ export class ClasschartsClient {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       },
-      { includeMeta: true, revalidateToken: false }
+      { revalidateToken: false }
     );
     this.sessionId = pingData.meta.session_id;
     this.lastPing = Date.now();
@@ -64,7 +64,7 @@ export class ClasschartsClient {
   public async makeAuthedRequest(
     path: string,
     axiosOptions: Omit<AxiosRequestConfig, "path">,
-    options?: { includeMeta?: boolean; revalidateToken?: boolean }
+    options?: { revalidateToken?: boolean }
   ) {
     if (!this.sessionId) throw new Error("No session ID");
     if (!options) {
@@ -92,23 +92,19 @@ export class ClasschartsClient {
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    if (options?.includeMeta) {
-      return responseJSON;
-    }
-    return responseJSON.data;
+    return responseJSON;
   }
 
   /**
    * Gets general information about the logged in student
    * @returns Student object
    */
-  async getStudentInfo(): Promise<Student> {
+  async getStudentInfo(): Promise<GetStudentInfoResponse> {
     const data = await this.makeAuthedRequest(this.API_BASE + "/ping", {
       method: "POST",
       data: "include_data=true",
     });
-
-    return data?.user;
+    return data;
   }
   /**
    * This function is only used for pagination, you likely want client.getFullActivity
@@ -134,8 +130,8 @@ export class ClasschartsClient {
    */
   async getFullActivity(
     options: GetFullActivityOptions
-  ): Promise<ActivityResponse> {
-    let data: ActivityResponse = [];
+  ): Promise<ActivityResponse["data"]> {
+    let data: ActivityResponse["data"] = [];
     let prevLast: number | undefined;
     let gotData = true;
     while (gotData) {
@@ -146,7 +142,7 @@ export class ClasschartsClient {
       if (prevLast) {
         params.last_id = String(prevLast);
       }
-      const fragment = await this.getActivity(params);
+      const fragment = (await this.getActivity(params)).data;
       if (!fragment || !fragment.length) {
         gotData = false;
       } else {
@@ -179,30 +175,32 @@ export class ClasschartsClient {
    * @param options GetHomeworkOptions
    * @returns Array of homeworks
    */
-  async listHomeworks(
-    options?: GetHomeworkOptions
-  ): Promise<HomeworksResponse> {
+  async getHomeworks(options?: GetHomeworkOptions): Promise<HomeworksResponse> {
     const params = new URLSearchParams();
     if (options?.displayDate)
       params.append("display_date", String(options?.displayDate));
 
-    options?.fromDate && params.append("from", String(options?.fromDate));
-    options?.toDate && params.append("to", String(options?.toDate));
     options?.from && params.append("from", String(options?.from));
     options?.to && params.append("to", String(options?.to));
-    const data: Array<Homework> = await this.makeAuthedRequest(
+    const data: HomeworksResponse = await this.makeAuthedRequest(
       this.API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
       }
     );
 
-    for (let i = 0; i < data.length; i++) {
-      data[i].description_raw = data[i].description;
+    for (let i = 0; i < data.data.length; i++) {
+      data.data[i].description_raw = data.data[i].description;
       // homework.lesson.replace(/\\/g, '')
-      data[i].description = data[i].description.replace(/(<([^>]+)>)/gi, "");
-      data[i].description = data[i].description.replace(/&nbsp;/g, "");
-      data[i].description = data[i].description.trim();
+      data.data[i].description = data.data[i].description.replace(
+        /(<([^>]+)>)/gi,
+        ""
+      );
+      data.data[i].description = data.data[i].description.replace(
+        /&nbsp;/g,
+        ""
+      );
+      data.data[i].description = data.data[i].description.trim();
     }
     return data;
   }
@@ -235,45 +233,55 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Lists the logged in student's announcements
+   * Gets the logged in student's announcements
    * @returns Array of announcements
    */
-  async listAnnouncements(): Promise<AnnouncementsResponse> {
-    return await this.makeAuthedRequest(
-      this.API_BASE + "/announcements/" + this.studentId,
-      {
-        method: "GET",
-      }
-    );
+  async getAnnouncements(): Promise<AnnouncementsResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/announcements/" + this.studentId,
+        {
+          method: "GET",
+        }
+      )
+    ).data;
   }
   /**
    * Gets the logged in student's detentions
    * @returns Array of detentions
    */
   async getDetentions(): Promise<DetentionsResponse> {
-    return await this.makeAuthedRequest(
-      this.API_BASE + "/detentions/" + this.studentId,
-      {
-        method: "GET",
-      }
-    );
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/detentions/" + this.studentId,
+        {
+          method: "GET",
+        }
+      )
+    ).data;
   }
   /**
    * Gets the logged in student's attendance
    * @param options GetAttendanceOptions
    * @returns Array of dates of attendance
    */
-  async listAttendance(
+  async getAttendance(
     options?: GetAttendanceOptions
   ): Promise<AttendanceResponse> {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
-    return await this.makeAuthedRequest(
-      this.API_BASE + "/attendance/" + this.studentId + "?" + params.toString(),
-      {
-        method: "GET",
-      }
-    );
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE +
+          "/attendance/" +
+          this.studentId +
+          "?" +
+          params.toString(),
+        {
+          method: "GET",
+        }
+      )
+    ).data;
   }
 }

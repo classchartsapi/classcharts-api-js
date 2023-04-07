@@ -1,7 +1,7 @@
 {
   "name": "classcharts-api",
   "version": "1.6.0",
-  "description": "A javascript wrapper for getting information from the Classcharts API",
+  "description": "A typescript wrapper for getting information from the Classcharts API",
   "keywords": [
     "node",
     "typescript",
@@ -31,23 +31,20 @@
     "dist/**"
   ],
   "devDependencies": {
-    "@types/jest": "^29.2.3",
+    "@types/jest": "^29.5.0",
     "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
-    "jest": "^29.3.1",
-    "jest-extended": "^3.2.0",
-    "prettier": "^2.8.0",
-    "ts-jest": "^29.0.3",
-    "typedoc": "^0.23.21",
-    "typescript": "^4.9.3"
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "jest": "^29.5.0",
+    "jest-extended": "^3.2.4",
+    "prettier": "^2.8.7",
+    "ts-jest": "^29.1.0",
+    "typedoc": "^0.23.28",
+    "typescript": "^5.0.3"
   },
   "types": "./dist/index.d.ts",
-  "volta": {
-    "node": "18.12.1"
-  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

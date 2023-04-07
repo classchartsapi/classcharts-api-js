@@ -1,7 +1,7 @@
-import { ClasschartsStudentClient } from "../src";
+import { StudentClient } from "../src";
 import { code, dob } from "./config.json";
 import "jest-extended";
-const client = new ClasschartsStudentClient(code, dob);
+const client = new StudentClient(code, dob);
 jest.setTimeout(10000);
 
 test("client logs in with correct credentials", () => {
@@ -9,7 +9,7 @@ test("client logs in with correct credentials", () => {
 });
 
 test("client fails to login with incorrect credentials", () => {
-  const fakeClient = new ClasschartsStudentClient("rewrew", "123");
+  const fakeClient = new StudentClient("rewrew", "123");
   return expect(fakeClient.login()).rejects.toThrowError();
 });
 
@@ -18,7 +18,7 @@ test("client returns student data", () => {
 });
 
 test("client returns activity data", () => {
-  return expect(client.getActivity()).resolves.toBeArray();
+  return expect(client.getActivity()).resolves.toBeObject();
 });
 
 test("client returns full activity", () => {
@@ -36,9 +36,9 @@ test("client returns behaviour data", () => {
 });
 
 test("client returns homework data", () => {
-  return expect(client.listHomeworks()).resolves.toBeArray();
+  return expect(client.getHomeworks()).resolves.toBeObject();
 });
 
 test("client returns badges", () => {
-  expect(client.getBadges()).resolves.toBeArray();
+  expect(client.getBadges()).resolves.toBeObject();
 });

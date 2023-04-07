@@ -15,7 +15,6 @@ async function main() {
   await client.login();
   console.log(
     await client.getBehaviour({
-      displayDate: "due_date",
       fromDate: "20/01/2000",
       toDate: "01/02/2000",
     })

@@ -1,4 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+type ClassChartsResponse<T, E> = {
+  data: T;
+  meta: E;
+  error?: string;
+  success: number;
+};
+
 export interface Student {
   id: number;
   name: string;
@@ -37,6 +44,18 @@ export interface Student {
   survey_id: number | null;
   detention_alias_plural_uc: string;
 }
+interface GetStudentInfoData {
+  user: Student;
+}
+
+interface GetStudentInfoMeta {
+  version: string;
+}
+export type GetStudentInfoResponse = ClassChartsResponse<
+  GetStudentInfoData,
+  GetStudentInfoMeta
+>;
+
 export interface GetBehaviourOptions {
   /**
    * From date, in format YYYY-MM-DD
@@ -47,6 +66,7 @@ export interface GetBehaviourOptions {
    */
   to?: string;
 }
+
 export interface BehaviourTimelinePoint {
   positive: number;
   negative: number;
@@ -54,7 +74,7 @@ export interface BehaviourTimelinePoint {
   start: string;
   end: string;
 }
-export interface BehaviourResponse {
+interface BehaviourResponseData {
   timeline: Array<BehaviourTimelinePoint>;
   positive_reasons: Record<string, number>;
   negative_reasons: Record<string, number>;
@@ -63,6 +83,16 @@ export interface BehaviourResponse {
   other_positive_count: Array<Record<string, number>>;
   other_negative_count: Array<Record<string, number>>;
 }
+interface BehaviourResponseMeta {
+  start_date: string;
+  end_date: string;
+  step_size: string;
+}
+export type BehaviourResponse = ClassChartsResponse<
+  BehaviourResponseData,
+  BehaviourResponseMeta
+>;
+
 export interface GetActivityOptions {
   /**
    * From date, in format YYYY-MM-DD
@@ -77,6 +107,7 @@ export interface GetActivityOptions {
    */
   last_id?: string;
 }
+
 export interface ActivityPoint {
   id: number;
   type: string;
@@ -101,21 +132,25 @@ export interface ActivityPoint {
   detention_location: string | null;
   detention_type: string | null;
 }
-export type ActivityResponse = Array<ActivityPoint>;
+type ActivityResponseData = Array<ActivityPoint>;
+interface ActivityResponseMeta {
+  start_date: string;
+  end_date: string;
+  last_id: boolean;
+  step_size: string;
+  detention_alias_uc: string;
+}
+export type ActivityResponse = ClassChartsResponse<
+  ActivityResponseData,
+  ActivityResponseMeta
+>;
+
 export type DisplayDate = "due_date" | "issue_date";
 export interface GetHomeworkOptions {
   /**
    * Way to sort homeworks
    */
   displayDate?: DisplayDate;
-  /**
-   * @deprecated Use "from" instead
-   */
-  fromDate?: string;
-  /**
-   * @deprecated Use "to" instead
-   */
-  toDate?: string;
   /**
    * From date, in format YYYY-MM-DD
    */
@@ -161,7 +196,24 @@ export interface Homework {
   validated_links: Array<any>;
   validated_attachments: Array<ValidatedHomeworkAttachment>;
 }
-export type HomeworksResponse = Array<Homework>;
+type HomeworksResponseData = Array<Homework>;
+interface HomeworksResponseMeta {
+  start_date: string;
+  end_date: string;
+  display_type: DisplayDate;
+  max_files_allowed: number;
+  allowed_file_types: string[];
+  this_week_due_count: number;
+  this_week_outstanding_count: number;
+  this_week_completed_count: number;
+  allow_attachments: boolean;
+  display_marks: boolean;
+}
+export type HomeworksResponse = ClassChartsResponse<
+  HomeworksResponseData,
+  HomeworksResponseMeta
+>;
+
 export interface GetLessonsOptions {
   /**
    * Date to get lessons for, in format YYYY-MM-DD
@@ -186,7 +238,24 @@ export interface Lesson {
   pupil_note: string;
   pupil_note_raw: string;
 }
-export type LessonsResponse = Array<Lesson>;
+type LessonsResponseData = Lesson[];
+interface PeriodMeta {
+  number: string;
+  start_time: string;
+  end_time: string;
+}
+interface LessonsResponseMeta {
+  dates: string[];
+  timetable_dates: string[];
+  periods: PeriodMeta[];
+  start_time: string;
+  end_time: string;
+}
+export type LessonsResponse = ClassChartsResponse<
+  LessonsResponseData,
+  LessonsResponseMeta
+>;
+
 // Not sure what to call this
 export interface LessonPupilBehaviour {
   reason: string;
@@ -216,7 +285,12 @@ export interface Badge {
   pupil_badges: Array<PupilEvent>;
   icon_url: string;
 }
-export type BadgesResponse = Array<Badge>;
+type BadgesResponseData = Array<Badge>;
+type BadgesResponseMeta = [];
+export type BadgesResponse = ClassChartsResponse<
+  BadgesResponseData,
+  BadgesResponseMeta
+>;
 
 export interface Detention {
   id: number;
@@ -257,6 +331,7 @@ export interface Detention {
     name: string;
   };
 }
+// TODO: Update typings to include meta response. Currently not possible since I don't have access
 export type DetentionsResponse = Array<Detention>;
 
 export interface Announcement {
@@ -285,6 +360,7 @@ export interface Announcement {
   pupil_consents: Array<any>;
 }
 
+// TODO: Update typings to include meta response. Currently not possible since I don't have access
 export type AnnouncementsResponse = Array<Announcement>;
 
 export interface Pupil extends Student {
@@ -342,5 +418,5 @@ export interface AttendanceDate {
     late_minutes: number;
   };
 }
-
-export type AttendanceResponse = Array<Record<string, AttendanceDate>>;
+// TODO: Update typings to include meta response. Currently not possible since I don't have access
+export type AttendanceResponse = Record<string, AttendanceDate>[];

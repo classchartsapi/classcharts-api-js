@@ -3,10 +3,10 @@ import { API_BASE_STUDENT, BASE_URL } from "./consts";
 import { ClasschartsClient } from "./baseClient";
 import { parseCookies } from "./utils";
 /**
- * The base client
+ * Student Client
  */
 
-export class ClasschartsStudentClient extends ClasschartsClient {
+export class StudentClient extends ClasschartsClient {
   public studentCode = "";
   public dateOfBirth = "";
 
@@ -57,6 +57,6 @@ export class ClasschartsStudentClient extends ClasschartsClient {
     this.sessionId = sessionID.session_id;
     await this.getNewSessionId();
     const user = await this.getStudentInfo();
-    this.studentId = user.id;
+    this.studentId = user.data.user.id;
   }
 }

@@ -5,9 +5,9 @@ import { ClasschartsClient } from "./baseClient";
 import { API_BASE_PARENT, BASE_URL } from "./consts";
 import { parseCookies } from "./utils";
 /**
- * The base client
+ * Parent Client
  */
-export class ClasschartsParentClient extends ClasschartsClient {
+export class ParentClient extends ClasschartsClient {
   private password = "";
   private email = "";
   // @ts-expect-error Init in .login
@@ -52,7 +52,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
       throw new Error("Unauthenticated: Classcharts returned an error");
 
     const cookies = String(request.headers["set-cookie"]);
-    this.authCookies = cookies.split(";");
+    // this.authCookies = cookies.split(";");
     const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
       String(sessionCookies["parent_session_credentials"])
@@ -64,7 +64,7 @@ export class ClasschartsParentClient extends ClasschartsClient {
   }
   /**
    * Get Pupil details
-   * @returns an array fo Pupils connected to this parent's account
+   * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
     return this.makeAuthedRequest(this.API_BASE + "/pupils", {
