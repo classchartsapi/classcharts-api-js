@@ -55,22 +55,8 @@ export class ClasschartsStudentClient extends ClasschartsClient {
       String(sessionCookies["student_session_credentials"])
     );
     this.sessionId = sessionID.session_id;
+    await this.getNewSessionId();
     const user = await this.getStudentInfo();
     this.studentId = user.id;
-    this.studentName = user.name;
-    const pingFormData = new URLSearchParams();
-    pingFormData.append("include_data", "true");
-    const pingData = await this.makeAuthedRequest(
-      this.API_BASE + "/ping",
-      {
-        method: "POST",
-        data: pingFormData.toString(),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
-      { includeMeta: true }
-    );
-    this.sessionId = pingData.meta.session_id;
   }
 }

@@ -61,7 +61,6 @@ export class ClasschartsParentClient extends ClasschartsClient {
     this.pupils = await this.getPupils();
     if (!this.pupils) throw new Error("Account has no pupils attached");
     this.studentId = this.pupils[0].id;
-    this.studentName = this.pupils[0].name;
   }
   /**
    * Get Pupil details
@@ -83,7 +82,6 @@ export class ClasschartsParentClient extends ClasschartsClient {
       const pupil = pupils[i];
       if (pupil.id == pupilId) {
         this.studentId = pupil.id;
-        this.studentName = pupil.name;
         return;
       }
     }

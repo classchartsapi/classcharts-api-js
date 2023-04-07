@@ -18,14 +18,16 @@ import type {
   LessonsResponse,
   Student,
 } from "./types";
+import { PING_INTERVAL } from "./consts";
+
 /**
  * The base client
  */
 export class ClasschartsClient {
-  protected studentId = 0;
-  protected studentName = "";
+  public studentId = 0;
   public authCookies: Array<string> | undefined;
   public sessionId = "";
+  public lastPing = 0;
   protected API_BASE = "";
   protected axios: AxiosInstance;
   /**
@@ -42,21 +44,49 @@ export class ClasschartsClient {
       validateStatus: () => true,
     });
   }
+  public async getNewSessionId() {
+    const pingFormData = new URLSearchParams();
+    pingFormData.append("include_data", "true");
+    const pingData = await this.makeAuthedRequest(
+      this.API_BASE + "/ping",
+      {
+        method: "POST",
+        data: pingFormData.toString(),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
+      { includeMeta: true, revalidateToken: false }
+    );
+    this.sessionId = pingData.meta.session_id;
+    this.lastPing = Date.now();
+  }
   public async makeAuthedRequest(
     path: string,
     axiosOptions: Omit<AxiosRequestConfig, "path">,
-    options?: { includeMeta?: boolean }
+    options?: { includeMeta?: boolean; revalidateToken?: boolean }
   ) {
-    if (!this.authCookies) throw new Error("Not authenticated");
+    if (!this.sessionId) throw new Error("No session ID");
+    if (!options) {
+      options = {};
+    }
+    if (typeof options?.revalidateToken == "undefined") {
+      options.revalidateToken = true;
+    }
     const requestOptions: AxiosRequestConfig = {
       ...axiosOptions,
       url: path,
       headers: {
-        Cookie: this.authCookies.join(";"),
+        Cookie: this?.authCookies?.join(";") ?? [],
         authorization: "Basic " + this.sessionId,
         ...axiosOptions.headers,
       },
     };
+    if (options?.revalidateToken === true && this.lastPing) {
+      if (Date.now() - this.lastPing + 5000 > PING_INTERVAL) {
+        await this.getNewSessionId();
+      }
+    }
     const request = await this.axios.request(requestOptions);
     const responseJSON = request.data;
     if (responseJSON.success == 0) {
