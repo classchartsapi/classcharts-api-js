@@ -1,5 +1,5 @@
-export * from "./studentClient.js";
-export * from "./parentClient.js";
+export * from "./core/studentClient.js";
+export * from "./core/parentClient.js";
 export {
   Student,
   ActivityPoint,

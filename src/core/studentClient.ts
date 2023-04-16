@@ -1,6 +1,6 @@
-import { API_BASE_STUDENT, BASE_URL } from "./consts.js";
+import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.js";
 import { BaseClient } from "./baseClient.js";
-import { parseCookies } from "./utils.js";
+import { parseCookies } from "../utils/utils.js";
 import ky from "ky-universal";
 
 /**

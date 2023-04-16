@@ -1,9 +1,9 @@
 import ky from "ky-universal";
-import type { GetPupilsResponse } from "./types.js";
+import type { GetPupilsResponse } from "../types.js";
 
 import { BaseClient } from "./baseClient.js";
-import { API_BASE_PARENT, BASE_URL } from "./consts.js";
-import { parseCookies } from "./utils.js";
+import { API_BASE_PARENT, BASE_URL } from "../utils/consts.js";
+import { parseCookies } from "../utils/utils.js";
 /**
  * Parent Client
  */

@@ -16,8 +16,8 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
-} from "./types.js";
-import { PING_INTERVAL } from "./consts.js";
+} from "../types.js";
+import { PING_INTERVAL } from "../utils/consts.js";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
