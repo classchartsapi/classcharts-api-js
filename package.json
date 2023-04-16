@@ -22,7 +22,7 @@
     "generateDocs": "typedoc --entryPointStrategy expand ./src",
     "test": "jest",
     "prepublishOnly": "pnpm run build",
-    "publish": "pnpx np --no-publish && npm publish"
+    "publishNow": "pnpx np --no-publish && npm publish"
   },
   "author": "James Cook",
   "license": "ISC",
