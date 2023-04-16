@@ -41,6 +41,7 @@ export class ParentClient extends ClasschartsClient {
       method: "POST",
       body: formData,
       headers: headers,
+      credentials: undefined,
     });
     if (response.status != 302 || !response.headers.get("set-cookie"))
       throw new Error(

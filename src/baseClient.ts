@@ -69,6 +69,7 @@ export class ClasschartsClient {
         Authorization: "Basic " + this.sessionId,
         ...kyOptions.headers,
       },
+      credentials: undefined,
     } satisfies KyOptions;
     if (options?.revalidateToken === true && this.lastPing) {
       if (Date.now() - this.lastPing + 5000 > PING_INTERVAL) {

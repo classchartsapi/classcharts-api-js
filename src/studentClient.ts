@@ -37,6 +37,7 @@ export class StudentClient extends ClasschartsClient {
       body: formData,
       redirect: "manual",
       throwHttpErrors: false,
+      credentials: undefined,
     });
     if (request.status != 302 || !request.headers.get("set-cookie")) {
       throw new Error(
