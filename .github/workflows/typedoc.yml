@@ -1,14 +1,9 @@
 name: Typedoc
 
-on: 
+on:
   push:
     branches:
       - main
-    paths:
-      - "src/**"
-      - "tsconfig.json"
-      - "pnpm-lock.yaml"
-  workflow_dispatch:
 
 jobs:
   build-docs:
@@ -23,7 +18,7 @@ jobs:
           node-version: 18
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.14.2
+          version: 8.2.0
       - name: Retrieve the cached "node_modules" directory (if present)
         uses: actions/cache@v3
         id: node-cache
