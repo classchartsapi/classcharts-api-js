@@ -1,11 +1,11 @@
-import axios from "axios";
-import type { AxiosRequestConfig, AxiosInstance } from "axios";
+import ky, { type Options as KyOptions } from "ky-universal";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
   AttendanceResponse,
   BadgesResponse,
   BehaviourResponse,
+  ClassChartsResponse,
   DetentionsResponse,
   GetActivityOptions,
   GetAttendanceOptions,
@@ -16,8 +16,8 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
-} from "./types";
-import { PING_INTERVAL } from "./consts";
+} from "./types.js";
+import { PING_INTERVAL } from "./consts.js";
 
 /**
  * The base client
@@ -28,21 +28,13 @@ export class ClasschartsClient {
   public sessionId = "";
   public lastPing = 0;
   protected API_BASE = "";
-  protected axios: AxiosInstance;
   /**
    *
    * @param API_BASE Base API URL, this is different depending if its called as a parent or student
    */
-  constructor(API_BASE: string, axiosConfig?: AxiosRequestConfig) {
+  constructor(API_BASE: string) {
     this.authCookies = [];
     this.API_BASE = API_BASE;
-    this.axios = axios.create({
-      ...axiosConfig,
-      headers: {
-        ...axiosConfig?.headers,
-      },
-      validateStatus: () => true,
-    });
   }
   public async getNewSessionId() {
     const pingFormData = new URLSearchParams();
@@ -51,10 +43,7 @@ export class ClasschartsClient {
       this.API_BASE + "/ping",
       {
         method: "POST",
-        data: pingFormData.toString(),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        body: pingFormData,
       },
       { revalidateToken: false }
     );
@@ -63,7 +52,7 @@ export class ClasschartsClient {
   }
   public async makeAuthedRequest(
     path: string,
-    axiosOptions: Omit<AxiosRequestConfig, "path">,
+    kyOptions: KyOptions,
     options?: { revalidateToken?: boolean }
   ) {
     if (!this.sessionId) throw new Error("No session ID");
@@ -73,26 +62,29 @@ export class ClasschartsClient {
     if (typeof options?.revalidateToken == "undefined") {
       options.revalidateToken = true;
     }
-    const requestOptions: AxiosRequestConfig = {
-      ...axiosOptions,
-      url: path,
+    const requestOptions = {
+      ...kyOptions,
       headers: {
         Cookie: this?.authCookies?.join(";") ?? [],
-        authorization: "Basic " + this.sessionId,
-        ...axiosOptions.headers,
+        Authorization: "Basic " + this.sessionId,
+        ...kyOptions.headers,
       },
-    };
+    } satisfies KyOptions;
     if (options?.revalidateToken === true && this.lastPing) {
       if (Date.now() - this.lastPing + 5000 > PING_INTERVAL) {
         await this.getNewSessionId();
       }
     }
-    const request = await this.axios.request(requestOptions);
-    const responseJSON = request.data;
+    const request = await ky(path, requestOptions);
+    const responseJSON = (await request.json()) as ClassChartsResponse<
+      unknown,
+      unknown
+    >;
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    return responseJSON;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return responseJSON as any;
   }
 
   /**
@@ -100,9 +92,11 @@ export class ClasschartsClient {
    * @returns Student object
    */
   async getStudentInfo(): Promise<GetStudentInfoResponse> {
+    const body = new URLSearchParams();
+    body.append("include_data", "true");
     const data = await this.makeAuthedRequest(this.API_BASE + "/ping", {
       method: "POST",
-      data: "include_data=true",
+      body: body,
     });
     return data;
   }

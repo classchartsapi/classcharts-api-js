@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type ClassChartsResponse<T, E> = {
+export type ClassChartsResponse<T, E> = {
   data: T;
   meta: E;
   error?: string;

@@ -1,9 +1,9 @@
-import type { AxiosRequestConfig } from "axios";
-import type { GetPupilsResponse } from "./types";
+import ky from "ky-universal";
+import type { GetPupilsResponse } from "./types.js";
 
-import { ClasschartsClient } from "./baseClient";
-import { API_BASE_PARENT, BASE_URL } from "./consts";
-import { parseCookies } from "./utils";
+import { ClasschartsClient } from "./baseClient.js";
+import { API_BASE_PARENT, BASE_URL } from "./consts.js";
+import { parseCookies } from "./utils.js";
 /**
  * Parent Client
  */
@@ -17,12 +17,8 @@ export class ParentClient extends ClasschartsClient {
    * @param email Parents email address
    * @param password Parents password
    */
-  constructor(
-    email: string,
-    password: string,
-    axiosConfig?: AxiosRequestConfig
-  ) {
-    super(API_BASE_PARENT, axiosConfig);
+  constructor(email: string, password: string) {
+    super(API_BASE_PARENT);
     this.email = String(email);
     this.password = String(password);
   }
@@ -38,36 +34,39 @@ export class ParentClient extends ClasschartsClient {
     formData.append("logintype", "existing");
     formData.append("password", this.password);
     formData.append("recaptcha-token", "no-token-avaliable");
-    const request = await this.axios.request({
-      url: BASE_URL + "/parent/login",
-      method: "POST",
-      data: formData.toString(),
-      maxRedirects: 0,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      validateStatus: () => true,
+    const headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
     });
-    if (request.status != 302 || !request.headers["set-cookie"])
-      throw new Error("Unauthenticated: Classcharts returned an error");
+    const response = await ky(BASE_URL + "/parent/login", {
+      method: "POST",
+      body: formData,
+      headers: headers,
+    });
+    if (response.status != 302 || !response.headers.get("set-cookie"))
+      throw new Error(
+        "Unauthenticated: Classcharts returned an error: " +
+          response.status +
+          " " +
+          response.statusText
+      );
 
-    const cookies = String(request.headers["set-cookie"]);
+    const cookies = String(response.headers.get("set-cookie"));
     // this.authCookies = cookies.split(";");
     const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
       String(sessionCookies["parent_session_credentials"])
     );
-    this.sessionId = sessionID.session_id;
+    super.sessionId = sessionID.session_id;
     this.pupils = await this.getPupils();
     if (!this.pupils) throw new Error("Account has no pupils attached");
-    this.studentId = this.pupils[0].id;
+    super.studentId = this.pupils[0].id;
   }
   /**
    * Get Pupil details
    * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
-    return this.makeAuthedRequest(this.API_BASE + "/pupils", {
+    return super.makeAuthedRequest(super.API_BASE + "/pupils", {
       method: "GET",
     });
   }
@@ -81,7 +80,7 @@ export class ParentClient extends ClasschartsClient {
     for (let i = 0; i < pupils.length; i++) {
       const pupil = pupils[i];
       if (pupil.id == pupilId) {
-        this.studentId = pupil.id;
+        super.studentId = pupil.id;
         return;
       }
     }

@@ -1,2 +1,2 @@
-export * from "./parentClient";
-export * from "./studentClient";
+export * from "./parentClient.js";
+export * from "./studentClient.js";

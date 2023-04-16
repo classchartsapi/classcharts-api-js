@@ -3,9 +3,14 @@ export function parseCookies(input: string) {
   const cookies = input.split(",");
   for (const cookie of cookies) {
     const cookieSplit = cookie.split(";")[0].split("=");
-    output[decodeURIComponent(cookieSplit[0])] = decodeURIComponent(
+    output[leftTrim(decodeURIComponent(cookieSplit[0]))] = decodeURIComponent(
       cookieSplit[1]
     );
   }
   return output;
+}
+
+function leftTrim(str: string) {
+  if (!str) return str;
+  return str.replace(/^\s+/g, "");
 }

@@ -1,5 +1,6 @@
 {
   "name": "classcharts-api",
+  "type": "module",
   "version": "2.0.0",
   "description": "A typescript wrapper for getting information from the Classcharts API",
   "keywords": [
@@ -25,24 +26,24 @@
   "author": "James Cook",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.3.5"
+    "ky-universal": "^0.11.0"
   },
   "files": [
     "dist/**"
   ],
   "devDependencies": {
     "@types/jest": "^29.5.0",
-    "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "eslint": "^8.37.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "jest": "^29.5.0",
     "jest-extended": "^3.2.4",
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0",
-    "typedoc": "^0.23.28",
-    "typescript": "^5.0.3"
+    "typedoc": "^0.24.2",
+    "typescript": "^5.0.4"
   },
   "types": "./dist/index.d.ts",
   "exports": {

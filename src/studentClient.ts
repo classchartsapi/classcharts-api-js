@@ -1,7 +1,7 @@
-import type { AxiosRequestConfig } from "axios";
-import { API_BASE_STUDENT, BASE_URL } from "./consts";
-import { ClasschartsClient } from "./baseClient";
-import { parseCookies } from "./utils";
+import { API_BASE_STUDENT, BASE_URL } from "./consts.js";
+import { ClasschartsClient } from "./baseClient.js";
+import { parseCookies } from "./utils.js";
+import ky from "ky-universal";
 /**
  * Student Client
  */
@@ -15,12 +15,8 @@ export class StudentClient extends ClasschartsClient {
    * @param studentCode Classcharts student code
    * @param dateOfBirth Student's date of birth
    */
-  constructor(
-    studentCode: string,
-    dateOfBirth?: string,
-    axiosConfig?: AxiosRequestConfig
-  ) {
-    super(API_BASE_STUDENT, axiosConfig);
+  constructor(studentCode: string, dateOfBirth?: string) {
+    super(API_BASE_STUDENT);
     this.studentCode = String(studentCode);
     this.dateOfBirth = String(dateOfBirth);
   }
@@ -36,20 +32,22 @@ export class StudentClient extends ClasschartsClient {
     formData.append("dob", this.dateOfBirth);
     formData.append("remember_me", "1");
     formData.append("recaptcha-token", "no-token-avaliable");
-    const request = await this.axios.request({
-      url: BASE_URL + "/student/login",
+    const request = await ky(BASE_URL + "/student/login", {
       method: "POST",
-      data: formData.toString(),
-      maxRedirects: 0,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      validateStatus: () => true,
+      body: formData,
+      redirect: "manual",
+      throwHttpErrors: false,
     });
-    if (request.status != 302 || !request.headers["set-cookie"])
-      throw new Error("Unauthenticated: Classcharts returned an error");
-    const cookies = String(request.headers["set-cookie"]);
-    this.authCookies = cookies.split(";");
+    if (request.status != 302 || !request.headers.get("set-cookie")) {
+      throw new Error(
+        "Unauthenticated: Classcharts returned an error: " +
+          request.status +
+          " " +
+          request.statusText
+      );
+    }
+    const cookies = String(request.headers.get("set-cookie"));
+    this.authCookies = cookies.split(",");
     const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
       String(sessionCookies["student_session_credentials"])
