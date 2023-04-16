@@ -19,7 +19,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "generateDocs": "typedoc --entryPointStrategy expand ./src",
+    "generateDocs": "typedoc --options typedoc.config.cjs",
     "test": "jest",
     "prepublishOnly": "pnpm run build",
     "publishNow": "pnpx np --no-publish && npm publish"

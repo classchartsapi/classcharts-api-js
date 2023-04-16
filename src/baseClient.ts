@@ -20,13 +20,31 @@ import type {
 import { PING_INTERVAL } from "./consts.js";
 
 /**
- * The base client
+ * Shared client for both parent and student. This is not exported and should not be used directly
+ * @internal
  */
-export class ClasschartsClient {
+export class BaseClient {
+  /**
+   * @property studentId Currently selected student ID
+   */
   public studentId = 0;
+  /**
+   * @internal
+   * @property authCookies Cookies used for authentication (set during login and can be empty)
+   */
   public authCookies: Array<string>;
+  /**
+   * @property sessionId Session ID used for authentication
+   */
   public sessionId = "";
+  /**
+   * @property lastPing Last time the sessionId was updated
+   */
   public lastPing = 0;
+  /**
+   * @property API_BASE Base API URL, this is different depending if its called as a parent or student
+   * @internal
+   */
   protected API_BASE = "";
   /**
    *
@@ -36,6 +54,12 @@ export class ClasschartsClient {
     this.authCookies = [];
     this.API_BASE = API_BASE;
   }
+  /**
+   * Revalidates the session ID.
+   *
+   * This is called automatically when the session ID is older than 3 minutes or when intially using the .login() method
+   * @internal
+   */
   public async getNewSessionId() {
     const pingFormData = new URLSearchParams();
     pingFormData.append("include_data", "true");
@@ -50,6 +74,17 @@ export class ClasschartsClient {
     this.sessionId = pingData.meta.session_id;
     this.lastPing = Date.now();
   }
+  /**
+   * Makes a request to the Classcharts API with the required authentication headers
+   *
+   * @param path Path to the API endpoint
+   * @param kyOptions Ky (fetch library) request options
+   * @param options
+   * @param options.revalidateToken Whether to revalidate the session ID if it is older than 3 minutes
+   *
+   * @returns Response
+   * @internal
+   */
   public async makeAuthedRequest(
     path: string,
     kyOptions: KyOptions,
@@ -87,9 +122,8 @@ export class ClasschartsClient {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return responseJSON as any;
   }
-
   /**
-   * Gets general information about the logged in student
+   * Gets general information about the current student
    * @returns Student object
    */
   async getStudentInfo(): Promise<GetStudentInfoResponse> {
@@ -102,9 +136,12 @@ export class ClasschartsClient {
     return data;
   }
   /**
+   * Gets the current student's activity
+   *
    * This function is only used for pagination, you likely want client.getFullActivity
    * @param options GetActivityOptions
    * @returns Activity data
+   * @see getFullActivity
    */
   async getActivity(options?: GetActivityOptions): Promise<ActivityResponse> {
     const params = new URLSearchParams();
@@ -119,9 +156,12 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Helper function for getActivity, returns all the data from the selected dates
+   * Gets the current student's activity between two dates
+   *
+   * This function will automatically paginate through all the data returned by getActivity
    * @param options GetFullActivityOptions
    * @returns Activity Data
+   * @see getActivity
    */
   async getFullActivity(
     options: GetFullActivityOptions
@@ -148,7 +188,7 @@ export class ClasschartsClient {
     return data;
   }
   /**
-   * Gets the logged in students behaviour points
+   * Gets the current student's behaviour
    * @param options GetBehaviourOptions
    * @returns Array of behaviour points
    */
@@ -166,7 +206,7 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Gets a list of the logged in student's homeworks
+   * Gets the current student's homework
    * @param options GetHomeworkOptions
    * @returns Array of homeworks
    */
@@ -200,7 +240,7 @@ export class ClasschartsClient {
     return data;
   }
   /**
-   * Gets the logged in student's lessons for a day
+   * Gets the current student's lessons for a given date
    * @param options GetLessonsOptions
    * @returns Array of lessons
    */
@@ -216,7 +256,7 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Gets a list of the students badges
+   * Gets the current student's earned badges
    * @returns Array of badges
    */
   async getBadges(): Promise<BadgesResponse> {
@@ -228,7 +268,7 @@ export class ClasschartsClient {
     );
   }
   /**
-   * Gets the logged in student's announcements
+   * Gets the current student's announcements
    * @returns Array of announcements
    */
   async getAnnouncements(): Promise<AnnouncementsResponse> {
@@ -242,7 +282,7 @@ export class ClasschartsClient {
     ).data;
   }
   /**
-   * Gets the logged in student's detentions
+   * Gets the current student's detentions
    * @returns Array of detentions
    */
   async getDetentions(): Promise<DetentionsResponse> {
@@ -256,7 +296,7 @@ export class ClasschartsClient {
     ).data;
   }
   /**
-   * Gets the logged in student's attendance
+   * Gets the current student's attendance
    * @param options GetAttendanceOptions
    * @returns Array of dates of attendance
    */

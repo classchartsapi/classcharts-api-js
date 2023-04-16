@@ -1,21 +1,21 @@
 import ky from "ky-universal";
 import type { GetPupilsResponse } from "./types.js";
 
-import { ClasschartsClient } from "./baseClient.js";
+import { BaseClient } from "./baseClient.js";
 import { API_BASE_PARENT, BASE_URL } from "./consts.js";
 import { parseCookies } from "./utils.js";
 /**
  * Parent Client
  */
-export class ParentClient extends ClasschartsClient {
+export class ParentClient extends BaseClient {
   private password = "";
   private email = "";
   // @ts-expect-error Init in .login
   public pupils: GetPupilsResponse;
   /**
    *
-   * @param email Parents email address
-   * @param password Parents password
+   * @param email Parent's email address
+   * @param password Parent's password
    */
   constructor(email: string, password: string) {
     super(API_BASE_PARENT);
@@ -24,7 +24,7 @@ export class ParentClient extends ClasschartsClient {
   }
 
   /**
-   * Logs the user in the client and authenticates with classcharts
+   * Authenticates with classcharts
    */
   async login(): Promise<void> {
     if (!this.email) throw new Error("Email not inputted");
@@ -63,7 +63,7 @@ export class ParentClient extends ClasschartsClient {
     super.studentId = this.pupils[0].id;
   }
   /**
-   * Get Pupil details
+   * Get a list of pupils connected to this parent's account
    * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
@@ -73,7 +73,9 @@ export class ParentClient extends ClasschartsClient {
   }
   /**
    * Selects a pupil to be used with API requests
-   * @param pupilId Pupil ID obtained from this.pupils or getPupils
+   * @param pupilId Pupil ID obtained from this.pupils or getPupils()
+   *
+   * @see getPupils
    */
   async selectPupil(pupilId: number): Promise<void> {
     if (!pupilId) throw new Error("No pupil ID specified");

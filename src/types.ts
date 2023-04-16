@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+/**
+ * Helper type to define response from classcharts
+ * @internal
+ */
 export type ClassChartsResponse<T, E> = {
   data: T;
   meta: E;
@@ -44,11 +49,11 @@ export interface Student {
   survey_id: number | null;
   detention_alias_plural_uc: string;
 }
-interface GetStudentInfoData {
+export interface GetStudentInfoData {
   user: Student;
 }
 
-interface GetStudentInfoMeta {
+export interface GetStudentInfoMeta {
   version: string;
 }
 export type GetStudentInfoResponse = ClassChartsResponse<
@@ -74,7 +79,7 @@ export interface BehaviourTimelinePoint {
   start: string;
   end: string;
 }
-interface BehaviourResponseData {
+export interface BehaviourResponseData {
   timeline: Array<BehaviourTimelinePoint>;
   positive_reasons: Record<string, number>;
   negative_reasons: Record<string, number>;
@@ -83,7 +88,7 @@ interface BehaviourResponseData {
   other_positive_count: Array<Record<string, number>>;
   other_negative_count: Array<Record<string, number>>;
 }
-interface BehaviourResponseMeta {
+export interface BehaviourResponseMeta {
   start_date: string;
   end_date: string;
   step_size: string;
@@ -132,7 +137,7 @@ export interface ActivityPoint {
   detention_location: string | null;
   detention_type: string | null;
 }
-type ActivityResponseData = Array<ActivityPoint>;
+export type ActivityResponseData = Array<ActivityPoint>;
 interface ActivityResponseMeta {
   start_date: string;
   end_date: string;
@@ -149,6 +154,10 @@ export type DisplayDate = "due_date" | "issue_date";
 export interface GetHomeworkOptions {
   /**
    * Way to sort homeworks
+   *
+   * Used to sort homeworks by when they are due or when they were issued
+   * @default "issue_date"
+   *
    */
   displayDate?: DisplayDate;
   /**
@@ -196,8 +205,8 @@ export interface Homework {
   validated_links: Array<any>;
   validated_attachments: Array<ValidatedHomeworkAttachment>;
 }
-type HomeworksResponseData = Array<Homework>;
-interface HomeworksResponseMeta {
+export type HomeworksResponseData = Array<Homework>;
+export interface HomeworksResponseMeta {
   start_date: string;
   end_date: string;
   display_type: DisplayDate;
@@ -238,13 +247,13 @@ export interface Lesson {
   pupil_note: string;
   pupil_note_raw: string;
 }
-type LessonsResponseData = Lesson[];
+export type LessonsResponseData = Lesson[];
 interface PeriodMeta {
   number: string;
   start_time: string;
   end_time: string;
 }
-interface LessonsResponseMeta {
+export interface LessonsResponseMeta {
   dates: string[];
   timetable_dates: string[];
   periods: PeriodMeta[];
@@ -285,8 +294,8 @@ export interface Badge {
   pupil_badges: Array<PupilEvent>;
   icon_url: string;
 }
-type BadgesResponseData = Array<Badge>;
-type BadgesResponseMeta = [];
+export type BadgesResponseData = Array<Badge>;
+export type BadgesResponseMeta = [];
 export type BadgesResponse = ClassChartsResponse<
   BadgesResponseData,
   BadgesResponseMeta

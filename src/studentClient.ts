@@ -1,14 +1,22 @@
 import { API_BASE_STUDENT, BASE_URL } from "./consts.js";
-import { ClasschartsClient } from "./baseClient.js";
+import { BaseClient } from "./baseClient.js";
 import { parseCookies } from "./utils.js";
 import ky from "ky-universal";
+
 /**
  * Student Client
  */
-
-export class StudentClient extends ClasschartsClient {
-  public studentCode = "";
-  public dateOfBirth = "";
+export class StudentClient extends BaseClient {
+  /**
+   * @property studentCode Classcharts student code
+   * @internal
+   */
+  private studentCode = "";
+  /**
+   * @property dateOfBirth Student's date of birth
+   * @internal
+   */
+  private dateOfBirth = "";
 
   /**
    *
@@ -22,7 +30,7 @@ export class StudentClient extends ClasschartsClient {
   }
 
   /**
-   * Initialises the client and authenticates with classcharts
+   * Authenticates with classcharts
    */
   async login(): Promise<void> {
     if (!this.studentCode) throw new Error("Student Code not inputted");
