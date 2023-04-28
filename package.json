@@ -1,7 +1,7 @@
 {
   "name": "classcharts-api",
   "type": "module",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A typescript wrapper for getting information from the Classcharts API",
   "keywords": [
     "node",
