@@ -21,8 +21,7 @@
     "build": "tsc",
     "generateDocs": "typedoc --options typedoc.config.cjs",
     "test": "jest",
-    "prepublishOnly": "pnpm run build",
-    "publishNow": "pnpx np --no-publish && npm publish"
+    "release": "pnpm run build && changeset publish"
   },
   "author": "James Cook",
   "license": "ISC",
@@ -33,6 +32,7 @@
     "dist/**"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.26.1",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
