@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * Helper type to define response from classcharts
+ * Helper type to define response from ClassCharts
  * @internal
  */
-export type ClassChartsResponse<T, E> = {
-  data: T;
-  meta: E;
+export type ClassChartsResponse<Data, Error> = {
+  data: Data;
+  meta: Error;
   error?: string;
   success: number;
 };
