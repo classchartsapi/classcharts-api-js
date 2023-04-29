@@ -3,9 +3,9 @@ module.exports = {
   entryPointStrategy: "resolve",
   plugin: ["typedoc-plugin-umami"],
   entryPoints: [
-    "src/studentClient.ts",
-    "src/parentClient.ts",
-    "src/baseClient.ts",
+    "src/core/studentClient.ts",
+    "src/core/parentClient.ts",
+    "src/core/baseClient.ts",
     "src/types.ts",
   ],
   navigationLinks: {
@@ -15,6 +15,8 @@ module.exports = {
   includeVersion: true,
   out: "docs",
   sort: "required-first",
-  umamiScriptSrc: "https://umami.jaminit.co.uk/script.js",
-  umamiWebsiteId: "dd8c53b8-dc99-484c-911d-b08c898498a8",
+  umamiOptions: {
+    src: "https://umami.jaminit.co.uk/script.js",
+    websiteId: "dd8c53b8-dc99-484c-911d-b08c898498a8",
+  },
 };
