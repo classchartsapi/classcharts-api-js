@@ -44,6 +44,7 @@
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0",
     "typedoc": "^0.24.2",
+    "typedoc-plugin-umami": "^1.0.1",
     "typescript": "^5.0.4"
   },
   "types": "./dist/index.d.ts",

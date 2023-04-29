@@ -42,6 +42,9 @@ devDependencies:
   typedoc:
     specifier: ^0.24.2
     version: 0.24.2(typescript@5.0.4)
+  typedoc-plugin-umami:
+    specifier: ^1.0.1
+    version: 1.0.1(typedoc@0.24.2)
   typescript:
     specifier: ^5.0.4
     version: 5.0.4
@@ -4091,6 +4094,14 @@ packages:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.10
+    dev: true
+
+  /typedoc-plugin-umami@1.0.1(typedoc@0.24.2):
+    resolution: {integrity: sha512-alBDvMWJKvtzzrPJZ9cdoe9JJB0YfuUbV2rDm/Onxiopa4vwwqiTywPwLBChhFG0XHM7DpRytvi3VPr57bfmMQ==}
+    peerDependencies:
+      typedoc: ^0.23.0
+    dependencies:
+      typedoc: 0.24.2(typescript@5.0.4)
     dev: true
 
   /typedoc@0.24.2(typescript@5.0.4):
