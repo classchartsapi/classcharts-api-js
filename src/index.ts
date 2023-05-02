@@ -1,6 +1,6 @@
 export * from "./core/studentClient.js";
 export * from "./core/parentClient.js";
-export {
+export type {
   Student,
   ActivityPoint,
   BehaviourTimelinePoint,
