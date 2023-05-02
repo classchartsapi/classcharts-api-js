@@ -244,7 +244,7 @@ export class BaseClient {
    * @param options GetLessonsOptions
    * @returns Array of lessons
    */
-  async getLessons(options?: GetLessonsOptions): Promise<LessonsResponse> {
+  async getLessons(options: GetLessonsOptions): Promise<LessonsResponse> {
     if (!options?.date) throw new Error("No date specified");
     const params = new URLSearchParams();
     params.append("date", String(options?.date));
