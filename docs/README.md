@@ -36,7 +36,13 @@ For any help with the library, please join the [discord](https://discord.gg/DTcw
 
 ```bash
 npm install classcharts-api # npm
+```
+
+```bash
 yarn add classcharts-api # yarn
+```
+
+```bash
 pnpm add classcharts-api # pnpm
 ```
 
@@ -230,6 +236,8 @@ console.log(badges);
 
 ## `.getAnnouncements`
 
+?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+
 Gets all announcements.
 
 ```typescript
@@ -239,6 +247,8 @@ console.log(announcements);
 
 ## `.getDetentions`
 
+?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+
 Gets all detentions.
 
 ```typescript
@@ -247,6 +257,8 @@ console.log(detentions);
 ```
 
 ## `.getAttendance`
+
+?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
 
 Gets attendance.
 
