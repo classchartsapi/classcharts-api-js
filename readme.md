@@ -1,10 +1,11 @@
-# Classcharts API
-
-![Discord](https://img.shields.io/discord/918103752068726855)
-![npm](https://img.shields.io/npm/dm/classcharts-api)
-![NPM](https://img.shields.io/npm/l/classcharts-api)
-![npm](https://img.shields.io/npm/v/classcharts-api)
-![node-current](https://img.shields.io/node/v/classcharts-api)
+<h1 align="center">Classcharts API</h1>
+<div align="center">
+<img alt="Discord" src="https://img.shields.io/discord/918103752068726855">
+ <img alt="npm" src="https://img.shields.io/npm/dm/classcharts-api"> 
+ <img alt="NPM" src="https://img.shields.io/npm/l/classcharts-api"> 
+ <img alt="npm" src="https://img.shields.io/npm/v/classcharts-api"> 
+ <img alt="node-current" src="https://img.shields.io/node/v/classcharts-api">
+</div>
 
 A typescript wrapper for getting information from the Classcharts API.
 
