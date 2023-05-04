@@ -23,8 +23,6 @@ async function main() {
   );
   console.log(await client.getActivity());
   console.log(await client.getStudentInfo());
-  console.log(await client.getActivity());
-  console.log(await client.getActivity());
 }
 
 main();
