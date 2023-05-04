@@ -1,4 +1,4 @@
-<h1 align="center">Classcharts API</h1>
+<h1 align="center">Classcharts API JS</h1>
 <div align="center">
 <img alt="Discord" src="https://img.shields.io/discord/918103752068726855">
  <img alt="npm" src="https://img.shields.io/npm/dm/classcharts-api"> 
