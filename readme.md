@@ -17,8 +17,8 @@ async function main() {
   await client.login();
   console.log(
     await client.getBehaviour({
-      fromDate: "20/01/2000",
-      toDate: "01/02/2000",
+      from: "20/01/2000",
+      to: "01/02/2000",
     })
   );
   console.log(await client.getActivity());
