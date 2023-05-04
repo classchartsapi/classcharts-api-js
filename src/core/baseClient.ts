@@ -10,6 +10,8 @@ import type {
   GetActivityOptions,
   GetAttendanceOptions,
   GetBehaviourOptions,
+  GetCodeOptions,
+  GetCodeResponse,
   GetFullActivityOptions,
   GetHomeworkOptions,
   GetLessonsOptions,
@@ -318,5 +320,20 @@ export class BaseClient {
         }
       )
     ).data;
+  }
+  /**
+   * Gets the current student's code
+   * @param options GetCodeOptions
+   * @param options.dateOfBirth Date of birth in the format YYYY-MM-DD
+   * @returns
+   */
+  async getCode(options: GetCodeOptions): Promise<GetCodeResponse> {
+    const data = await this.makeAuthedRequest(this.API_BASE + "/getcode", {
+      method: "POST",
+      body: JSON.stringify({
+        date: options.dateOfBirth,
+      }),
+    });
+    return data;
   }
 }

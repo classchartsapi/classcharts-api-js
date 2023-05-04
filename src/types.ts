@@ -429,3 +429,20 @@ export interface AttendanceDate {
 }
 // TODO: Update typings to include meta response. Currently not possible since I don't have access
 export type AttendanceResponse = Record<string, AttendanceDate>[];
+
+export interface GetCodeOptions {
+  /**
+   * Date of birth, in format YYYY-MM-DD
+   */
+  dateOfBirth: string;
+}
+
+export interface GetCodeResponseData {
+  code: string;
+}
+
+export type GetCodeResponseMeta = [];
+export type GetCodeResponse = ClassChartsResponse<
+  GetCodeResponseData,
+  GetCodeResponseMeta
+>;
