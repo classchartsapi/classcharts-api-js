@@ -7,7 +7,7 @@
  <img alt="node-current" src="https://img.shields.io/node/v/classcharts-api">
 </div>
 
-A typescript wrapper for getting information from the Classcharts API.
+<p align="center">A typescript wrapper for getting information from the Classcharts API.</p>
 
 # Links
 
