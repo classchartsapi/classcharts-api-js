@@ -112,10 +112,14 @@ export class BaseClient {
       }
     }
     const request = await ky(path, requestOptions);
-    const responseJSON = (await request.json()) as ClassChartsResponse<
-      unknown,
-      unknown
-    >;
+    let responseJSON: ClassChartsResponse<unknown, unknown>;
+    try {
+      responseJSON = await request.json();
+    } catch (err) {
+      throw new Error(
+        "Error parsing JSON. Returned response: " + (await request.text())
+      );
+    }
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
