@@ -8,7 +8,7 @@ import ky from "ky-universal";
  */
 export class StudentClient extends BaseClient {
   /**
-   * @property studentCode Classcharts student code
+   * @property studentCode ClassCharts student code
    * @internal
    */
   private studentCode = "";
@@ -20,7 +20,7 @@ export class StudentClient extends BaseClient {
 
   /**
    *
-   * @param studentCode Classcharts student code
+   * @param studentCode ClassCharts student code
    * @param dateOfBirth Student's date of birth
    */
   constructor(studentCode: string, dateOfBirth?: string) {
@@ -30,7 +30,7 @@ export class StudentClient extends BaseClient {
   }
 
   /**
-   * Authenticates with classcharts
+   * Authenticates with ClassCharts
    */
   async login(): Promise<void> {
     if (!this.studentCode) throw new Error("Student Code not inputted");
@@ -39,7 +39,7 @@ export class StudentClient extends BaseClient {
     formData.append("code", this.studentCode.toUpperCase());
     formData.append("dob", this.dateOfBirth);
     formData.append("remember_me", "1");
-    formData.append("recaptcha-token", "no-token-avaliable");
+    formData.append("recaptcha-token", "no-token-available");
     const request = await ky(BASE_URL + "/student/login", {
       method: "POST",
       body: formData,
@@ -49,7 +49,7 @@ export class StudentClient extends BaseClient {
     });
     if (request.status != 302 || !request.headers.get("set-cookie")) {
       throw new Error(
-        "Unauthenticated: Classcharts returned an error: " +
+        "Unauthenticated: ClassCharts returned an error: " +
           request.status +
           " " +
           request.statusText

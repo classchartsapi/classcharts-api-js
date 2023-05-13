@@ -42,13 +42,13 @@ export class BaseClient {
    */
   public lastPing = 0;
   /**
-   * @property API_BASE Base API URL, this is different depending if its called as a parent or student
+   * @property API_BASE Base API URL, this is different depending on if its called as a parent or student
    * @internal
    */
   protected API_BASE = "";
   /**
    *
-   * @param API_BASE Base API URL, this is different depending if its called as a parent or student
+   * @param API_BASE Base API URL, this is different depending on if its called as a parent or student
    */
   constructor(API_BASE: string) {
     this.authCookies = [];
@@ -57,7 +57,7 @@ export class BaseClient {
   /**
    * Revalidates the session ID.
    *
-   * This is called automatically when the session ID is older than 3 minutes or when intially using the .login() method
+   * This is called automatically when the session ID is older than 3 minutes or when initially using the .login() method
    * @internal
    */
   public async getNewSessionId() {
@@ -75,7 +75,7 @@ export class BaseClient {
     this.lastPing = Date.now();
   }
   /**
-   * Makes a request to the Classcharts API with the required authentication headers
+   * Makes a request to the ClassCharts API with the required authentication headers
    *
    * @param path Path to the API endpoint
    * @param kyOptions Ky (fetch library) request options

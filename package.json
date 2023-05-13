@@ -7,7 +7,7 @@
     "name": "James Cook",
     "email": "james@jaminit.co.uk"
   },
-  "description": "A Typescript wrapper for getting information from the Classcharts API",
+  "description": "A Typescript wrapper for getting information from the ClassCharts API",
   "keywords": [
     "node",
     "typescript",
