@@ -28,9 +28,6 @@
     "test": "jest",
     "release": "pnpm run build && changeset publish"
   },
-  "dependencies": {
-    "ky-universal": "^0.11.0"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@types/jest": "^29.5.1",
@@ -62,6 +59,6 @@
     "dist/**"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   }
 }

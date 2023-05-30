@@ -1,4 +1,3 @@
-import ky, { type Options as KyOptions } from "ky-universal";
 import type {
   ActivityResponse,
   AnnouncementsResponse,
@@ -87,7 +86,7 @@ export class BaseClient {
    */
   public async makeAuthedRequest(
     path: string,
-    kyOptions: KyOptions,
+    fetchOptions: RequestInit,
     options?: { revalidateToken?: boolean }
   ) {
     if (!this.sessionId) throw new Error("No session ID");
@@ -98,20 +97,19 @@ export class BaseClient {
       options.revalidateToken = true;
     }
     const requestOptions = {
-      ...kyOptions,
+      ...fetchOptions,
       headers: {
         Cookie: this?.authCookies?.join(";") ?? [],
         Authorization: "Basic " + this.sessionId,
-        ...kyOptions.headers,
+        ...fetchOptions.headers,
       },
-      credentials: undefined,
-    } satisfies KyOptions;
+    } satisfies RequestInit;
     if (options?.revalidateToken === true && this.lastPing) {
       if (Date.now() - this.lastPing + 5000 > PING_INTERVAL) {
         await this.getNewSessionId();
       }
     }
-    const request = await ky(path, requestOptions);
+    const request = await fetch(path, requestOptions);
     let responseJSON: ClassChartsResponse<unknown, unknown>;
     try {
       responseJSON = await request.json();

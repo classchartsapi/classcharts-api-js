@@ -1,7 +1,6 @@
 import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.js";
 import { BaseClient } from "./baseClient.js";
 import { parseCookies } from "../utils/utils.js";
-import ky from "ky-universal";
 
 /**
  * Student Client
@@ -40,11 +39,10 @@ export class StudentClient extends BaseClient {
     formData.append("dob", this.dateOfBirth);
     formData.append("remember_me", "1");
     formData.append("recaptcha-token", "no-token-available");
-    const request = await ky(BASE_URL + "/student/login", {
+    const request = await fetch(BASE_URL + "/student/login", {
       method: "POST",
       body: formData,
       redirect: "manual",
-      throwHttpErrors: false,
       credentials: undefined,
     });
     if (request.status != 302 || !request.headers.get("set-cookie")) {

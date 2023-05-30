@@ -1,4 +1,3 @@
-import ky from "ky-universal";
 import type { GetPupilsResponse } from "../types.js";
 
 import { BaseClient } from "./baseClient.js";
@@ -37,7 +36,7 @@ export class ParentClient extends BaseClient {
     const headers = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
     });
-    const response = await ky(BASE_URL + "/parent/login", {
+    const response = await fetch(BASE_URL + "/parent/login", {
       method: "POST",
       body: formData,
       headers: headers,
