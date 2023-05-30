@@ -30,7 +30,7 @@ For any help with the library, please join the [discord](https://discord.gg/DTcw
 
 ## Requirements
 
-- Node.js 16 or newer
+- Node.js 18 or newer
 
 ## NPM
 
