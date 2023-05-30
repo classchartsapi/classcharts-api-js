@@ -1,5 +1,11 @@
 # classcharts-api
 
+## 2.3.0
+
+### Minor Changes
+
+- 6552c28: Migrate to native fetch
+
 ## 2.2.0
 
 ### Minor Changes
