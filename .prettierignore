@@ -1,5 +1,6 @@
-dist
-node_modules
+dist/
+node_modules/
 pnpm-lock.yaml
 .prettierrc.json
 .eslint.js
+CHANGELOG.md
