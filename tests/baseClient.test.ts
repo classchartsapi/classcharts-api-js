@@ -1,4 +1,6 @@
 import { StudentClient } from "../src";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { code, dob } from "./config.json";
 import "jest-extended";
 const client = new StudentClient(code, dob);

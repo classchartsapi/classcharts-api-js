@@ -13,7 +13,7 @@ module.exports = {
     Github: "https://github.com/classchartsapi/classcharts-api-js",
   },
   includeVersion: true,
-  out: "docs",
+  out: "docs/typedoc",
   sort: "required-first",
   umamiOptions: {
     src: "https://umami.jaminit.co.uk/script.js",

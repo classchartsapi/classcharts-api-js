@@ -1,4 +1,3 @@
-import ky from "ky-universal";
 import type { GetPupilsResponse } from "../types.js";
 
 import { BaseClient } from "./baseClient.js";
@@ -24,7 +23,7 @@ export class ParentClient extends BaseClient {
   }
 
   /**
-   * Authenticates with classcharts
+   * Authenticates with ClassCharts
    */
   async login(): Promise<void> {
     if (!this.email) throw new Error("Email not inputted");
@@ -33,11 +32,11 @@ export class ParentClient extends BaseClient {
     formData.append("email", this.email);
     formData.append("logintype", "existing");
     formData.append("password", this.password);
-    formData.append("recaptcha-token", "no-token-avaliable");
+    formData.append("recaptcha-token", "no-token-available");
     const headers = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
     });
-    const response = await ky(BASE_URL + "/parent/login", {
+    const response = await fetch(BASE_URL + "/parent/login", {
       method: "POST",
       body: formData,
       headers: headers,
@@ -45,7 +44,7 @@ export class ParentClient extends BaseClient {
     });
     if (response.status != 302 || !response.headers.get("set-cookie"))
       throw new Error(
-        "Unauthenticated: Classcharts returned an error: " +
+        "Unauthenticated: ClassCharts returned an error: " +
           response.status +
           " " +
           response.statusText

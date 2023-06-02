@@ -4,9 +4,9 @@
  * Helper type to define response from ClassCharts
  * @internal
  */
-export type ClassChartsResponse<Data, Error> = {
+export type ClassChartsResponse<Data, Meta> = {
   data: Data;
-  meta: Error;
+  meta: Meta;
   error?: string;
   success: number;
 };
