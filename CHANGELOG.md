@@ -1,5 +1,12 @@
 # classcharts-api
 
+## 2.3.1
+
+### Patch Changes
+
+- 40b1683: Export types first
+- 3d0e7aa: Declare no side effects
+
 ## 2.3.0
 
 ### Minor Changes
