@@ -13,18 +13,20 @@
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://discord.gg/DTcwugcgZ2">Discord</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-	<a href="https://classchartsapi.github.io/classcharts-api-js/typedoc/">TypeDoc</a>
-	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://classchartsapi.github.io/api-docs/">API Docs</a>
 </p>
 
 # Introduction
 
-The ClassCharts API is a typescript wrapper around the ClassCharts API. It allows you to easily make requests to the ClassCharts API without having to worry about the underlying implementation of making requests.
+The ClassCharts API is a typescript wrapper around the ClassCharts API. It
+allows you to easily make requests to the ClassCharts API without having to
+worry about the underlying implementation of making requests.
 
 ## Help
 
-For any help with the library, please join the [discord](https://discord.gg/DTcwugcgZ2) where you can ask questions and get help from the community.
+For any help with the library, please join the
+[discord](https://discord.gg/DTcwugcgZ2) where you can ask questions and get
+help from the community.
 
 # Installation
 
@@ -48,7 +50,8 @@ pnpm add classcharts-api # pnpm
 
 # Logging In
 
-Before making any requests, you must login to the client. This will get you a session ID which will be used for all requests.
+Before making any requests, you must login to the client. This will get you a
+session ID which will be used for all requests.
 
 ## Student Client
 
@@ -71,7 +74,8 @@ await client.login();
 
 # Universal Methods
 
-All the following methods can be used on both the student and parent client. Each example expects the client to be already logged in.
+All the following methods can be used on both the student and parent client.
+Each example expects the client to be already logged in.
 
 ## `.getStudentInfo`
 
@@ -176,7 +180,6 @@ console.log(homeworks);
 		...
   }
 }
-
 ```
 
 ## `.getLessons`
@@ -236,7 +239,9 @@ console.log(badges);
 
 ## `.getAnnouncements`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+?> This method does not include `meta` in the response, since I do not have
+access to this endpoint to test it. If you have access to this endpoint, please
+open a PR to add the `meta` response. Thanks!
 
 Gets all announcements.
 
@@ -247,7 +252,9 @@ console.log(announcements);
 
 ## `.getDetentions`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+?> This method does not include `meta` in the response, since I do not have
+access to this endpoint to test it. If you have access to this endpoint, please
+open a PR to add the `meta` response. Thanks!
 
 Gets all detentions.
 
@@ -258,7 +265,9 @@ console.log(detentions);
 
 ## `.getAttendance`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+?> This method does not include `meta` in the response, since I do not have
+access to this endpoint to test it. If you have access to this endpoint, please
+open a PR to add the `meta` response. Thanks!
 
 Gets attendance.
 
