@@ -35,7 +35,6 @@ await build({
       url: "https://github.com/classchartsapi/classcharts-api-js.git",
     },
     homepage: "https://classchartsapi.github.io/classcharts-api-js/",
-    types: "./mod.ts",
     engines: {
       node: ">=18",
     },
