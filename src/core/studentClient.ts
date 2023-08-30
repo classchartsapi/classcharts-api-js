@@ -46,14 +46,14 @@ export class StudentClient extends BaseClient {
     if (request.status != 302 || !request.headers.get("set-cookie")) {
       await request.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
       throw new Error(
-        "Unauthenticated: ClassCharts didn't return authentication cookies"
+        "Unauthenticated: ClassCharts didn't return authentication cookies",
       );
     }
     const cookies = String(request.headers.get("set-cookie"));
     this.authCookies = cookies.split(",");
     const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
-      String(sessionCookies["student_session_credentials"])
+      String(sessionCookies["student_session_credentials"]),
     );
     this.sessionId = sessionID.session_id;
     await this.getNewSessionId();

@@ -67,7 +67,7 @@ export class BaseClient {
         method: "POST",
         body: pingFormData,
       },
-      { revalidateToken: false }
+      { revalidateToken: false },
     );
     this.sessionId = pingData.meta.session_id;
     this.lastPing = Date.now();
@@ -86,7 +86,7 @@ export class BaseClient {
   public async makeAuthedRequest(
     path: string,
     fetchOptions: RequestInit,
-    options?: { revalidateToken?: boolean }
+    options?: { revalidateToken?: boolean },
   ) {
     if (!this.sessionId) throw new Error("No session ID");
     if (!options) {
@@ -114,7 +114,7 @@ export class BaseClient {
       responseJSON = await request.json();
     } catch {
       throw new Error(
-        "Error parsing JSON. Returned response: " + (await request.text())
+        "Error parsing JSON. Returned response: " + (await request.text()),
       );
     }
     if (responseJSON.success == 0) {
@@ -153,7 +153,7 @@ export class BaseClient {
       this.API_BASE + "/activity/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -165,7 +165,7 @@ export class BaseClient {
    * @see getActivity
    */
   async getFullActivity(
-    options: GetFullActivityOptions
+    options: GetFullActivityOptions,
   ): Promise<ActivityResponse["data"]> {
     let data: ActivityResponse["data"] = [];
     let prevLast: number | undefined;
@@ -194,7 +194,7 @@ export class BaseClient {
    * @returns Array of behaviour points
    */
   async getBehaviour(
-    options?: GetBehaviourOptions
+    options?: GetBehaviourOptions,
   ): Promise<BehaviourResponse> {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
@@ -203,7 +203,7 @@ export class BaseClient {
       this.API_BASE + "/behaviour/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -223,7 +223,7 @@ export class BaseClient {
       this.API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
 
     for (let i = 0; i < data.data.length; i++) {
@@ -231,11 +231,11 @@ export class BaseClient {
       // homework.lesson.replace(/\\/g, '')
       data.data[i].description = data.data[i].description.replace(
         /(<([^>]+)>)/gi,
-        ""
+        "",
       );
       data.data[i].description = data.data[i].description.replace(
         /&nbsp;/g,
-        ""
+        "",
       );
       data.data[i].description = data.data[i].description.trim();
     }
@@ -254,7 +254,7 @@ export class BaseClient {
       this.API_BASE + "/timetable/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -266,7 +266,7 @@ export class BaseClient {
       this.API_BASE + "/eventbadges/" + this.studentId,
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -279,7 +279,7 @@ export class BaseClient {
         this.API_BASE + "/announcements/" + this.studentId,
         {
           method: "GET",
-        }
+        },
       )
     ).data;
   }
@@ -293,7 +293,7 @@ export class BaseClient {
         this.API_BASE + "/detentions/" + this.studentId,
         {
           method: "GET",
-        }
+        },
       )
     ).data;
   }
@@ -303,7 +303,7 @@ export class BaseClient {
    * @returns Array of dates of attendance
    */
   async getAttendance(
-    options?: GetAttendanceOptions
+    options?: GetAttendanceOptions,
   ): Promise<AttendanceResponse> {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
@@ -317,7 +317,7 @@ export class BaseClient {
           params.toString(),
         {
           method: "GET",
-        }
+        },
       )
     ).data;
   }

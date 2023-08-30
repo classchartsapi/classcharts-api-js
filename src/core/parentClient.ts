@@ -46,7 +46,7 @@ export class ParentClient extends BaseClient {
         "Unauthenticated: ClassCharts returned an error: " +
           response.status +
           " " +
-          response.statusText
+          response.statusText,
       );
     }
 
@@ -54,7 +54,7 @@ export class ParentClient extends BaseClient {
     // this.authCookies = cookies.split(";");
     const sessionCookies = parseCookies(cookies);
     const sessionID = JSON.parse(
-      String(sessionCookies["parent_session_credentials"])
+      String(sessionCookies["parent_session_credentials"]),
     );
     super.sessionId = sessionID.session_id;
     this.pupils = await this.getPupils();

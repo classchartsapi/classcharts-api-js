@@ -9,7 +9,7 @@ Deno.test("Throws when no student code is provided", async () => {
       await client.login();
     },
     Error,
-    "Student Code not provided"
+    "Student Code not provided",
   );
 });
 
@@ -20,6 +20,6 @@ Deno.test("Throws with invalid student code", async () => {
       await client.login();
     },
     Error,
-    "Unauthenticated: ClassCharts didn't return authentication cookies"
+    "Unauthenticated: ClassCharts didn't return authentication cookies",
   );
 });

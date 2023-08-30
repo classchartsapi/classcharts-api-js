@@ -1,10 +1,11 @@
 <h1 align="center">Classcharts API JS</h1>
 <div align="center">
 <img alt="Discord" src="https://img.shields.io/discord/918103752068726855">
- <img alt="npm" src="https://img.shields.io/npm/dm/classcharts-api">
- <img alt="NPM" src="https://img.shields.io/npm/l/classcharts-api">
+ <img alt="license" src="https://img.shields.io/npm/l/classcharts-api">
  <img alt="npm" src="https://img.shields.io/npm/v/classcharts-api">
+ <img alt="deno" src="https://shield.deno.dev/x/classcharts_api">
  <img alt="node-current" src="https://img.shields.io/node/v/classcharts-api">
+
 </div>
 
 <p align="center">A Node.js and Deno wrapper for getting information from the Classcharts API.</p>
