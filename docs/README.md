@@ -1,7 +1,7 @@
 <p align="center">
 	<h1 align="center">ClassCharts API JS</h1>
 	<p align="center">
-	A Node.js and Deno Typescript wrapper for getting information from the Classcharts API.
+	A Node.js and Deno wrapper for getting information from the Classcharts API.
 	</p>
 </p>
 <p align="center">
@@ -63,7 +63,7 @@ session ID which will be used for all requests.
 ## Student Client
 
 ```typescript
-import { StudentClient } from "classcharts-api"; // Node.js
+import { StudentClient } from "classcharts-api";
 
 // Date of birth MUST in the format DD/MM/YYYY
 const client = new StudentClient("classchartsCode", "01/1/2000");
