@@ -1,11 +1,9 @@
 <h1 align="center">Classcharts API JS</h1>
 <div align="center">
-<img alt="Discord" src="https://img.shields.io/discord/918103752068726855">
- <img alt="license" src="https://img.shields.io/npm/l/classcharts-api">
- <img alt="npm" src="https://img.shields.io/npm/v/classcharts-api">
- <img alt="deno" src="https://shield.deno.dev/x/classcharts_api">
- <img alt="node-current" src="https://img.shields.io/node/v/classcharts-api">
-
+	<a href="https://discord.gg/DTcwugcgZ2"><img alt="Discord" src="https://img.shields.io/discord/918103752068726855"></a>
+	<a href="https://github.com/classchartsapi/classcharts-api-js/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/npm/l/classcharts-api"></a>
+	<a href="https://www.npmjs.com/package/classcharts-api"><img alt="npm" src="https://img.shields.io/npm/v/classcharts-api"></a>
+	<a href="https://deno.land/x/classcharts_api"><img alt="deno" src="https://shield.deno.dev/x/classcharts_api"></a>
 </div>
 
 <p align="center">A Node.js and Deno wrapper for getting information from the Classcharts API.</p>
@@ -14,6 +12,8 @@
 
 - [Documentation](https://classchartsapi.github.io/classcharts-api-js/)
 - [Discord](https://discord.gg/DTcwugcgZ2)
+- [NPM](https://www.npmjs.com/package/classcharts-api)
+- [Deno](https://deno.land/x/classcharts_api)
 
 # Contributing
 
