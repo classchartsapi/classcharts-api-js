@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: npm build
         run: deno task npm ${{steps.get_tag_version.outputs.TAG_VERSION}}
       - name: npm publish
