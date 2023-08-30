@@ -1,7 +1,7 @@
 <p align="center">
 	<h1 align="center">ClassCharts API JS</h1>
 	<p align="center">
-	A typescript wrapper for getting information from the Classcharts API
+	A Node.js and Deno Typescript wrapper for getting information from the Classcharts API.
 	</p>
 </p>
 <p align="center">
@@ -10,6 +10,8 @@
 	<a href="https://github.com/classchartsapi/classcharts-api-js/issues">Issues</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://www.npmjs.com/package/classcharts-api">NPM</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+	<a href="https://deno.land/x/classcharts_api">Deno</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://discord.gg/DTcwugcgZ2">Discord</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
@@ -33,6 +35,7 @@ help from the community.
 ## Requirements
 
 - Node.js 18 or newer
+- Deno
 
 ## NPM
 
@@ -40,12 +43,16 @@ help from the community.
 npm install classcharts-api # npm
 ```
 
-```bash
-yarn add classcharts-api # yarn
-```
+## Deno
 
-```bash
-pnpm add classcharts-api # pnpm
+The imports in the examples are for Node.js, but can easily be substituted for
+Deno.
+
+```typescript
+import {
+  ParentClient,
+  StudentClient,
+} from "https://deno.land/x/classcharts_api/mod.ts";
 ```
 
 # Logging In
@@ -56,7 +63,7 @@ session ID which will be used for all requests.
 ## Student Client
 
 ```typescript
-import { StudentClient } from "classcharts-api";
+import { StudentClient } from "classcharts-api"; // Node.js
 
 // Date of birth MUST in the format DD/MM/YYYY
 const client = new StudentClient("classchartsCode", "01/1/2000");
