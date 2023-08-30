@@ -15,8 +15,8 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
-} from "../types.js";
-import { PING_INTERVAL } from "../utils/consts.js";
+} from "../types.ts";
+import { PING_INTERVAL } from "../utils/consts.ts";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
@@ -46,7 +46,6 @@ export class BaseClient {
    */
   protected API_BASE = "";
   /**
-   *
    * @param API_BASE Base API URL, this is different depending on if its called as a parent or student
    */
   constructor(API_BASE: string) {
@@ -113,7 +112,7 @@ export class BaseClient {
     let responseJSON: ClassChartsResponse<unknown, unknown>;
     try {
       responseJSON = await request.json();
-    } catch (err) {
+    } catch {
       throw new Error(
         "Error parsing JSON. Returned response: " + (await request.text())
       );
@@ -121,8 +120,8 @@ export class BaseClient {
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return responseJSON as any;
+    // deno-lint-ignore no-explicit-any
+    return responseJSON as unknown as any;
   }
   /**
    * Gets general information about the current student
@@ -150,7 +149,7 @@ export class BaseClient {
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
     options?.last_id && params.append("last_id", options?.last_id);
-    return this.makeAuthedRequest(
+    return await this.makeAuthedRequest(
       this.API_BASE + "/activity/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
@@ -214,8 +213,9 @@ export class BaseClient {
    */
   async getHomeworks(options?: GetHomeworkOptions): Promise<HomeworksResponse> {
     const params = new URLSearchParams();
-    if (options?.displayDate)
+    if (options?.displayDate) {
       params.append("display_date", String(options?.displayDate));
+    }
 
     options?.from && params.append("from", String(options?.from));
     options?.to && params.append("to", String(options?.to));

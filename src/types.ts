@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * Helper type to define response from ClassCharts
  * @internal
@@ -157,7 +155,6 @@ export interface GetHomeworkOptions {
    *
    * Used to sort homeworks by when they are due or when they were issued
    * @default "issue_date"
-   *
    */
   displayDate?: DisplayDate;
   /**
@@ -193,16 +190,16 @@ export interface Homework {
   status: {
     id: number;
     state: "not_completed" | "late" | "completed" | null;
-    mark: any | null;
+    mark: unknown | null;
     mark_relative: number;
     ticked: "yes" | "no";
     allow_attachments: "yes" | "no";
     first_seen_date: string;
     last_seen_date: string;
-    attachments: Array<any>;
+    attachments: Array<unknown>;
     has_feedback: boolean;
   };
-  validated_links: Array<any>;
+  validated_links: Array<unknown>;
   validated_attachments: Array<ValidatedHomeworkAttachment>;
 }
 export type HomeworksResponseData = Array<Homework>;
@@ -357,7 +354,7 @@ export interface Announcement {
     filename: string;
     url: string;
   }>;
-  for_pupils: Array<any>;
+  for_pupils: Array<unknown>;
   comment_visibility: string;
   allow_comments: "yes" | "no";
   allow_reactions: "yes" | "no";
@@ -366,7 +363,7 @@ export interface Announcement {
   requires_consent: "yes" | "no";
   can_change_consent: boolean;
   consent: string | null;
-  pupil_consents: Array<any>;
+  pupil_consents: Array<unknown>;
 }
 
 // TODO: Update typings to include meta response. Currently not possible since I don't have access

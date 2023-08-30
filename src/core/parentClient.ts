@@ -1,8 +1,8 @@
-import type { GetPupilsResponse } from "../types.js";
+import type { GetPupilsResponse } from "../types.ts";
 
-import { BaseClient } from "./baseClient.js";
-import { API_BASE_PARENT, BASE_URL } from "../utils/consts.js";
-import { parseCookies } from "../utils/utils.js";
+import { BaseClient } from "./baseClient.ts";
+import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
+import { parseCookies } from "../utils/utils.ts";
 /**
  * Parent Client
  */
@@ -12,7 +12,6 @@ export class ParentClient extends BaseClient {
   // @ts-expect-error Init in .login
   public pupils: GetPupilsResponse;
   /**
-   *
    * @param email Parent's email address
    * @param password Parent's password
    */
@@ -26,7 +25,7 @@ export class ParentClient extends BaseClient {
    * Authenticates with ClassCharts
    */
   async login(): Promise<void> {
-    if (!this.email) throw new Error("Email not inputted");
+    if (!this.email) throw new Error("Email not provided");
     const formData = new URLSearchParams();
     formData.append("_method", "POST");
     formData.append("email", this.email);
@@ -42,13 +41,14 @@ export class ParentClient extends BaseClient {
       headers: headers,
       credentials: undefined,
     });
-    if (response.status != 302 || !response.headers.get("set-cookie"))
+    if (response.status != 302 || !response.headers.get("set-cookie")) {
       throw new Error(
         "Unauthenticated: ClassCharts returned an error: " +
           response.status +
           " " +
           response.statusText
       );
+    }
 
     const cookies = String(response.headers.get("set-cookie"));
     // this.authCookies = cookies.split(";");
@@ -66,7 +66,7 @@ export class ParentClient extends BaseClient {
    * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
-    return super.makeAuthedRequest(super.API_BASE + "/pupils", {
+    return await super.makeAuthedRequest(super.API_BASE + "/pupils", {
       method: "GET",
     });
   }
@@ -76,7 +76,7 @@ export class ParentClient extends BaseClient {
    *
    * @see getPupils
    */
-  async selectPupil(pupilId: number): Promise<void> {
+  selectPupil(pupilId: number) {
     if (!pupilId) throw new Error("No pupil ID specified");
     const pupils = this.pupils;
     for (let i = 0; i < pupils.length; i++) {
