@@ -14,6 +14,8 @@
 	<a href="https://deno.land/x/classcharts_api">Deno</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://discord.gg/DTcwugcgZ2">Discord</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+	<a href="https://classchartsapi.github.io/classcharts-api-js">Library Docs</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://classchartsapi.github.io/api-docs/">API Docs</a>
 </p>
