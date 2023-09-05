@@ -1,6 +1,5 @@
 /**
  * Helper type to define response from ClassCharts
- * @internal
  */
 export type ClassChartsResponse<Data, Meta> = {
   data: Data;

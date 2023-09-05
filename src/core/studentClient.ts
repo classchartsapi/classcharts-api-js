@@ -8,12 +8,10 @@ import { parseCookies } from "../utils/utils.ts";
 export class StudentClient extends BaseClient {
   /**
    * @property studentCode ClassCharts student code
-   * @internal
    */
   private studentCode = "";
   /**
    * @property dateOfBirth Student's date of birth
-   * @internal
    */
   private dateOfBirth = "";
 

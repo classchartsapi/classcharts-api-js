@@ -20,7 +20,6 @@ import { PING_INTERVAL } from "../utils/consts.ts";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
- * @internal
  */
 export class BaseClient {
   /**
@@ -28,7 +27,6 @@ export class BaseClient {
    */
   public studentId = 0;
   /**
-   * @internal
    * @property authCookies Cookies used for authentication (set during login and can be empty)
    */
   public authCookies: Array<string>;
@@ -42,7 +40,6 @@ export class BaseClient {
   public lastPing = 0;
   /**
    * @property API_BASE Base API URL, this is different depending on if its called as a parent or student
-   * @internal
    */
   protected API_BASE = "";
   /**
@@ -56,7 +53,6 @@ export class BaseClient {
    * Revalidates the session ID.
    *
    * This is called automatically when the session ID is older than 3 minutes or when initially using the .login() method
-   * @internal
    */
   public async getNewSessionId() {
     const pingFormData = new URLSearchParams();
@@ -81,7 +77,6 @@ export class BaseClient {
    * @param options.revalidateToken Whether to revalidate the session ID if it is older than 3 minutes
    *
    * @returns Response
-   * @internal
    */
   public async makeAuthedRequest(
     path: string,

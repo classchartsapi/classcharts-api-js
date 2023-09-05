@@ -5,7 +5,7 @@ if (!Deno.args[0]) throw new Error("No version specified");
 await emptyDir("./npm");
 
 await build({
-  entryPoints: ["./mod.ts"],
+  entryPoints: ["./mod.ts", "./src/core/baseClient.ts"],
   outDir: "./npm",
   shims: {
     deno: true,

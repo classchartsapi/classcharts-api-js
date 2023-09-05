@@ -2,7 +2,6 @@
  * Parse cookies from string
  * @param input Input string
  * @returns Object of cookies
- * @internal
  */
 export function parseCookies(input: string) {
   const output: Record<string, unknown> = {};
