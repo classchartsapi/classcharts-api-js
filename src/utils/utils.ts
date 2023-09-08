@@ -14,7 +14,6 @@ export function parseCookies(input: string) {
   }
   return output;
 }
-
 export function leftTrim(str: string) {
   return str.replace(/^\s+/g, "");
 }

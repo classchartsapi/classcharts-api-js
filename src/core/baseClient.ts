@@ -72,7 +72,7 @@ export class BaseClient {
    * Makes a request to the ClassCharts API with the required authentication headers
    *
    * @param path Path to the API endpoint
-   * @param kyOptions Ky (fetch library) request options
+   * @param fetchOptions Request Options
    * @param options
    * @param options.revalidateToken Whether to revalidate the session ID if it is older than 3 minutes
    *
