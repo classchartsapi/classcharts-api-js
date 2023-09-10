@@ -41,7 +41,7 @@ export class ParentClient extends BaseClient {
       headers: headers,
       credentials: undefined,
     });
-    if (response.status != 302 || !response.headers.get("set-cookie")) {
+    if (response.status != 302 || !response.headers.has("set-cookie")) {
       throw new Error(
         "Unauthenticated: ClassCharts returned an error: " +
           response.status +

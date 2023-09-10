@@ -41,7 +41,7 @@ export class StudentClient extends BaseClient {
       body: formData,
       redirect: "manual",
     });
-    if (request.status != 302 || !request.headers.get("set-cookie")) {
+    if (request.status != 302 || !request.headers.has("set-cookie")) {
       await request.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
       throw new Error(
         "Unauthenticated: ClassCharts didn't return authentication cookies",
