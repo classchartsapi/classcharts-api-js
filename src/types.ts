@@ -180,7 +180,6 @@ export interface Homework {
   title: string;
   meta_title: string;
   description: string;
-  description_raw: string;
   issue_date: string;
   due_date: string;
   completion_time_unit: string;

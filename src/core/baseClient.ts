@@ -220,20 +220,6 @@ export class BaseClient {
         method: "GET",
       },
     );
-
-    for (let i = 0; i < data.data.length; i++) {
-      data.data[i].description_raw = data.data[i].description;
-      // homework.lesson.replace(/\\/g, '')
-      data.data[i].description = data.data[i].description.replace(
-        /(<([^>]+)>)/gi,
-        "",
-      );
-      data.data[i].description = data.data[i].description.replace(
-        /&nbsp;/g,
-        "",
-      );
-      data.data[i].description = data.data[i].description.trim();
-    }
     return data;
   }
   /**
