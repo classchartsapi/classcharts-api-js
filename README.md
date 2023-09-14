@@ -257,15 +257,26 @@ console.log(badges);
 
 ## `.getAnnouncements`
 
-?> This method does not include `meta` in the response, since I do not have
-access to this endpoint to test it. If you have access to this endpoint, please
-open a PR to add the `meta` response. Thanks!
-
 Gets all announcements.
 
 ```typescript
 const announcements = await client.getAnnouncements();
 console.log(announcements);
+
+/**
+ {
+  success: 1,
+  data: [
+    {
+      id: 321453,
+      title: "A big announcement",
+      description: "<p>School will be closing early today!</p>",
+      ...
+    }
+  ],
+  meta: []
+}
+*/
 ```
 
 ## `.getDetentions`
