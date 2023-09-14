@@ -361,12 +361,14 @@ export interface Announcement {
   priority_pinned: "yes" | "no";
   requires_consent: "yes" | "no";
   can_change_consent: boolean;
-  consent: string | null;
+  consent: unknown | null;
   pupil_consents: Array<unknown>;
 }
 
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type AnnouncementsResponse = Array<Announcement>;
+export type AnnouncementsResponse = ClassChartsResponse<
+  Array<Announcement>,
+  []
+>;
 
 export interface Pupil extends Student {
   school_name: string;

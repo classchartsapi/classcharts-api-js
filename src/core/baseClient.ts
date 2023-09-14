@@ -276,7 +276,7 @@ export class BaseClient {
           method: "GET",
         },
       )
-    ).data;
+    );
   }
   /**
    * Gets the current student's detentions
