@@ -83,6 +83,9 @@ await client.login();
 
 ## Parent Client
 
+?> The parent client is not tested, as I do not have access to a parent account.
+If you experience any issues, please open an issue or PR.
+
 ```typescript
 import { ParentClient } from "classcharts-api";
 
