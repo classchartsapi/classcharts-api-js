@@ -300,6 +300,6 @@ export class BaseClient {
           method: "GET",
         },
       )
-    ).data;
+    );
   }
 }
