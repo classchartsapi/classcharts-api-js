@@ -421,8 +421,8 @@ export interface AttendancePeriod {
 }
 
 export interface AttendanceMeta {
-  dates: string[];
-  sessions: string[];
+  dates: Array<string>;
+  sessions: Array<string>;
   start_date: string;
   end_date: string;
   percentage: string;
@@ -468,12 +468,12 @@ export type RewardPurchaseResponse = ClassChartsResponse<RewardPurchaseData, []>
 
 export interface PupilFieldsData {
   note: string;
-  fields: {
+  fields: Array<{
     id: number;
     name: string;
     graphic: string;
     value: string;
-  }[]
+  }>
 }
 
 export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;
