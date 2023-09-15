@@ -335,8 +335,14 @@ export interface Detention {
     name: string;
   };
 }
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type DetentionsResponse = Array<Detention>;
+
+export type DetentionsData = Array<Detention>
+
+export interface DetentionsMeta {
+  detention_alias_plural: string
+}
+
+export type DetentionsResponse = ClassChartsResponse<DetentionsData, DetentionsMeta>;
 
 export interface Announcement {
   id: number;
