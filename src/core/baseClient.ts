@@ -15,6 +15,7 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
+  PupilFieldsResponse,
   RewardPurchaseResponse,
   RewardsResponse,
 } from "../types.ts";
@@ -333,5 +334,20 @@ export class BaseClient {
         }
       )
     )
+  }
+
+  /**
+   * Gets the current student's pupil fields
+   * @returns Array of stats
+   */
+  async getPupilFields(): Promise<PupilFieldsResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/apiv2student/customfields" + this.studentId,
+        {
+          method: "GET"
+        }
+      )
+    ) 
   }
 }

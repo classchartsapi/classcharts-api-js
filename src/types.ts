@@ -465,3 +465,15 @@ export interface RewardPurchaseData {
 }
 
 export type RewardPurchaseResponse = ClassChartsResponse<RewardPurchaseData, []>;
+
+export interface PupilFieldsData {
+  note: string;
+  fields: {
+    id: number;
+    name: string;
+    graphic: string;
+    value: string;
+  }[]
+}
+
+export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;
