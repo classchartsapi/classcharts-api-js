@@ -436,23 +436,24 @@ export type AttendanceResponse = ClassChartsResponse<
   AttendanceMeta
 >;
 
-export interface RewardsData {
+export type RewardsData = {
   id: number;
   name: string;
   description: string;
   photo: string;
+  price: number;
   stock_control: boolean;
   stock: number;
   can_purchase: boolean;
   unable_to_purchase_reason: string;
   once_per_pupil: boolean;
   purchased: boolean;
-  purchase_count: string;
-  price_balence_difference: number;
+  purchased_count: string;
+  price_balance_difference: number;
 }[]
 
 export interface RewardsMeta {
-  pupil_score_balence: number;
+  pupil_score_balance: number;
 }
 
 export type RewardsResponse = ClassChartsResponse<RewardsData, RewardsMeta>;
