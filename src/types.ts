@@ -435,3 +435,32 @@ export type AttendanceResponse = ClassChartsResponse<
   AttendanceData,
   AttendanceMeta
 >;
+
+export interface RewardsData {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+  stock_control: boolean;
+  stock: number;
+  can_purchase: boolean;
+  unable_to_purchase_reason: string;
+  once_per_pupil: boolean;
+  purchased: boolean;
+  purchase_count: string;
+  price_balence_difference: number;
+}[]
+
+export interface RewardsMeta {
+  pupil_score_balence: number;
+}
+
+export type RewardsResponse = ClassChartsResponse<RewardsData, RewardsMeta>;
+
+export interface RewardPurchaseData {
+  single_purchase: "yes" | "no";
+  order_id: number;
+  balence: number;
+}
+
+export type RewardPurchaseResponse = ClassChartsResponse<RewardPurchaseData, []>;

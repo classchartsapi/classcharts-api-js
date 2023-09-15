@@ -15,6 +15,8 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
+  RewardPurchaseResponse,
+  RewardsResponse,
 } from "../types.ts";
 import { PING_INTERVAL } from "../utils/consts.ts";
 
@@ -301,5 +303,35 @@ export class BaseClient {
         },
       )
     );
+  }
+  /**
+   * Gets the current student's rewards shop
+   * @returns Array of purchasable items
+   */
+  async getRewards(): Promise<RewardsResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/rewards/" + this.studentId,
+        {
+          method: "GET",
+        },
+      )
+    );
+  }
+  /**
+   * Purchase a reward item from the current student's  rewards shop
+   * @param itemId number
+   * @returns An object containg balence and id
+   */
+  async postRewardPurchase(itemId: number): Promise<RewardPurchaseResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/purchase" + itemId,
+        {
+          method: "POST",
+          body: `pupil_id=${this.studentId}`
+        }
+      )
+    )
   }
 }
