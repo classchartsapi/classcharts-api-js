@@ -412,17 +412,26 @@ export interface GetAttendanceOptions {
   to: string;
 }
 
-export interface AttendanceDate {
-  AM: {
-    code: string;
-    status: "present" | "ignore";
-    late_minutes: number;
-  };
-  PM: {
-    code: string;
-    status: "present" | "ignore";
-    late_minutes: number;
-  };
+export interface AttendancePeriod {
+  code: string;
+  status: "present" | "ignore";
+  late_minutes: number;
+  lesson_name?: string;
+  room_name?: string;
 }
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type AttendanceResponse = Record<string, AttendanceDate>[];
+
+export interface AttendanceMeta {
+  dates: string[];
+  sessions: string[];
+  start_date: string;
+  end_date: string;
+  percentage: string;
+  percentage_since_august: string;
+}
+
+export type AttendanceData = Record<string, Record<string, AttendancePeriod>>;
+
+export type AttendanceResponse = ClassChartsResponse<
+  AttendanceData,
+  AttendanceMeta
+>;
