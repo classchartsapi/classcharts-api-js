@@ -39,7 +39,7 @@ export class ParentClient extends BaseClient {
       method: "POST",
       body: formData,
       headers: headers,
-      credentials: undefined,
+      redirect: "manual",
     });
     if (response.status != 302 || !response.headers.has("set-cookie")) {
       throw new Error(
@@ -56,19 +56,20 @@ export class ParentClient extends BaseClient {
     const sessionID = JSON.parse(
       String(sessionCookies["parent_session_credentials"]),
     );
-    super.sessionId = sessionID.session_id;
+    this.sessionId = sessionID.session_id;
     this.pupils = await this.getPupils();
     if (!this.pupils) throw new Error("Account has no pupils attached");
-    super.studentId = this.pupils[0].id;
+    this.studentId = this.pupils[0].id;
   }
   /**
    * Get a list of pupils connected to this parent's account
    * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
-    return await super.makeAuthedRequest(super.API_BASE + "/pupils", {
+    const response = await this.makeAuthedRequest(this.API_BASE + "/pupils", {
       method: "GET",
     });
+    return response.data;
   }
   /**
    * Selects a pupil to be used with API requests
@@ -82,7 +83,7 @@ export class ParentClient extends BaseClient {
     for (let i = 0; i < pupils.length; i++) {
       const pupil = pupils[i];
       if (pupil.id == pupilId) {
-        super.studentId = pupil.id;
+        this.studentId = pupil.id;
         return;
       }
     }
