@@ -28,7 +28,7 @@ await build({
       name: "James Cook",
       email: "james@jaminit.co.uk",
     },
-    version: Deno.args[0],
+    version: String(Deno.args[0]).replace("v", ""),
     description:
       "A Typescript wrapper for getting information from the ClassCharts API",
     license: "ISC",
