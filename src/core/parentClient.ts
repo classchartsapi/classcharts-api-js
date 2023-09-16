@@ -39,7 +39,7 @@ export class ParentClient extends BaseClient {
       method: "POST",
       body: formData,
       headers: headers,
-      credentials: undefined,
+      redirect: "manual",
     });
     if (response.status != 302 || !response.headers.has("set-cookie")) {
       throw new Error(
