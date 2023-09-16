@@ -104,7 +104,8 @@ export class BaseClient {
       }
     }
     const request = await fetch(path, requestOptions);
-    let responseJSON: ClassChartsResponse<unknown, unknown>;
+    // deno-lint-ignore no-explicit-any
+    let responseJSON: ClassChartsResponse<any, any>;
     try {
       responseJSON = await request.json();
     } catch {
@@ -115,8 +116,7 @@ export class BaseClient {
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    // deno-lint-ignore no-explicit-any
-    return responseJSON as unknown as any;
+    return responseJSON;
   }
   /**
    * Gets general information about the current student
