@@ -1,6 +1,6 @@
-import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.ts";
-import { BaseClient } from "./baseClient.ts";
-import { parseCookies } from "../utils/utils.ts";
+import { API_BASE_STUDENT, BASE_URL } from "~/src/utils/consts.ts";
+import { BaseClient } from "~/src/core/baseClient.ts";
+import { parseCookies } from "~/src/utils/utils.ts";
 
 /**
  * Student Client

@@ -13,6 +13,7 @@ await build({
     path: "./src/types.ts",
   }],
   outDir: "./npm",
+  importMap: "./deno.jsonc",
   shims: {
     deno: true,
   },
