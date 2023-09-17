@@ -1,4 +1,4 @@
-import { build, emptyDir } from "https://deno.land/x/dnt@0.38.1/mod.ts";
+import { build, emptyDir } from "~/deps_dev.ts";
 
 if (!Deno.args[0]) throw new Error("No version specified");
 
@@ -23,13 +23,12 @@ await build({
   },
   typeCheck: "both",
   package: {
-    // package.json properties
     name: "classcharts-api",
+    version: String(Deno.args[0]).replace("v", ""),
     author: {
       name: "James Cook",
       email: "james@jaminit.co.uk",
     },
-    version: String(Deno.args[0]).replace("v", ""),
     description:
       "A Typescript wrapper for getting information from the ClassCharts API",
     license: "ISC",
@@ -48,7 +47,6 @@ await build({
     sideEffects: false,
   },
   postBuild() {
-    // steps to run after building and before running the tests
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
     Deno.copyFileSync("README.md", "npm/README.md");
   },
