@@ -45,7 +45,7 @@ export class ParentClient extends BaseClient {
     if (response.status != 302 || !response.headers.has("set-cookie")) {
       await response.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
       throw new Error(
-        "Unauthenticated: ClassCharts didn't return authentication cookies"
+        "Unauthenticated: ClassCharts didn't return authentication cookies",
       );
     }
 
