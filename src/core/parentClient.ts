@@ -26,6 +26,7 @@ export class ParentClient extends BaseClient {
    */
   async login(): Promise<void> {
     if (!this.email) throw new Error("Email not provided");
+    if (!this.password) throw new Error("Password not provided");
     const formData = new URLSearchParams();
     formData.append("_method", "POST");
     formData.append("email", this.email);
@@ -42,11 +43,9 @@ export class ParentClient extends BaseClient {
       redirect: "manual",
     });
     if (response.status != 302 || !response.headers.has("set-cookie")) {
+      await response.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
       throw new Error(
-        "Unauthenticated: ClassCharts returned an error: " +
-          response.status +
-          " " +
-          response.statusText,
+        "Unauthenticated: ClassCharts didn't return authentication cookies"
       );
     }
 
