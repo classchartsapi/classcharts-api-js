@@ -12,7 +12,6 @@ Deno.test("Throws when no email is provided", async () => {
   );
 });
 
-// throws when no password is provided
 Deno.test("Throws when no password is provided", async () => {
   const client = new ParentClient("email", "");
   await assertRejects(
@@ -24,7 +23,7 @@ Deno.test("Throws when no password is provided", async () => {
   );
 });
 
-Deno.test("Throws with invalid login", async () => {
+Deno.test("Throws with invalid username and password", async () => {
   const client = new ParentClient("invalid", "invalid");
   await assertRejects(
     async () => {
