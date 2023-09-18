@@ -1,8 +1,4 @@
-import {
-  assertEquals,
-  assertExists,
-} from "https://deno.land/std@0.200.0/assert/mod.ts";
-
+import { assertEquals, assertExists } from "~/deps_dev.ts";
 import { parseCookies } from "./utils.ts";
 Deno.test("Parses simple cookie", () => {
   const cookie =

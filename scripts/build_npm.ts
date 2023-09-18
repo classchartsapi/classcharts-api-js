@@ -1,3 +1,4 @@
+// This dependancy cannot be moved to dev_deps.ts since dnt complains about a top-level await
 import { build, emptyDir } from "https://deno.land/x/dnt@0.38.1/mod.ts";
 
 if (!Deno.args[0]) throw new Error("No version specified");
@@ -13,6 +14,7 @@ await build({
     path: "./src/types.ts",
   }],
   outDir: "./npm",
+  importMap: "./deno.jsonc",
   shims: {
     deno: true,
   },
@@ -22,13 +24,12 @@ await build({
   },
   typeCheck: "both",
   package: {
-    // package.json properties
     name: "classcharts-api",
+    version: String(Deno.args[0]).replace("v", ""),
     author: {
       name: "James Cook",
       email: "james@jaminit.co.uk",
     },
-    version: Deno.args[0],
     description:
       "A Typescript wrapper for getting information from the ClassCharts API",
     license: "ISC",
@@ -47,7 +48,6 @@ await build({
     sideEffects: false,
   },
   postBuild() {
-    // steps to run after building and before running the tests
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
     Deno.copyFileSync("README.md", "npm/README.md");
   },

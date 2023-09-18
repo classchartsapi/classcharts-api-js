@@ -1,8 +1,8 @@
 import type { GetPupilsResponse } from "../types.ts";
 
-import { BaseClient } from "./baseClient.ts";
-import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
-import { parseCookies } from "../utils/utils.ts";
+import { BaseClient } from "~/src/core/baseClient.ts";
+import { API_BASE_PARENT, BASE_URL } from "~/src/utils/consts.ts";
+import { parseCookies } from "~/src/utils/utils.ts";
 /**
  * Parent Client
  */
@@ -26,6 +26,7 @@ export class ParentClient extends BaseClient {
    */
   async login(): Promise<void> {
     if (!this.email) throw new Error("Email not provided");
+    if (!this.password) throw new Error("Password not provided");
     const formData = new URLSearchParams();
     formData.append("_method", "POST");
     formData.append("email", this.email);
@@ -39,14 +40,12 @@ export class ParentClient extends BaseClient {
       method: "POST",
       body: formData,
       headers: headers,
-      credentials: undefined,
+      redirect: "manual",
     });
     if (response.status != 302 || !response.headers.has("set-cookie")) {
+      await response.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
       throw new Error(
-        "Unauthenticated: ClassCharts returned an error: " +
-          response.status +
-          " " +
-          response.statusText,
+        "Unauthenticated: ClassCharts didn't return authentication cookies",
       );
     }
 
@@ -56,19 +55,20 @@ export class ParentClient extends BaseClient {
     const sessionID = JSON.parse(
       String(sessionCookies["parent_session_credentials"]),
     );
-    super.sessionId = sessionID.session_id;
+    this.sessionId = sessionID.session_id;
     this.pupils = await this.getPupils();
     if (!this.pupils) throw new Error("Account has no pupils attached");
-    super.studentId = this.pupils[0].id;
+    this.studentId = this.pupils[0].id;
   }
   /**
    * Get a list of pupils connected to this parent's account
    * @returns an array of Pupils connected to this parent's account
    */
   async getPupils(): Promise<GetPupilsResponse> {
-    return await super.makeAuthedRequest(super.API_BASE + "/pupils", {
+    const response = await this.makeAuthedRequest(this.API_BASE + "/pupils", {
       method: "GET",
     });
+    return response.data;
   }
   /**
    * Selects a pupil to be used with API requests
@@ -82,7 +82,7 @@ export class ParentClient extends BaseClient {
     for (let i = 0; i < pupils.length; i++) {
       const pupil = pupils[i];
       if (pupil.id == pupilId) {
-        super.studentId = pupil.id;
+        this.studentId = pupil.id;
         return;
       }
     }

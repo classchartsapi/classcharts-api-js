@@ -17,7 +17,7 @@ import type {
   LessonsResponse,
   PupilFieldsResponse,
 } from "../types.ts";
-import { PING_INTERVAL } from "../utils/consts.ts";
+import { PING_INTERVAL } from "~/src/utils/consts.ts";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
@@ -105,7 +105,8 @@ export class BaseClient {
       }
     }
     const request = await fetch(path, requestOptions);
-    let responseJSON: ClassChartsResponse<unknown, unknown>;
+    // deno-lint-ignore no-explicit-any
+    let responseJSON: ClassChartsResponse<any, any>;
     try {
       responseJSON = await request.json();
     } catch {
@@ -116,8 +117,7 @@ export class BaseClient {
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    // deno-lint-ignore no-explicit-any
-    return responseJSON as unknown as any;
+    return responseJSON;
   }
   /**
    * Gets general information about the current student
