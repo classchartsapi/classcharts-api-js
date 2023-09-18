@@ -191,7 +191,7 @@ export interface Homework {
     mark: unknown | null;
     mark_relative: number;
     ticked: "yes" | "no";
-    allow_attachments: "yes" | "no";
+    allow_attachments: boolean;
     first_seen_date: string;
     last_seen_date: string;
     attachments: Array<unknown>;
