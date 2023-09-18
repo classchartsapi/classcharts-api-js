@@ -343,7 +343,7 @@ export class BaseClient {
   async getPupilFields(): Promise<PupilFieldsResponse> {
     return (
       await this.makeAuthedRequest(
-        this.API_BASE + "/apiv2student/customfields" + this.studentId,
+        this.API_BASE + "/apiv2student/customfields/" + this.studentId,
         {
           method: "GET"
         }
