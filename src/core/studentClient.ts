@@ -78,7 +78,7 @@ export class StudentClient extends BaseClient {
    * @param itemId number
    * @returns An object containg balence and id
    */
-  async purchasePurchase(itemId: number): Promise<RewardPurchaseResponse> {
+  async purchaseReward(itemId: number): Promise<RewardPurchaseResponse> {
     return (
       await this.makeAuthedRequest(
         this.API_BASE + "/purchase/" + itemId,
