@@ -1,7 +1,7 @@
 import { API_BASE_STUDENT, BASE_URL } from "~/src/utils/consts.ts";
 import { BaseClient } from "~/src/core/baseClient.ts";
 import { parseCookies } from "~/src/utils/utils.ts";
-import { RewardPurchaseResponse, RewardsResponse } from "~/src/types.ts"
+import { RewardPurchaseResponse, RewardsResponse } from "~/src/types.ts";
 
 /**
  * Student Client
@@ -84,9 +84,9 @@ export class StudentClient extends BaseClient {
         this.API_BASE + "/purchase/" + itemId,
         {
           method: "POST",
-          body: `pupil_id=${this.studentId}`
-        }
+          body: `pupil_id=${this.studentId}`,
+        },
       )
-    )
+    );
   }
 }

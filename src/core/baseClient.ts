@@ -312,9 +312,9 @@ export class BaseClient {
       await this.makeAuthedRequest(
         this.API_BASE + "/customfields/" + this.studentId,
         {
-          method: "GET"
-        }
+          method: "GET",
+        },
       )
-    ) 
+    );
   }
 }

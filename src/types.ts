@@ -336,13 +336,16 @@ export interface Detention {
   };
 }
 
-export type DetentionsData = Array<Detention>
+export type DetentionsData = Array<Detention>;
 
 export interface DetentionsMeta {
-  detention_alias_plural: string
+  detention_alias_plural: string;
 }
 
-export type DetentionsResponse = ClassChartsResponse<DetentionsData, DetentionsMeta>;
+export type DetentionsResponse = ClassChartsResponse<
+  DetentionsData,
+  DetentionsMeta
+>;
 
 export interface Announcement {
   id: number;
@@ -456,7 +459,7 @@ export type RewardsData = {
   purchased: boolean;
   purchased_count: string;
   price_balance_difference: number;
-}[]
+}[];
 
 export interface RewardsMeta {
   pupil_score_balance: number;
@@ -470,7 +473,10 @@ export interface RewardPurchaseData {
   balance: number;
 }
 
-export type RewardPurchaseResponse = ClassChartsResponse<RewardPurchaseData, []>;
+export type RewardPurchaseResponse = ClassChartsResponse<
+  RewardPurchaseData,
+  []
+>;
 
 export interface PupilFieldsData {
   note: string;
@@ -479,7 +485,7 @@ export interface PupilFieldsData {
     name: string;
     graphic: string;
     value: string;
-  }>
+  }>;
 }
 
 export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;
