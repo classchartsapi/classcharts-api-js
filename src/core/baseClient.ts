@@ -327,7 +327,7 @@ export class BaseClient {
   async postRewardPurchase(itemId: number): Promise<RewardPurchaseResponse> {
     return (
       await this.makeAuthedRequest(
-        this.API_BASE + "/purchase" + itemId,
+        this.API_BASE + "/purchase/" + itemId,
         {
           method: "POST",
           body: `pupil_id=${this.studentId}`
