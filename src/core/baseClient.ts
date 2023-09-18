@@ -15,6 +15,7 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
+  PupilFieldsResponse,
 } from "../types.ts";
 import { PING_INTERVAL } from "~/src/utils/consts.ts";
 
@@ -276,7 +277,7 @@ export class BaseClient {
           method: "GET",
         },
       )
-    ).data;
+    );
   }
   /**
    * Gets the current student's attendance
@@ -296,6 +297,20 @@ export class BaseClient {
           this.studentId +
           "?" +
           params.toString(),
+        {
+          method: "GET",
+        },
+      )
+    );
+  }
+  /**
+   * Gets the current student's pupil fields
+   * @returns Array of stats
+   */
+  async getPupilFields(): Promise<PupilFieldsResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/customfields/" + this.studentId,
         {
           method: "GET",
         },

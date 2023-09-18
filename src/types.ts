@@ -335,8 +335,17 @@ export interface Detention {
     name: string;
   };
 }
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type DetentionsResponse = Array<Detention>;
+
+export type DetentionsData = Array<Detention>;
+
+export interface DetentionsMeta {
+  detention_alias_plural: string;
+}
+
+export type DetentionsResponse = ClassChartsResponse<
+  DetentionsData,
+  DetentionsMeta
+>;
 
 export interface Announcement {
   id: number;
@@ -421,8 +430,8 @@ export interface AttendancePeriod {
 }
 
 export interface AttendanceMeta {
-  dates: string[];
-  sessions: string[];
+  dates: Array<string>;
+  sessions: Array<string>;
   start_date: string;
   end_date: string;
   percentage: string;
@@ -435,3 +444,48 @@ export type AttendanceResponse = ClassChartsResponse<
   AttendanceData,
   AttendanceMeta
 >;
+
+export type RewardsData = {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+  price: number;
+  stock_control: boolean;
+  stock: number;
+  can_purchase: boolean;
+  unable_to_purchase_reason: string;
+  once_per_pupil: boolean;
+  purchased: boolean;
+  purchased_count: string;
+  price_balance_difference: number;
+}[];
+
+export interface RewardsMeta {
+  pupil_score_balance: number;
+}
+
+export type RewardsResponse = ClassChartsResponse<RewardsData, RewardsMeta>;
+
+export interface RewardPurchaseData {
+  single_purchase: "yes" | "no";
+  order_id: number;
+  balance: number;
+}
+
+export type RewardPurchaseResponse = ClassChartsResponse<
+  RewardPurchaseData,
+  []
+>;
+
+export interface PupilFieldsData {
+  note: string;
+  fields: Array<{
+    id: number;
+    name: string;
+    graphic: string;
+    value: string;
+  }>;
+}
+
+export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;

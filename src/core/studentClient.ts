@@ -1,6 +1,7 @@
 import { API_BASE_STUDENT, BASE_URL } from "~/src/utils/consts.ts";
 import { BaseClient } from "~/src/core/baseClient.ts";
 import { parseCookies } from "~/src/utils/utils.ts";
+import { RewardPurchaseResponse, RewardsResponse } from "~/src/types.ts";
 
 /**
  * Student Client
@@ -57,5 +58,35 @@ export class StudentClient extends BaseClient {
     await this.getNewSessionId();
     const user = await this.getStudentInfo();
     this.studentId = user.data.user.id;
+  }
+  /**
+   * Gets the current student's rewards shop
+   * @returns Array of purchasable items
+   */
+  async getRewards(): Promise<RewardsResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/rewards/" + this.studentId,
+        {
+          method: "GET",
+        },
+      )
+    );
+  }
+  /**
+   * Purchase a reward item from the current student's rewards shop
+   * @param itemId number
+   * @returns An object containg balence and id
+   */
+  async purchaseReward(itemId: number): Promise<RewardPurchaseResponse> {
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/purchase/" + itemId,
+        {
+          method: "POST",
+          body: `pupil_id=${this.studentId}`,
+        },
+      )
+    );
   }
 }
