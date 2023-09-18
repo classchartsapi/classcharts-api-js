@@ -59,8 +59,9 @@ export class StudentClient extends BaseClient {
     const user = await this.getStudentInfo();
     this.studentId = user.data.user.id;
   }
+
   /**
-   * Gets the current student's rewards shop
+   * Gets the available items in the current student's rewards shop
    * @returns Array of purchasable items
    */
   async getRewards(): Promise<RewardsResponse> {
@@ -73,10 +74,11 @@ export class StudentClient extends BaseClient {
       )
     );
   }
+
   /**
    * Purchase a reward item from the current student's rewards shop
    * @param itemId number
-   * @returns An object containg balence and id
+   * @returns An object containing the current student's balance and item ID purchased
    */
   async purchaseReward(itemId: number): Promise<RewardPurchaseResponse> {
     return (

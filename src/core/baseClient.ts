@@ -126,11 +126,10 @@ export class BaseClient {
   async getStudentInfo(): Promise<GetStudentInfoResponse> {
     const body = new URLSearchParams();
     body.append("include_data", "true");
-    const data = await this.makeAuthedRequest(this.API_BASE + "/ping", {
+    return await this.makeAuthedRequest(this.API_BASE + "/ping", {
       method: "POST",
       body: body,
     });
-    return data;
   }
   /**
    * Gets the current student's activity
@@ -215,13 +214,12 @@ export class BaseClient {
 
     options?.from && params.append("from", String(options?.from));
     options?.to && params.append("to", String(options?.to));
-    const data: HomeworksResponse = await this.makeAuthedRequest(
+    return await this.makeAuthedRequest(
       this.API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
       },
     );
-    return data;
   }
   /**
    * Gets the current student's lessons for a given date
@@ -256,13 +254,11 @@ export class BaseClient {
    * @returns Array of announcements
    */
   async getAnnouncements(): Promise<AnnouncementsResponse> {
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE + "/announcements/" + this.studentId,
-        {
-          method: "GET",
-        },
-      )
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/announcements/" + this.studentId,
+      {
+        method: "GET",
+      },
     );
   }
   /**
@@ -270,13 +266,11 @@ export class BaseClient {
    * @returns Array of detentions
    */
   async getDetentions(): Promise<DetentionsResponse> {
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE + "/detentions/" + this.studentId,
-        {
-          method: "GET",
-        },
-      )
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/detentions/" + this.studentId,
+      {
+        method: "GET",
+      },
     );
   }
   /**
@@ -290,17 +284,15 @@ export class BaseClient {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE +
-          "/attendance/" +
-          this.studentId +
-          "?" +
-          params.toString(),
-        {
-          method: "GET",
-        },
-      )
+    return await this.makeAuthedRequest(
+      this.API_BASE +
+        "/attendance/" +
+        this.studentId +
+        "?" +
+        params.toString(),
+      {
+        method: "GET",
+      },
     );
   }
   /**
@@ -308,13 +300,11 @@ export class BaseClient {
    * @returns Array of stats
    */
   async getPupilFields(): Promise<PupilFieldsResponse> {
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE + "/customfields/" + this.studentId,
-        {
-          method: "GET",
-        },
-      )
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/customfields/" + this.studentId,
+      {
+        method: "GET",
+      },
     );
   }
 }
