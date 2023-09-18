@@ -467,7 +467,7 @@ export type RewardsResponse = ClassChartsResponse<RewardsData, RewardsMeta>;
 export interface RewardPurchaseData {
   single_purchase: "yes" | "no";
   order_id: number;
-  balence: number;
+  balance: number;
 }
 
 export type RewardPurchaseResponse = ClassChartsResponse<RewardPurchaseData, []>;
