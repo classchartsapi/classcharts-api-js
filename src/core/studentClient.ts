@@ -74,7 +74,7 @@ export class StudentClient extends BaseClient {
     );
   }
   /**
-   * Purchase a reward item from the current student's  rewards shop
+   * Purchase a reward item from the current student's rewards shop
    * @param itemId number
    * @returns An object containg balence and id
    */
