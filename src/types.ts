@@ -321,7 +321,7 @@ export interface Detention {
       id: number;
       name: string;
     };
-  };
+  } | null;
   lesson_pupil_behaviour: {
     reason: string;
   };
@@ -330,7 +330,7 @@ export interface Detention {
     first_name: string;
     last_name: string;
     title: string;
-  };
+  } | null;
   detention_type: {
     name: string;
   };
