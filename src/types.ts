@@ -424,7 +424,7 @@ export interface GetAttendanceOptions {
 export interface AttendancePeriod {
   code: string;
   status: "present" | "ignore";
-  late_minutes: number;
+  late_minutes: number | string;
   lesson_name?: string;
   room_name?: string;
 }
@@ -435,7 +435,7 @@ export interface AttendanceMeta {
   start_date: string;
   end_date: string;
   percentage: string;
-  percentage_since_august: string;
+  percentage_singe_august: string;
 }
 
 export type AttendanceData = Record<string, Record<string, AttendancePeriod>>;
