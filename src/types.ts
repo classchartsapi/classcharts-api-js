@@ -31,7 +31,7 @@ export interface Student {
   is_disabled: boolean;
   display_two_way_communications: boolean;
   display_absences: boolean;
-  can_upload_attachments: string | null;
+  can_upload_attachments: boolean;
   display_event_badges: boolean;
   display_avatars: boolean;
   display_concern_submission: boolean;
@@ -123,7 +123,7 @@ export interface ActivityPoint {
     custom_class: string | null;
   };
   pupil_name: string;
-  lesson_name: string;
+  lesson_name: string | null;
   teacher_name: string;
   room_name: string | null;
   note: string;
