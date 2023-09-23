@@ -126,7 +126,7 @@ export interface ActivityPoint {
   lesson_name: string | null;
   teacher_name: string;
   room_name: string | null;
-  note: string;
+  note: string | null;
   _can_delete: boolean;
   badges: string | undefined;
   detention_date: string | null;
