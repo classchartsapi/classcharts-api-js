@@ -138,7 +138,7 @@ export type ActivityResponseData = Array<ActivityPoint>;
 interface ActivityResponseMeta {
   start_date: string;
   end_date: string;
-  last_id: number;
+  last_id: number | boolean;
   step_size: string;
   detention_alias_uc: string;
 }
