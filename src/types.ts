@@ -31,7 +31,7 @@ export interface Student {
   is_disabled: boolean;
   display_two_way_communications: boolean;
   display_absences: boolean;
-  can_upload_attachments: string | null;
+  can_upload_attachments: boolean | null;
   display_event_badges: boolean;
   display_avatars: boolean;
   display_concern_submission: boolean;
@@ -123,10 +123,10 @@ export interface ActivityPoint {
     custom_class: string | null;
   };
   pupil_name: string;
-  lesson_name: string;
+  lesson_name: string | null;
   teacher_name: string;
   room_name: string | null;
-  note: string;
+  note: string | null;
   _can_delete: boolean;
   badges: string | undefined;
   detention_date: string | null;
@@ -138,7 +138,7 @@ export type ActivityResponseData = Array<ActivityPoint>;
 interface ActivityResponseMeta {
   start_date: string;
   end_date: string;
-  last_id: boolean;
+  last_id: number | boolean;
   step_size: string;
   detention_alias_uc: string;
 }
@@ -192,8 +192,8 @@ export interface Homework {
     mark_relative: number;
     ticked: "yes" | "no";
     allow_attachments: boolean;
-    first_seen_date: string;
-    last_seen_date: string;
+    first_seen_date: string | null;
+    last_seen_date: string | null;
     attachments: Array<unknown>;
     has_feedback: boolean;
   };
@@ -321,7 +321,7 @@ export interface Detention {
       id: number;
       name: string;
     };
-  };
+  } | null;
   lesson_pupil_behaviour: {
     reason: string;
   };
@@ -330,7 +330,7 @@ export interface Detention {
     first_name: string;
     last_name: string;
     title: string;
-  };
+  } | null;
   detention_type: {
     name: string;
   };
@@ -424,7 +424,7 @@ export interface GetAttendanceOptions {
 export interface AttendancePeriod {
   code: string;
   status: "present" | "ignore";
-  late_minutes: number;
+  late_minutes: number | string;
   lesson_name?: string;
   room_name?: string;
 }
@@ -435,7 +435,7 @@ export interface AttendanceMeta {
   start_date: string;
   end_date: string;
   percentage: string;
-  percentage_since_august: string;
+  percentage_singe_august: string;
 }
 
 export type AttendanceData = Record<string, Record<string, AttendancePeriod>>;
@@ -457,7 +457,7 @@ export type RewardsData = {
   unable_to_purchase_reason: string;
   once_per_pupil: boolean;
   purchased: boolean;
-  purchased_count: string;
+  purchased_count: string | number;
   price_balance_difference: number;
 }[];
 
