@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * Helper type to define response from ClassCharts
- * @internal
  */
 export type ClassChartsResponse<Data, Meta> = {
   data: Data;
@@ -157,7 +154,6 @@ export interface GetHomeworkOptions {
    *
    * Used to sort homeworks by when they are due or when they were issued
    * @default "issue_date"
-   *
    */
   displayDate?: DisplayDate;
   /**
@@ -184,7 +180,6 @@ export interface Homework {
   title: string;
   meta_title: string;
   description: string;
-  description_raw: string;
   issue_date: string;
   due_date: string;
   completion_time_unit: string;
@@ -193,16 +188,16 @@ export interface Homework {
   status: {
     id: number;
     state: "not_completed" | "late" | "completed" | null;
-    mark: any | null;
+    mark: unknown | null;
     mark_relative: number;
     ticked: "yes" | "no";
-    allow_attachments: "yes" | "no";
+    allow_attachments: boolean;
     first_seen_date: string;
     last_seen_date: string;
-    attachments: Array<any>;
+    attachments: Array<unknown>;
     has_feedback: boolean;
   };
-  validated_links: Array<any>;
+  validated_links: Array<unknown>;
   validated_attachments: Array<ValidatedHomeworkAttachment>;
 }
 export type HomeworksResponseData = Array<Homework>;
@@ -340,8 +335,17 @@ export interface Detention {
     name: string;
   };
 }
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type DetentionsResponse = Array<Detention>;
+
+export type DetentionsData = Array<Detention>;
+
+export interface DetentionsMeta {
+  detention_alias_plural: string;
+}
+
+export type DetentionsResponse = ClassChartsResponse<
+  DetentionsData,
+  DetentionsMeta
+>;
 
 export interface Announcement {
   id: number;
@@ -357,7 +361,7 @@ export interface Announcement {
     filename: string;
     url: string;
   }>;
-  for_pupils: Array<any>;
+  for_pupils: Array<unknown>;
   comment_visibility: string;
   allow_comments: "yes" | "no";
   allow_reactions: "yes" | "no";
@@ -365,12 +369,14 @@ export interface Announcement {
   priority_pinned: "yes" | "no";
   requires_consent: "yes" | "no";
   can_change_consent: boolean;
-  consent: string | null;
-  pupil_consents: Array<any>;
+  consent: unknown | null;
+  pupil_consents: Array<unknown>;
 }
 
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type AnnouncementsResponse = Array<Announcement>;
+export type AnnouncementsResponse = ClassChartsResponse<
+  Array<Announcement>,
+  []
+>;
 
 export interface Pupil extends Student {
   school_name: string;
@@ -415,34 +421,71 @@ export interface GetAttendanceOptions {
   to: string;
 }
 
-export interface AttendanceDate {
-  AM: {
-    code: string;
-    status: "present" | "ignore";
-    late_minutes: number;
-  };
-  PM: {
-    code: string;
-    status: "present" | "ignore";
-    late_minutes: number;
-  };
-}
-// TODO: Update typings to include meta response. Currently not possible since I don't have access
-export type AttendanceResponse = Record<string, AttendanceDate>[];
-
-export interface GetCodeOptions {
-  /**
-   * Date of birth, in format YYYY-MM-DD
-   */
-  dateOfBirth: string;
-}
-
-export interface GetCodeResponseData {
+export interface AttendancePeriod {
   code: string;
+  status: "present" | "ignore";
+  late_minutes: number;
+  lesson_name?: string;
+  room_name?: string;
 }
 
-export type GetCodeResponseMeta = [];
-export type GetCodeResponse = ClassChartsResponse<
-  GetCodeResponseData,
-  GetCodeResponseMeta
+export interface AttendanceMeta {
+  dates: Array<string>;
+  sessions: Array<string>;
+  start_date: string;
+  end_date: string;
+  percentage: string;
+  percentage_since_august: string;
+}
+
+export type AttendanceData = Record<string, Record<string, AttendancePeriod>>;
+
+export type AttendanceResponse = ClassChartsResponse<
+  AttendanceData,
+  AttendanceMeta
 >;
+
+export type RewardsData = {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+  price: number;
+  stock_control: boolean;
+  stock: number;
+  can_purchase: boolean;
+  unable_to_purchase_reason: string;
+  once_per_pupil: boolean;
+  purchased: boolean;
+  purchased_count: string;
+  price_balance_difference: number;
+}[];
+
+export interface RewardsMeta {
+  pupil_score_balance: number;
+}
+
+export type RewardsResponse = ClassChartsResponse<RewardsData, RewardsMeta>;
+
+export interface RewardPurchaseData {
+  single_purchase: "yes" | "no";
+  order_id: number;
+  balance: number;
+}
+
+export type RewardPurchaseResponse = ClassChartsResponse<
+  RewardPurchaseData,
+  []
+>;
+
+export interface PupilFieldsData {
+  note: string;
+  fields: Array<{
+    id: number;
+    name: string;
+    graphic: string;
+    value: string;
+  }>;
+}
+
+export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;

@@ -1,5 +1,0 @@
-dist/
-docs/
-node_modules/
-.eslintrc.cjs
-tsconfig.json

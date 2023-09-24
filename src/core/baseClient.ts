@@ -17,12 +17,12 @@ import type {
   GetStudentInfoResponse,
   HomeworksResponse,
   LessonsResponse,
-} from "../types.js";
-import { PING_INTERVAL } from "../utils/consts.js";
+  PupilFieldsResponse,
+} from "../types.ts";
+import { PING_INTERVAL } from "../utils/consts.ts";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
- * @internal
  */
 export class BaseClient {
   /**
@@ -30,7 +30,6 @@ export class BaseClient {
    */
   public studentId = 0;
   /**
-   * @internal
    * @property authCookies Cookies used for authentication (set during login and can be empty)
    */
   public authCookies: Array<string>;
@@ -44,11 +43,9 @@ export class BaseClient {
   public lastPing = 0;
   /**
    * @property API_BASE Base API URL, this is different depending on if its called as a parent or student
-   * @internal
    */
   protected API_BASE = "";
   /**
-   *
    * @param API_BASE Base API URL, this is different depending on if its called as a parent or student
    */
   constructor(API_BASE: string) {
@@ -59,7 +56,6 @@ export class BaseClient {
    * Revalidates the session ID.
    *
    * This is called automatically when the session ID is older than 3 minutes or when initially using the .login() method
-   * @internal
    */
   public async getNewSessionId() {
     const pingFormData = new URLSearchParams();
@@ -70,7 +66,7 @@ export class BaseClient {
         method: "POST",
         body: pingFormData,
       },
-      { revalidateToken: false }
+      { revalidateToken: false },
     );
     this.sessionId = pingData.meta.session_id;
     this.lastPing = Date.now();
@@ -79,17 +75,16 @@ export class BaseClient {
    * Makes a request to the ClassCharts API with the required authentication headers
    *
    * @param path Path to the API endpoint
-   * @param kyOptions Ky (fetch library) request options
+   * @param fetchOptions Request Options
    * @param options
    * @param options.revalidateToken Whether to revalidate the session ID if it is older than 3 minutes
    *
    * @returns Response
-   * @internal
    */
   public async makeAuthedRequest(
     path: string,
     fetchOptions: RequestInit,
-    options?: { revalidateToken?: boolean }
+    options?: { revalidateToken?: boolean },
   ) {
     if (!this.sessionId) throw new Error("No session ID");
     if (!options) {
@@ -112,19 +107,19 @@ export class BaseClient {
       }
     }
     const request = await fetch(path, requestOptions);
-    let responseJSON: ClassChartsResponse<unknown, unknown>;
+    // deno-lint-ignore no-explicit-any
+    let responseJSON: ClassChartsResponse<any, any>;
     try {
       responseJSON = await request.json();
-    } catch (err) {
+    } catch {
       throw new Error(
-        "Error parsing JSON. Returned response: " + (await request.text())
+        "Error parsing JSON. Returned response: " + (await request.text()),
       );
     }
     if (responseJSON.success == 0) {
       throw new Error(responseJSON.error);
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return responseJSON as any;
+    return responseJSON;
   }
   /**
    * Gets general information about the current student
@@ -133,11 +128,10 @@ export class BaseClient {
   async getStudentInfo(): Promise<GetStudentInfoResponse> {
     const body = new URLSearchParams();
     body.append("include_data", "true");
-    const data = await this.makeAuthedRequest(this.API_BASE + "/ping", {
+    return await this.makeAuthedRequest(this.API_BASE + "/ping", {
       method: "POST",
       body: body,
     });
-    return data;
   }
   /**
    * Gets the current student's activity
@@ -152,11 +146,11 @@ export class BaseClient {
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
     options?.last_id && params.append("last_id", options?.last_id);
-    return this.makeAuthedRequest(
+    return await this.makeAuthedRequest(
       this.API_BASE + "/activity/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -168,7 +162,7 @@ export class BaseClient {
    * @see getActivity
    */
   async getFullActivity(
-    options: GetFullActivityOptions
+    options: GetFullActivityOptions,
   ): Promise<ActivityResponse["data"]> {
     let data: ActivityResponse["data"] = [];
     let prevLast: number | undefined;
@@ -197,7 +191,7 @@ export class BaseClient {
    * @returns Array of behaviour points
    */
   async getBehaviour(
-    options?: GetBehaviourOptions
+    options?: GetBehaviourOptions,
   ): Promise<BehaviourResponse> {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
@@ -206,7 +200,7 @@ export class BaseClient {
       this.API_BASE + "/behaviour/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -216,32 +210,18 @@ export class BaseClient {
    */
   async getHomeworks(options?: GetHomeworkOptions): Promise<HomeworksResponse> {
     const params = new URLSearchParams();
-    if (options?.displayDate)
+    if (options?.displayDate) {
       params.append("display_date", String(options?.displayDate));
+    }
 
     options?.from && params.append("from", String(options?.from));
     options?.to && params.append("to", String(options?.to));
-    const data: HomeworksResponse = await this.makeAuthedRequest(
+    return await this.makeAuthedRequest(
       this.API_BASE + "/homeworks/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
-
-    for (let i = 0; i < data.data.length; i++) {
-      data.data[i].description_raw = data.data[i].description;
-      // homework.lesson.replace(/\\/g, '')
-      data.data[i].description = data.data[i].description.replace(
-        /(<([^>]+)>)/gi,
-        ""
-      );
-      data.data[i].description = data.data[i].description.replace(
-        /&nbsp;/g,
-        ""
-      );
-      data.data[i].description = data.data[i].description.trim();
-    }
-    return data;
   }
   /**
    * Gets the current student's lessons for a given date
@@ -256,7 +236,7 @@ export class BaseClient {
       this.API_BASE + "/timetable/" + this.studentId + "?" + params.toString(),
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -268,7 +248,7 @@ export class BaseClient {
       this.API_BASE + "/eventbadges/" + this.studentId,
       {
         method: "GET",
-      }
+      },
     );
   }
   /**
@@ -276,28 +256,24 @@ export class BaseClient {
    * @returns Array of announcements
    */
   async getAnnouncements(): Promise<AnnouncementsResponse> {
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE + "/announcements/" + this.studentId,
-        {
-          method: "GET",
-        }
-      )
-    ).data;
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/announcements/" + this.studentId,
+      {
+        method: "GET",
+      },
+    );
   }
   /**
    * Gets the current student's detentions
    * @returns Array of detentions
    */
   async getDetentions(): Promise<DetentionsResponse> {
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE + "/detentions/" + this.studentId,
-        {
-          method: "GET",
-        }
-      )
-    ).data;
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/detentions/" + this.studentId,
+      {
+        method: "GET",
+      },
+    );
   }
   /**
    * Gets the current student's attendance
@@ -305,23 +281,33 @@ export class BaseClient {
    * @returns Array of dates of attendance
    */
   async getAttendance(
-    options?: GetAttendanceOptions
+    options?: GetAttendanceOptions,
   ): Promise<AttendanceResponse> {
     const params = new URLSearchParams();
     options?.from && params.append("from", options?.from);
     options?.to && params.append("to", options?.to);
-    return (
-      await this.makeAuthedRequest(
-        this.API_BASE +
-          "/attendance/" +
-          this.studentId +
-          "?" +
-          params.toString(),
-        {
-          method: "GET",
-        }
-      )
-    ).data;
+    return await this.makeAuthedRequest(
+      this.API_BASE +
+        "/attendance/" +
+        this.studentId +
+        "?" +
+        params.toString(),
+      {
+        method: "GET",
+      },
+    );
+  }
+  /**
+   * Gets the current student's pupil fields
+   * @returns Array of stats
+   */
+  async getPupilFields(): Promise<PupilFieldsResponse> {
+    return await this.makeAuthedRequest(
+      this.API_BASE + "/customfields/" + this.studentId,
+      {
+        method: "GET",
+      },
+    );
   }
   /**
    * Gets the current student's code

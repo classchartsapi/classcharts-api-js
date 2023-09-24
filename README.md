@@ -1,7 +1,7 @@
 <p align="center">
 	<h1 align="center">ClassCharts API JS</h1>
 	<p align="center">
-	A typescript wrapper for getting information from the Classcharts API
+	A Node.js and Deno wrapper for getting information from the Classcharts API.
 	</p>
 </p>
 <p align="center">
@@ -10,27 +10,43 @@
 	<a href="https://github.com/classchartsapi/classcharts-api-js/issues">Issues</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://www.npmjs.com/package/classcharts-api">NPM</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+	<a href="https://deno.land/x/classcharts_api">Deno</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://discord.gg/DTcwugcgZ2">Discord</a>
-	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-	<a href="https://classchartsapi.github.io/classcharts-api-js/typedoc/">TypeDoc</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+	<a href="https://classchartsapi.github.io/classcharts-api-js">Library Docs</a>
 	<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
 	<a href="https://classchartsapi.github.io/api-docs/">API Docs</a>
 </p>
 
 # Introduction
 
-The ClassCharts API is a typescript wrapper around the ClassCharts API. It allows you to easily make requests to the ClassCharts API without having to worry about the underlying implementation of making requests.
+The ClassCharts API is a typescript wrapper around the ClassCharts API. It
+allows you to easily make requests to the ClassCharts API without having to
+worry about the underlying implementation of making requests.
 
 ## Help
 
-For any help with the library, please join the [discord](https://discord.gg/DTcwugcgZ2) where you can ask questions and get help from the community.
+For any help with the library, please join the
+[discord](https://discord.gg/DTcwugcgZ2) where you can ask questions and get
+help from the community.
+
+# Contributing
+
+Contributions are welcome! There are lots of API endpoints which we simply do
+not have access to to implement, so if you have access to them, please consider
+contributing! If you have any questions, feel free to ask in the
+[discord](https://discord.gg/DTcwugcgZ2).
 
 # Installation
 
 ## Requirements
 
 - Node.js 18 or newer
+  \
+  OR
+- Deno
 
 ## NPM
 
@@ -38,17 +54,22 @@ For any help with the library, please join the [discord](https://discord.gg/DTcw
 npm install classcharts-api # npm
 ```
 
-```bash
-yarn add classcharts-api # yarn
-```
+## Deno
 
-```bash
-pnpm add classcharts-api # pnpm
+The imports in the examples are for Node.js, but can easily be substituted for
+Deno.
+
+```typescript
+import {
+  ParentClient,
+  StudentClient,
+} from "https://deno.land/x/classcharts_api/mod.ts";
 ```
 
 # Logging In
 
-Before making any requests, you must login to the client. This will get you a session ID which will be used for all requests.
+Before making any requests, you must login to the client. This will get you a
+session ID which will be used for all requests.
 
 ## Student Client
 
@@ -62,6 +83,9 @@ await client.login();
 
 ## Parent Client
 
+?> The parent client is not tested, as I do not have access to a parent account.
+If you experience any issues, please open an issue or PR.
+
 ```typescript
 import { ParentClient } from "classcharts-api";
 
@@ -71,7 +95,8 @@ await client.login();
 
 # Universal Methods
 
-All the following methods can be used on both the student and parent client. Each example expects the client to be already logged in.
+All the following methods can be used on both the student and parent client.
+Each example expects the client to be already logged in.
 
 ## `.getStudentInfo`
 
@@ -176,7 +201,6 @@ console.log(homeworks);
 		...
   }
 }
-
 ```
 
 ## `.getLessons`
@@ -236,18 +260,33 @@ console.log(badges);
 
 ## `.getAnnouncements`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
-
 Gets all announcements.
 
 ```typescript
 const announcements = await client.getAnnouncements();
 console.log(announcements);
+
+/**
+ {
+  success: 1,
+  data: [
+    {
+      id: 321453,
+      title: "A big announcement",
+      description: "<p>School will be closing early today!</p>",
+      ...
+    }
+  ],
+  meta: []
+}
+*/
 ```
 
 ## `.getDetentions`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+?> This method does not include `meta` in the response, since I do not have
+access to this endpoint to test it. If you have access to this endpoint, please
+open a PR to add the `meta` response. Thanks!
 
 Gets all detentions.
 
@@ -258,7 +297,9 @@ console.log(detentions);
 
 ## `.getAttendance`
 
-?> This method does not include `meta` in the response, since I do not have access to this endpoint to test it. If you have access to this endpoint, please open a PR to add the `meta` response. Thanks!
+?> This method does not include `meta` in the response, since I do not have
+access to this endpoint to test it. If you have access to this endpoint, please
+open a PR to add the `meta` response. Thanks!
 
 Gets attendance.
 
