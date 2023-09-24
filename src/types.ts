@@ -457,7 +457,7 @@ export type RewardsData = {
   unable_to_purchase_reason: string;
   once_per_pupil: boolean;
   purchased: boolean;
-  purchased_count: string;
+  purchased_count: string | number;
   price_balance_difference: number;
 }[];
 
