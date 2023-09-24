@@ -489,3 +489,20 @@ export interface PupilFieldsData {
 }
 
 export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;
+
+export interface GetStudentCodeOptions {
+  /**
+   * Date of birth, in format YYYY-MM-DD
+   */
+  dateOfBirth: string;
+}
+
+export interface GetStudentCodeResponseData {
+  code: string;
+}
+
+export type GetStudentCodeResponseMeta = [];
+export type GetStudentCodeResponse = ClassChartsResponse<
+  GetStudentCodeResponseData,
+  GetStudentCodeResponseMeta
+>;
