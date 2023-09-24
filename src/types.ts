@@ -31,7 +31,7 @@ export interface Student {
   is_disabled: boolean;
   display_two_way_communications: boolean;
   display_absences: boolean;
-  can_upload_attachments: boolean;
+  can_upload_attachments: boolean | null;
   display_event_badges: boolean;
   display_avatars: boolean;
   display_concern_submission: boolean;
