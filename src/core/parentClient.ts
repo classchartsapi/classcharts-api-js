@@ -1,8 +1,8 @@
 import type { GetPupilsResponse } from "../types.ts";
 
-import { BaseClient } from "~/src/core/baseClient.ts";
-import { API_BASE_PARENT, BASE_URL } from "~/src/utils/consts.ts";
-import { parseCookies } from "~/src/utils/utils.ts";
+import { BaseClient } from "../core/baseClient.ts";
+import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
+import { parseCookies } from "../utils/utils.ts";
 /**
  * Parent Client
  */

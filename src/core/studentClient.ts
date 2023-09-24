@@ -1,7 +1,7 @@
-import { API_BASE_STUDENT, BASE_URL } from "~/src/utils/consts.ts";
-import { BaseClient } from "~/src/core/baseClient.ts";
-import { parseCookies } from "~/src/utils/utils.ts";
-import { RewardPurchaseResponse, RewardsResponse } from "~/src/types.ts";
+import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.ts";
+import { BaseClient } from "../core/baseClient.ts";
+import { parseCookies } from "../utils/utils.ts";
+import { RewardPurchaseResponse, RewardsResponse } from "../types.ts";
 
 /**
  * Student Client
