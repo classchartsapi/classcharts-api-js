@@ -2,8 +2,5 @@
   "tasks": {
     "npm": "deno run -A scripts/build_npm.ts"
   },
-  "exclude": ["npm"],
-  "imports": {
-    "~/": "./"
-  }
+  "exclude": ["npm"]
 }
