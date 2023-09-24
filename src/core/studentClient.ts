@@ -1,7 +1,12 @@
 import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.ts";
 import { BaseClient } from "../core/baseClient.ts";
 import { parseCookies } from "../utils/utils.ts";
-import { RewardPurchaseResponse, RewardsResponse } from "../types.ts";
+import {
+  GetStudentCodeOptions,
+  GetStudentCodeResponse,
+  RewardPurchaseResponse,
+  RewardsResponse,
+} from "../types.ts";
 
 /**
  * Student Client
@@ -90,5 +95,23 @@ export class StudentClient extends BaseClient {
         },
       )
     );
+  }
+
+  /**
+   * Gets the current student's student code
+   * @param options GetStudentCodeOptions
+   * @param options.dateOfBirth Date of birth in the format YYYY-MM-DD
+   * @returns
+   */
+  async getStudentCode(
+    options: GetStudentCodeOptions,
+  ): Promise<GetStudentCodeResponse> {
+    const data = await this.makeAuthedRequest(this.API_BASE + "/getcode", {
+      method: "POST",
+      body: JSON.stringify({
+        date: options.dateOfBirth,
+      }),
+    });
+    return data;
   }
 }
