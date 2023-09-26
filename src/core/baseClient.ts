@@ -96,6 +96,8 @@ export class BaseClient {
       headers: {
         Cookie: this?.authCookies?.join(";") ?? [],
         Authorization: "Basic " + this.sessionId,
+        "User-Agent":
+          "classcharts-api https://github.com/classchartsapi/classcharts-api-js",
         ...fetchOptions.headers,
       },
     } satisfies RequestInit;
