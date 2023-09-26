@@ -1,0 +1,41 @@
+name: test
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-deno:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno: ["1.x"]
+    name: Test Deno on Version ${{ matrix.deno }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }}
+      - name: Run tests in Deno
+        run: deno test -A
+  test-node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno: ["1.x"]
+        node: ["18", "20"]
+    name: Test Node on Version ${{ matrix.node }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Build and test node
+        run: deno task npm 0.0.0
