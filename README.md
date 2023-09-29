@@ -51,7 +51,7 @@ contributing! If you have any questions, feel free to ask in the
 ## NPM
 
 ```bash
-npm install classcharts-api # npm
+npm install classcharts-api
 ```
 
 ## Deno
@@ -77,7 +77,7 @@ session ID which will be used for all requests.
 import { StudentClient } from "classcharts-api";
 
 // Date of birth MUST in the format DD/MM/YYYY
-const client = new StudentClient("classchartsCode", "01/1/2000");
+const client = new StudentClient("classchartsCode", "01/01/2000");
 await client.login();
 ```
 
