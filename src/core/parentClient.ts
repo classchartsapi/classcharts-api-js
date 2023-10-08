@@ -89,7 +89,7 @@ export class ParentClient extends BaseClient {
     throw new Error("No pupil with specified ID returned");
   }
     /**
-   * Changes the login password for this parent's account
+   * Changes the login password for the current parent account
    * @param current Current password
    * @param new New password
    * @returns Whether the request was successful
