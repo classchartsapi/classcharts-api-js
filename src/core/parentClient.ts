@@ -91,7 +91,7 @@ export class ParentClient extends BaseClient {
     /**
    * Changes the login password for the current parent account
    * @param current Current password
-   * @param new New password
+   * @param newPassword New password
    * @returns Whether the request was successful
    */
     async changePassword(currentPassword: string, newPassword: string): Promise<ChangePasswordResponse> {
