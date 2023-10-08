@@ -88,28 +88,31 @@ export class ParentClient extends BaseClient {
     }
     throw new Error("No pupil with specified ID returned");
   }
-    /**
+  /**
    * Changes the login password for the current parent account
    * @param currentPassword Current password
    * @param newPassword New password
    * @returns Whether the request was successful
    */
-    async changePassword(currentPassword: string, newPassword: string): Promise<ChangePasswordResponse> {
-      const formData = new URLSearchParams();
-      formData.append("current", current);
-      formData.append("new", newPassword);
-      formData.append("repeat", newPassword);
-        "Content-Type": "application/x-www-form-urlencoded",
-      });
-      return (
-        await this.makeAuthedRequest(
-          this.API_BASE + "/password",
-          {
-            method: "POST",
-            body: formData,
-            headers: headers,
+  async changePassword(
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<ChangePasswordResponse> {
+    const formData = new URLSearchParams();
+    formData.append("current", currentPassword);
+    formData.append("new", newPassword);
+    formData.append("repeat", newPassword);
+    return (
+      await this.makeAuthedRequest(
+        this.API_BASE + "/password",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-        )
-      );
-    }
+        },
+      )
+    );
+  }
 }
