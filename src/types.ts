@@ -490,6 +490,8 @@ export interface PupilFieldsData {
 
 export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;
 
+export type ChangePasswordResponse = ClassChartsResponse<[], []>;
+
 export interface GetStudentCodeOptions {
   /**
    * Date of birth, in format YYYY-MM-DD

@@ -336,3 +336,11 @@ Selects a pupil to make subsequent requests for.
 ```typescript
 await client.selectPupil(123);
 ```
+
+## `.changePassword`
+
+Changes the parent's password.
+
+```typescript
+await client.changePassword("oldPassword", "newPassword");
+```
