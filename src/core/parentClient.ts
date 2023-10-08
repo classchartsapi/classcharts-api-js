@@ -1,4 +1,4 @@
-import type { GetPupilsResponse } from "../types.ts";
+import type { ChangePasswordResponse, GetPupilsResponse } from "../types.ts";
 
 import { BaseClient } from "../core/baseClient.ts";
 import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
@@ -88,4 +88,29 @@ export class ParentClient extends BaseClient {
     }
     throw new Error("No pupil with specified ID returned");
   }
+    /**
+   * Changes the login password for this parent's account
+   * @param current Current password
+   * @param new New password
+   * @returns whether it was successful or not
+   */
+    async changePassword(this: ParentClient, current: string, newPassword: string): Promise<ChangePasswordResponse>{
+      const formData = new URLSearchParams();
+      formData.append("current", current);
+      formData.append("new", newPassword);
+      formData.append("repeat", newPassword);
+      const headers = new Headers({
+        "Content-Type": "application/x-www-form-urlencoded",
+      });
+      return (
+        await this.makeAuthedRequest(
+          this.API_BASE + "/password",
+          {
+            method: "POST",
+            body: formData,
+            headers: headers,
+          },
+        )
+      );
+    }
 }
