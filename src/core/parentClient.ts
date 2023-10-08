@@ -99,7 +99,6 @@ export class ParentClient extends BaseClient {
       formData.append("current", current);
       formData.append("new", newPassword);
       formData.append("repeat", newPassword);
-      const headers = new Headers({
         "Content-Type": "application/x-www-form-urlencoded",
       });
       return (
