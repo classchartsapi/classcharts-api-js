@@ -10,23 +10,20 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        deno: ["1.x"]
-        node: ["18"]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
       - uses: denoland/setup-deno@v1
         with:
-          deno-version: ${{ matrix.deno }}
+          deno-version: "1.x"
       - name: Get tag version
         if: startsWith(github.ref, 'refs/tags/')
         id: get_tag_version
         run: echo TAG_VERSION=${GITHUB_REF/refs\/tags\//} >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: "18"
+          registry-url: 'https://registry.npmjs.org'
       - uses: pnpm/action-setup@v2
         with:
           version: latest
@@ -36,4 +33,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd npm && npm publish
+        run: cd npm && npm publish --provenance
