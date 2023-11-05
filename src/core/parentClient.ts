@@ -3,6 +3,8 @@ import type { ChangePasswordResponse, GetPupilsResponse } from "../types.ts";
 import { BaseClient } from "../core/baseClient.ts";
 import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
 import { parseCookies } from "../utils/utils.ts";
+import  fetch  from "node-fetch";
+
 /**
  * Parent Client
  */
