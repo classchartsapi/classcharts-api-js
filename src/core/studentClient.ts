@@ -7,6 +7,7 @@ import {
   RewardPurchaseResponse,
   RewardsResponse,
 } from "../types.ts";
+import  fetch  from "node-fetch";
 
 /**
  * Student Client
