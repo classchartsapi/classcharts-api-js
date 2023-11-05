@@ -18,6 +18,7 @@ import type {
   PupilFieldsResponse,
 } from "../types.ts";
 import { PING_INTERVAL } from "../utils/consts.ts";
+import  fetch  from "node-fetch";
 
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
