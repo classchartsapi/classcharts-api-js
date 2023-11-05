@@ -33,13 +33,10 @@ export class ParentClient extends BaseClient {
     formData.append("logintype", "existing");
     formData.append("password", this.password);
     formData.append("recaptcha-token", "no-token-available");
-    const headers = new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    });
+
     const response = await fetch(BASE_URL + "/parent/login", {
       method: "POST",
       body: formData,
-      headers: headers,
       redirect: "manual",
     });
     if (response.status != 302 || !response.headers.has("set-cookie")) {
