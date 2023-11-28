@@ -1,6 +1,8 @@
 {
   "tasks": {
-    "npm": "deno run -A scripts/build_npm.ts"
+    "npm": "deno run -A scripts/build_npm.ts",
+    "format": "deno run -A npm:@biomejs/biome format . --write",
+    "lint": "deno run -A npm:@biomejs/biome lint ."
   },
   "exclude": ["npm"]
 }
