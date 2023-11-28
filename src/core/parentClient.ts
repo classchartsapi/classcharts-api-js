@@ -36,13 +36,13 @@ export class ParentClient extends BaseClient {
 		const headers = new Headers({
 			"Content-Type": "application/x-www-form-urlencoded",
 		});
-		const response = await fetch(BASE_URL + "/parent/login", {
+		const response = await fetch(`${BASE_URL}/parent/login`, {
 			method: "POST",
 			body: formData,
 			headers: headers,
 			redirect: "manual",
 		});
-		if (response.status != 302 || !response.headers.has("set-cookie")) {
+		if (response.status !== 302 || !response.headers.has("set-cookie")) {
 			await response.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
 			throw new Error(
 				"Unauthenticated: ClassCharts didn't return authentication cookies",
@@ -53,7 +53,7 @@ export class ParentClient extends BaseClient {
 		// this.authCookies = cookies.split(";");
 		const sessionCookies = parseCookies(cookies);
 		const sessionID = JSON.parse(
-			String(sessionCookies["parent_session_credentials"]),
+			String(sessionCookies.parent_session_credentials),
 		);
 		this.sessionId = sessionID.session_id;
 		this.pupils = await this.getPupils();
@@ -65,7 +65,7 @@ export class ParentClient extends BaseClient {
 	 * @returns an array of Pupils connected to this parent's account
 	 */
 	async getPupils(): Promise<GetPupilsResponse> {
-		const response = await this.makeAuthedRequest(this.API_BASE + "/pupils", {
+		const response = await this.makeAuthedRequest(`${this.API_BASE}/pupils`, {
 			method: "GET",
 		});
 		return response.data;
@@ -81,7 +81,7 @@ export class ParentClient extends BaseClient {
 		const pupils = this.pupils;
 		for (let i = 0; i < pupils.length; i++) {
 			const pupil = pupils[i];
-			if (pupil.id == pupilId) {
+			if (pupil.id === pupilId) {
 				this.studentId = pupil.id;
 				return;
 			}
@@ -102,7 +102,7 @@ export class ParentClient extends BaseClient {
 		formData.append("current", currentPassword);
 		formData.append("new", newPassword);
 		formData.append("repeat", newPassword);
-		return await this.makeAuthedRequest(this.API_BASE + "/password", {
+		return await this.makeAuthedRequest(`${this.API_BASE}/password`, {
 			method: "POST",
 			body: formData,
 			headers: {

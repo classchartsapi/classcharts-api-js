@@ -42,12 +42,12 @@ export class StudentClient extends BaseClient {
 		formData.append("dob", this.dateOfBirth);
 		formData.append("remember_me", "1");
 		formData.append("recaptcha-token", "no-token-available");
-		const request = await fetch(BASE_URL + "/student/login", {
+		const request = await fetch(`${BASE_URL}/student/login`, {
 			method: "POST",
 			body: formData,
 			redirect: "manual",
 		});
-		if (request.status != 302 || !request.headers.has("set-cookie")) {
+		if (request.status !== 302 || !request.headers.has("set-cookie")) {
 			await request.body?.cancel(); // Make deno tests happy by closing the body, unsure whether this is needed for the actual library
 			throw new Error(
 				"Unauthenticated: ClassCharts didn't return authentication cookies",
@@ -57,7 +57,7 @@ export class StudentClient extends BaseClient {
 		this.authCookies = cookies.split(",");
 		const sessionCookies = parseCookies(cookies);
 		const sessionID = JSON.parse(
-			String(sessionCookies["student_session_credentials"]),
+			String(sessionCookies.student_session_credentials),
 		);
 		this.sessionId = sessionID.session_id;
 		await this.getNewSessionId();
@@ -71,7 +71,7 @@ export class StudentClient extends BaseClient {
 	 */
 	async getRewards(): Promise<RewardsResponse> {
 		return await this.makeAuthedRequest(
-			this.API_BASE + "/rewards/" + this.studentId,
+			`${this.API_BASE}/rewards/${this.studentId}`,
 			{
 				method: "GET",
 			},
@@ -84,7 +84,7 @@ export class StudentClient extends BaseClient {
 	 * @returns An object containing the current student's balance and item ID purchased
 	 */
 	async purchaseReward(itemId: number): Promise<RewardPurchaseResponse> {
-		return await this.makeAuthedRequest(this.API_BASE + "/purchase/" + itemId, {
+		return await this.makeAuthedRequest(`${this.API_BASE}/purchase/${itemId}`, {
 			method: "POST",
 			body: `pupil_id=${this.studentId}`,
 		});
@@ -99,7 +99,7 @@ export class StudentClient extends BaseClient {
 	async getStudentCode(
 		options: GetStudentCodeOptions,
 	): Promise<GetStudentCodeResponse> {
-		const data = await this.makeAuthedRequest(this.API_BASE + "/getcode", {
+		const data = await this.makeAuthedRequest(`${this.API_BASE}/getcode`, {
 			method: "POST",
 			body: JSON.stringify({
 				date: options.dateOfBirth,
