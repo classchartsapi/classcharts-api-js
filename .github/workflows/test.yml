@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         deno: ["1.x"]
-        node: ["18", "20"]
+        node: ["20", "21"]
     name: Test Node on Version ${{ matrix.node }}
     steps:
       - name: Checkout Repo
