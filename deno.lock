@@ -1,5 +1,47 @@
 {
-  "version": "2",
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:@biomejs/biome": "npm:@biomejs/biome@1.4.0"
+    },
+    "npm": {
+      "@biomejs/biome@1.4.0": {
+        "integrity": "sha512-/rDlao6ra38nhxo4IYCqWCzfTJcpMk4YHjSVBI9yN/ifdhnzSwirL25xDVH7G9hZdNhpF9g78FaPJhFa9DX0Cw==",
+        "dependencies": {
+          "@biomejs/cli-darwin-arm64": "@biomejs/cli-darwin-arm64@1.4.0",
+          "@biomejs/cli-darwin-x64": "@biomejs/cli-darwin-x64@1.4.0",
+          "@biomejs/cli-linux-arm64": "@biomejs/cli-linux-arm64@1.4.0",
+          "@biomejs/cli-linux-x64": "@biomejs/cli-linux-x64@1.4.0",
+          "@biomejs/cli-win32-arm64": "@biomejs/cli-win32-arm64@1.4.0",
+          "@biomejs/cli-win32-x64": "@biomejs/cli-win32-x64@1.4.0"
+        }
+      },
+      "@biomejs/cli-darwin-arm64@1.4.0": {
+        "integrity": "sha512-nBrtVRwr4IlTtxLOHwBwLv1sWvggf9/DnT5/ALIANJZOpoING6u8jHWipods69wK8kGa8Ld7iwHm3W5BrJJFFQ==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-darwin-x64@1.4.0": {
+        "integrity": "sha512-nny0VgOj3ksUGzU5GblgtQEvrAZFgFe1IJBoYOP978OQdDrg7BpS+GX5udfof87Dl4ZlHPRBU951ceHOxF7BTg==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-arm64@1.4.0": {
+        "integrity": "sha512-gyLkT/Yh9xfW1T9yjQs/2txkCeG0e+LRs0adLugMwN0ptcNTRyusBvUoiHnpB+9rS6hWu9ZCedGMNmKQ8v2GSw==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-x64@1.4.0": {
+        "integrity": "sha512-LIxTuU2zSbIHM9XDYjQphJ5UU8h2eS7yR8uIvGYSba7Qt9AKqfbenyVJTsVnoj1CXxxgKNVSc/wVmlOlGz5DBQ==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-win32-arm64@1.4.0": {
+        "integrity": "sha512-U2jT1/0wZLJIRqnU8qHAfi/A/+yUwlL3sYJgqs+wO0BbR22WGQZlj03u5FdpEoyLXdsLv1pbeIcjNp+V0NYXWA==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-win32-x64@1.4.0": {
+        "integrity": "sha512-gN6DgyyBxIwoCovAUFJHFWVallb0cLosayDRtNyxU3MDv/atZxSXOWQezfVKBIbgmFPxYWJObd+awvbPYXwwww==",
+        "dependencies": {}
+      }
+    }
+  },
   "remote": {
     "https://deno.land/std@0.140.0/_util/assert.ts": "e94f2eb37cebd7f199952e242c77654e43333c1ac4c5c700e929ea3aa5489f74",
     "https://deno.land/std@0.140.0/_util/os.ts": "3b4c6e27febd119d36a416d7a97bd3b0251b77c88942c8f16ee5953ea13e2e49",
