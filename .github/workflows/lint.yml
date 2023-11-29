@@ -1,0 +1,21 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.x
+      - name: Lint Package with Biome
+        run: deno test lint
