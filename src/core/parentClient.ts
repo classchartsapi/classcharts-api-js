@@ -25,8 +25,12 @@ export class ParentClient extends BaseClient {
 	 * Authenticates with ClassCharts
 	 */
 	async login(): Promise<void> {
-		if (!this.email) throw new Error("Email not provided");
-		if (!this.password) throw new Error("Password not provided");
+		if (!this.email) {
+			throw new Error("Email not provided");
+		}
+		if (!this.password) {
+			throw new Error("Password not provided");
+		}
 		const formData = new URLSearchParams();
 		formData.append("_method", "POST");
 		formData.append("email", this.email);
@@ -57,7 +61,9 @@ export class ParentClient extends BaseClient {
 		);
 		this.sessionId = sessionID.session_id;
 		this.pupils = await this.getPupils();
-		if (!this.pupils) throw new Error("Account has no pupils attached");
+		if (!this.pupils) {
+			throw new Error("Account has no pupils attached");
+		}
 		this.studentId = this.pupils[0].id;
 	}
 	/**
@@ -77,7 +83,9 @@ export class ParentClient extends BaseClient {
 	 * @see getPupils
 	 */
 	selectPupil(pupilId: number) {
-		if (!pupilId) throw new Error("No pupil ID specified");
+		if (!pupilId) {
+			throw new Error("No pupil ID specified");
+		}
 		const pupils = this.pupils;
 		for (let i = 0; i < pupils.length; i++) {
 			const pupil = pupils[i];

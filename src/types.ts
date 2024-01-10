@@ -77,13 +77,13 @@ export interface BehaviourTimelinePoint {
 	end: string;
 }
 export interface BehaviourResponseData {
-	timeline: Array<BehaviourTimelinePoint>;
+	timeline: BehaviourTimelinePoint[];
 	positive_reasons: Record<string, number>;
 	negative_reasons: Record<string, number>;
-	other_positive: Array<string>;
-	other_negative: Array<string>;
-	other_positive_count: Array<Record<string, number>>;
-	other_negative_count: Array<Record<string, number>>;
+	other_positive: string[];
+	other_negative: string[];
+	other_positive_count: Record<string, number>[];
+	other_negative_count: Record<string, number>[];
 }
 export interface BehaviourResponseMeta {
 	start_date: string;
@@ -134,7 +134,7 @@ export interface ActivityPoint {
 	detention_location: string | null;
 	detention_type: string | null;
 }
-export type ActivityResponseData = Array<ActivityPoint>;
+export type ActivityResponseData = ActivityPoint[];
 interface ActivityResponseMeta {
 	start_date: string;
 	end_date: string;
@@ -194,13 +194,13 @@ export interface Homework {
 		allow_attachments: boolean;
 		first_seen_date: string | null;
 		last_seen_date: string | null;
-		attachments: Array<unknown>;
+		attachments: unknown[];
 		has_feedback: boolean;
 	};
-	validated_links: Array<unknown>;
-	validated_attachments: Array<ValidatedHomeworkAttachment>;
+	validated_links: unknown[];
+	validated_attachments: ValidatedHomeworkAttachment[];
 }
-export type HomeworksResponseData = Array<Homework>;
+export type HomeworksResponseData = Homework[];
 export interface HomeworksResponseMeta {
 	start_date: string;
 	end_date: string;
@@ -286,10 +286,10 @@ export interface Badge {
 	icon: string;
 	colour: string;
 	created_date: string;
-	pupil_badges: Array<PupilEvent>;
+	pupil_badges: PupilEvent[];
 	icon_url: string;
 }
-export type BadgesResponseData = Array<Badge>;
+export type BadgesResponseData = Badge[];
 export type BadgesResponseMeta = [];
 export type BadgesResponse = ClassChartsResponse<
 	BadgesResponseData,
@@ -336,7 +336,7 @@ export interface Detention {
 	};
 }
 
-export type DetentionsData = Array<Detention>;
+export type DetentionsData = Detention[];
 
 export interface DetentionsMeta {
 	detention_alias_plural: string;
@@ -357,11 +357,11 @@ export interface Announcement {
 	sticky: "yes" | "no";
 	state: string | null;
 	timestamp: string;
-	attachments: Array<{
+	attachments: {
 		filename: string;
 		url: string;
-	}>;
-	for_pupils: Array<unknown>;
+	}[];
+	for_pupils: unknown[];
 	comment_visibility: string;
 	allow_comments: "yes" | "no";
 	allow_reactions: "yes" | "no";
@@ -370,11 +370,11 @@ export interface Announcement {
 	requires_consent: "yes" | "no";
 	can_change_consent: boolean;
 	consent: unknown | null;
-	pupil_consents: Array<unknown>;
+	pupil_consents: unknown[];
 }
 
 export type AnnouncementsResponse = ClassChartsResponse<
-	Array<Announcement>,
+	Announcement[],
 	[]
 >;
 
@@ -397,7 +397,7 @@ export interface Pupil extends Student {
 	announcements_count: number;
 	messages_count: number;
 }
-export type GetPupilsResponse = Array<Pupil>;
+export type GetPupilsResponse = Pupil[];
 
 export interface GetFullActivityOptions {
 	/**
@@ -430,8 +430,8 @@ export interface AttendancePeriod {
 }
 
 export interface AttendanceMeta {
-	dates: Array<string>;
-	sessions: Array<string>;
+	dates: string[];
+	sessions: string[];
 	start_date: string;
 	end_date: string;
 	percentage: string;
@@ -480,12 +480,12 @@ export type RewardPurchaseResponse = ClassChartsResponse<
 
 export interface PupilFieldsData {
 	note: string;
-	fields: Array<{
+	fields: {
 		id: number;
 		name: string;
 		graphic: string;
 		value: string;
-	}>;
+	}[];
 }
 
 export type PupilFieldsResponse = ClassChartsResponse<PupilFieldsData, []>;

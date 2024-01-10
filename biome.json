@@ -6,7 +6,21 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "warn"
+			},
+			"correctness": {
+				"noUnusedVariables": "warn"
+			},
+			"style": {
+				"useBlockStatements": "warn",
+				"useShorthandArrayType": "warn",
+				"useShorthandAssign": "warn"
+			},
+			"suspicious": {
+				"noApproximativeNumericConstant": "error"
+			}
 		}
 	},
 	"files": {

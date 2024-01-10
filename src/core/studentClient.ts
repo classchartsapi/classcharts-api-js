@@ -35,7 +35,9 @@ export class StudentClient extends BaseClient {
 	 * Authenticates with ClassCharts
 	 */
 	async login(): Promise<void> {
-		if (!this.studentCode) throw new Error("Student Code not provided");
+		if (!this.studentCode) {
+			throw new Error("Student Code not provided");
+		}
 		const formData = new URLSearchParams();
 		formData.append("_method", "POST");
 		formData.append("code", this.studentCode.toUpperCase());

@@ -22,7 +22,7 @@ import { PING_INTERVAL } from "../utils/consts.ts";
 /**
  * Shared client for both parent and student. This is not exported and should not be used directly
  */
-export class BaseClient {
+export abstract class BaseClient {
 	/**
 	 * @property studentId Currently selected student ID
 	 */
@@ -30,7 +30,7 @@ export class BaseClient {
 	/**
 	 * @property authCookies Cookies used for authentication (set during login and can be empty)
 	 */
-	public authCookies: Array<string>;
+	public authCookies: string[];
 	/**
 	 * @property sessionId Session ID used for authentication
 	 */
@@ -50,6 +50,8 @@ export class BaseClient {
 		this.authCookies = [];
 		this.API_BASE = API_BASE;
 	}
+
+	abstract login(): Promise<void>;
 	/**
 	 * Revalidates the session ID.
 	 *
@@ -82,9 +84,11 @@ export class BaseClient {
 	public async makeAuthedRequest(
 		path: string,
 		fetchOptions: RequestInit,
-		options: { revalidateToken?: boolean } = { revalidateToken: true },
+		options: { revalidateToken?: boolean; } = { revalidateToken: true },
 	) {
-		if (!this.sessionId) throw new Error("No session ID");
+		if (!this.sessionId) {
+			throw new Error("No session ID");
+		}
 		if (typeof options?.revalidateToken === "undefined") {
 			options.revalidateToken = true;
 		}
@@ -226,7 +230,9 @@ export class BaseClient {
 	 * @returns Array of lessons
 	 */
 	async getLessons(options: GetLessonsOptions): Promise<LessonsResponse> {
-		if (!options?.date) throw new Error("No date specified");
+		if (!options?.date) {
+			throw new Error("No date specified");
+		}
 		const params = new URLSearchParams();
 		params.append("date", String(options?.date));
 		return await this.makeAuthedRequest(
