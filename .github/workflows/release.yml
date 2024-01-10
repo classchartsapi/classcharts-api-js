@@ -4,12 +4,16 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+  
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
