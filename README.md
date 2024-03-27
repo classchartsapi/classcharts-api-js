@@ -43,8 +43,7 @@ contributing! If you have any questions, feel free to ask in the
 
 ## Requirements
 
-- Node.js 18 or newer
-  \
+- Node.js 18 or newer\
   OR
 - Deno
 
@@ -293,6 +292,23 @@ Gets all detentions.
 ```typescript
 const detentions = await client.getDetentions();
 console.log(detentions);
+
+/**
+ {
+    "success": 1,
+    "data": [
+        {
+            "id": 12345678,
+            "attended": "no",
+            "date": "2024-03-28T00:00:00+00:00",
+            ...
+        }
+    ],
+    "meta": {
+        "detention_alias_plural": "detentions"
+    }
+}
+*/
 ```
 
 ## `.getAttendance`
