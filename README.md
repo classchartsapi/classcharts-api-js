@@ -43,7 +43,7 @@ contributing! If you have any questions, feel free to ask in the
 
 ## Requirements
 
-- Node.js 18 or newer\
+- Node.js 20 or newer\
   OR
 - Deno
 
