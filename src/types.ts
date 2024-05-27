@@ -249,6 +249,7 @@ export interface GetLessonsOptions {
 }
 export interface Lesson {
 	teacher_name: string;
+	teacher_id: string;
 	lesson_name: string;
 	subject_name: string;
 	is_alternative_lesson: boolean;
