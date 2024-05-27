@@ -343,7 +343,7 @@ export interface Detention {
 		subject: {
 			id: number;
 			name: string;
-		};
+		} | null;
 	} | null;
 	lesson_pupil_behaviour: {
 		reason: string;
