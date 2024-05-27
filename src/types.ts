@@ -165,11 +165,33 @@ export interface GetHomeworkOptions {
 	 */
 	to?: string;
 }
+/**
+ * Teacher uploaded attachments
+ */
 export interface ValidatedHomeworkAttachment {
 	id: number;
 	file_name: string;
 	file: string;
 	validated_file: string;
+}
+/**
+ * Teacher uploaded links
+ */
+export interface ValidatedLink {
+  link: string;
+  validated_link: string;
+}
+/**
+ * User uploaded attachments
+ */
+export interface HomeworkAttachment {
+  id: number;
+  file_name: string;
+  file: string;
+  validated_file: string;
+  teacher_note: string;
+  teacher_homework_attachments: Array<unknown>;
+  can_delete: boolean;
 }
 export interface Homework {
 	lesson: string;
@@ -192,12 +214,13 @@ export interface Homework {
 		mark_relative: number;
 		ticked: "yes" | "no";
 		allow_attachments: boolean;
+    allow_marking_completed: boolean;
 		first_seen_date: string | null;
 		last_seen_date: string | null;
-		attachments: unknown[];
+		attachments: HomeworkAttachment[];
 		has_feedback: boolean;
 	};
-	validated_links: unknown[];
+	validated_links: ValidatedLink[];
 	validated_attachments: ValidatedHomeworkAttachment[];
 }
 export type HomeworksResponseData = Homework[];
