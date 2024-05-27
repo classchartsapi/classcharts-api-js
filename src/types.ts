@@ -113,7 +113,7 @@ export interface GetActivityOptions {
 export interface ActivityPoint {
 	id: number;
 	type: string;
-	polarity: string;
+	polarity: "positive" | "blank" | "negative" | string & {};
 	reason: string;
 	score: number;
 	timestamp: string;
@@ -124,11 +124,11 @@ export interface ActivityPoint {
 	};
 	pupil_name: string;
 	lesson_name: string | null;
-	teacher_name: string;
+	teacher_name: string | null;
 	room_name: string | null;
 	note: string | null;
 	_can_delete: boolean;
-	badges: string | undefined;
+	badges: string;
 	detention_date: string | null;
 	detention_time: string | null;
 	detention_location: string | null;
