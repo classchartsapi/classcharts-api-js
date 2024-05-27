@@ -283,7 +283,6 @@ export type LessonsResponse = ClassChartsResponse<
 	LessonsResponseMeta
 >;
 
-// Not sure what to call this
 export interface LessonPupilBehaviour {
 	reason: string;
 	score: number;
@@ -309,7 +308,7 @@ export interface Badge {
 	icon: string;
 	colour: string;
 	created_date: string;
-	pupil_badges: PupilEvent[];
+	pupil_badges: { pupil_event: PupilEvent }[];
 	icon_url: string;
 }
 export type BadgesResponseData = Badge[];
