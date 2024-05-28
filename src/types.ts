@@ -113,7 +113,7 @@ export interface GetActivityOptions {
 export interface ActivityPoint {
 	id: number;
 	type: string;
-	polarity: string;
+	polarity: "positive" | "blank" | "negative" | string & {};
 	reason: string;
 	score: number;
 	timestamp: string;
@@ -124,11 +124,11 @@ export interface ActivityPoint {
 	};
 	pupil_name: string;
 	lesson_name: string | null;
-	teacher_name: string;
+	teacher_name: string | null;
 	room_name: string | null;
 	note: string | null;
 	_can_delete: boolean;
-	badges: string | undefined;
+	badges: string;
 	detention_date: string | null;
 	detention_time: string | null;
 	detention_location: string | null;
@@ -165,11 +165,33 @@ export interface GetHomeworkOptions {
 	 */
 	to?: string;
 }
+/**
+ * Teacher uploaded attachments
+ */
 export interface ValidatedHomeworkAttachment {
 	id: number;
 	file_name: string;
 	file: string;
 	validated_file: string;
+}
+/**
+ * Teacher uploaded links
+ */
+export interface ValidatedLink {
+  link: string;
+  validated_link: string;
+}
+/**
+ * User uploaded attachments
+ */
+export interface StudentHomeworkAttachment {
+  id: number;
+  file_name: string;
+  file: string;
+  validated_file: string;
+  teacher_note: string;
+  teacher_homework_attachments: unknown[];
+  can_delete: boolean;
 }
 export interface Homework {
 	lesson: string;
@@ -192,12 +214,13 @@ export interface Homework {
 		mark_relative: number;
 		ticked: "yes" | "no";
 		allow_attachments: boolean;
+    allow_marking_completed: boolean;
 		first_seen_date: string | null;
 		last_seen_date: string | null;
-		attachments: unknown[];
+		attachments: HomeworkAttachment[];
 		has_feedback: boolean;
 	};
-	validated_links: unknown[];
+	validated_links: ValidatedLink[];
 	validated_attachments: ValidatedHomeworkAttachment[];
 }
 export type HomeworksResponseData = Homework[];
@@ -226,6 +249,7 @@ export interface GetLessonsOptions {
 }
 export interface Lesson {
 	teacher_name: string;
+	teacher_id: string;
 	lesson_name: string;
 	subject_name: string;
 	is_alternative_lesson: boolean;
@@ -260,7 +284,6 @@ export type LessonsResponse = ClassChartsResponse<
 	LessonsResponseMeta
 >;
 
-// Not sure what to call this
 export interface LessonPupilBehaviour {
 	reason: string;
 	score: number;
@@ -286,7 +309,7 @@ export interface Badge {
 	icon: string;
 	colour: string;
 	created_date: string;
-	pupil_badges: PupilEvent[];
+	pupil_badges: { pupil_event: PupilEvent }[];
 	icon_url: string;
 }
 export type BadgesResponseData = Badge[];
@@ -320,7 +343,7 @@ export interface Detention {
 		subject: {
 			id: number;
 			name: string;
-		};
+		} | null;
 	} | null;
 	lesson_pupil_behaviour: {
 		reason: string;
@@ -423,7 +446,7 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-	status: "present" | "ignore";
+	status: "present" | "ignore" | string & {};
 	late_minutes: number | string;
 	lesson_name?: string;
 	room_name?: string;
