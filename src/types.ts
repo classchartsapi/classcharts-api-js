@@ -165,25 +165,19 @@ export interface GetHomeworkOptions {
 	 */
 	to?: string;
 }
-/**
- * Teacher uploaded attachments
- */
-export interface ValidatedHomeworkAttachment {
+
+export interface TeacherValidatedHomeworkAttachment {
 	id: number;
 	file_name: string;
 	file: string;
 	validated_file: string;
 }
-/**
- * Teacher uploaded links
- */
-export interface ValidatedLink {
+
+export interface TeacherValidatedHomeworkLink {
 	link: string;
 	validated_link: string;
 }
-/**
- * User uploaded attachments
- */
+
 export interface StudentHomeworkAttachment {
 	id: number;
 	file_name: string;
@@ -220,8 +214,8 @@ export interface Homework {
 		attachments: StudentHomeworkAttachment[];
 		has_feedback: boolean;
 	};
-	validated_links: ValidatedLink[];
-	validated_attachments: ValidatedHomeworkAttachment[];
+	validated_links: TeacherValidatedHomeworkLink[];
+	validated_attachments: TeacherValidatedHomeworkAttachment[];
 }
 export type HomeworksResponseData = Homework[];
 export interface HomeworksResponseMeta {
