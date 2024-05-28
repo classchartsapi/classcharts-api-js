@@ -204,7 +204,7 @@ export interface Homework {
 	status: {
 		id: number;
 		state: "not_completed" | "late" | "completed" | null;
-		mark: unknown | null;
+		mark: string | null;
 		mark_relative: number;
 		ticked: "yes" | "no";
 		allow_attachments: boolean;
