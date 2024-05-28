@@ -1,4 +1,4 @@
-import { assertEquals, assertExists } from "../../deps_dev.ts";
+import { assertEquals, assertExists } from "@std/assert";
 import { parseCookies } from "./utils.ts";
 Deno.test("Parses simple cookie", () => {
 	const cookie =
@@ -21,17 +21,4 @@ Deno.test("Parses cookie with no value", () => {
 	const parsed = parseCookies(cookie);
 	assertExists(parsed.cookieWithNoValue);
 	assertEquals(parsed.cookieWithNoValue, "");
-});
-
-import { leftTrim } from "./utils.ts";
-Deno.test("Trims left with spaces", () => {
-	const input = "   Hello world!";
-	const output = leftTrim(input);
-	assertEquals(output, "Hello world!");
-});
-
-Deno.test("Trims left with no spaces", () => {
-	const input = "Hello world!";
-	const output = leftTrim(input);
-	assertEquals(output, "Hello world!");
 });

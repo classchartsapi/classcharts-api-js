@@ -1,5 +1,4 @@
-// This dependancy cannot be moved to dev_deps.ts since dnt complains about a top-level await
-import { build, emptyDir } from "https://deno.land/x/dnt@0.39.0/mod.ts";
+import { build, emptyDir } from "@deno/dnt";
 
 if (!Deno.args[0]) {
 	throw new Error("No version specified");

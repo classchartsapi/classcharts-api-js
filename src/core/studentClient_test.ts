@@ -1,4 +1,4 @@
-import { assertRejects } from "../../deps_dev.ts";
+import { assertRejects } from "@std/assert";
 import { StudentClient } from "../core/studentClient.ts";
 
 Deno.test("Throws when no student code is provided", async () => {

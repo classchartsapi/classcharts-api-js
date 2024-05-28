@@ -1,4 +1,4 @@
-import { assertRejects } from "../../deps_dev.ts";
+import { assertRejects } from "@std/assert";
 import { ParentClient } from "../core/parentClient.ts";
 
 Deno.test("Throws when no email is provided", async () => {
