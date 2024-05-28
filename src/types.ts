@@ -184,7 +184,7 @@ export interface ValidatedLink {
 /**
  * User uploaded attachments
  */
-export interface HomeworkAttachment {
+export interface StudentHomeworkAttachment {
   id: number;
   file_name: string;
   file: string;
