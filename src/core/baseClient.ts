@@ -84,7 +84,7 @@ export abstract class BaseClient {
 	public async makeAuthedRequest(
 		path: string,
 		fetchOptions: RequestInit,
-		options: { revalidateToken?: boolean; } = { revalidateToken: true },
+		options: { revalidateToken?: boolean } = { revalidateToken: true },
 	) {
 		if (!this.sessionId) {
 			throw new Error("No session ID");
