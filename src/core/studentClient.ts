@@ -1,23 +1,31 @@
 import { API_BASE_STUDENT, BASE_URL } from "../utils/consts.ts";
 import { BaseClient } from "../core/baseClient.ts";
 import { parseCookies } from "../utils/utils.ts";
-import {
+import type {
 	GetStudentCodeOptions,
 	GetStudentCodeResponse,
 	RewardPurchaseResponse,
 	RewardsResponse,
 } from "../types.ts";
-
 /**
- * Student Client
+ * Student Client.
+ * See {@link BaseClient} for all shared methods.
+ *
+ * @example
+ * ```ts
+ * import { StudentClient } from "classcharts-api";
+ * // Date of birth MUST in the format DD/MM/YYYY
+ * const client = new StudentClient("classchartsCode", "01/01/2000");
+ * await client.login();
+ * ```
  */
 export class StudentClient extends BaseClient {
 	/**
-	 * @property studentCode ClassCharts student code
+	 * ClassCharts student code
 	 */
 	private studentCode = "";
 	/**
-	 * @property dateOfBirth Student's date of birth
+	 * Student's date of birth
 	 */
 	private dateOfBirth = "";
 

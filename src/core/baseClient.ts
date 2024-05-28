@@ -24,26 +24,27 @@ import { PING_INTERVAL } from "../utils/consts.ts";
  */
 export abstract class BaseClient {
 	/**
-	 * @property studentId Currently selected student ID
+	 * Currently selected student ID
 	 */
 	public studentId = 0;
 	/**
-	 * @property authCookies Cookies used for authentication (set during login and can be empty)
+	 * Cookies used for authentication (set during login and can be empty)
 	 */
 	public authCookies: string[];
 	/**
-	 * @property sessionId Session ID used for authentication
+	 * Session ID used for authentication
 	 */
 	public sessionId = "";
 	/**
-	 * @property lastPing Last time the sessionId was updated
+	 * Last time the sessionId was updated
 	 */
 	public lastPing = 0;
 	/**
-	 * @property API_BASE Base API URL, this is different depending on if its called as a parent or student
+	 * Base API URL, this is different depending on if its called as a parent or student
 	 */
 	protected API_BASE = "";
 	/**
+	 * Create a new client with the given API url
 	 * @param API_BASE Base API URL, this is different depending on if its called as a parent or student
 	 */
 	constructor(API_BASE: string) {
@@ -55,7 +56,7 @@ export abstract class BaseClient {
 	/**
 	 * Revalidates the session ID.
 	 *
-	 * This is called automatically when the session ID is older than 3 minutes or when initially using the .login() method
+	 * This is called automatically when the session ID is older than 3 minutes and initially using the .login() method
 	 */
 	public async getNewSessionId() {
 		const pingFormData = new URLSearchParams();

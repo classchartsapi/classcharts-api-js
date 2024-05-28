@@ -4,12 +4,19 @@ import { BaseClient } from "../core/baseClient.ts";
 import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
 import { parseCookies } from "../utils/utils.ts";
 /**
- * Parent Client
+ * Parent Client.
+ * See {@link BaseClient} for all shared methods.
+ *
+ * @example
+ * ```ts
+ * import { ParentClient } from "classcharts-api";
+ * const client = new ParentClient("username", "password");
+ * await client.login();
+ * ```
  */
 export class ParentClient extends BaseClient {
 	private password = "";
 	private email = "";
-	// @ts-expect-error Init in .login
 	public pupils: GetPupilsResponse;
 	/**
 	 * @param email Parent's email address
@@ -19,6 +26,7 @@ export class ParentClient extends BaseClient {
 		super(API_BASE_PARENT);
 		this.email = String(email);
 		this.password = String(password);
+		this.pupils = [];
 	}
 
 	/**
