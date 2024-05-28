@@ -446,7 +446,6 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-  // TODO: add the other statues
 	status: "present" | "ignore" | string & {};
 	late_minutes: number | string;
 	lesson_name?: string;
