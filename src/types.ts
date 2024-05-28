@@ -113,7 +113,7 @@ export interface GetActivityOptions {
 export interface ActivityPoint {
 	id: number;
 	type: string;
-	polarity: "positive" | "blank" | "negative" | string & {};
+	polarity: "positive" | "blank" | "negative" | (string & {});
 	reason: string;
 	score: number;
 	timestamp: string;
@@ -178,20 +178,20 @@ export interface ValidatedHomeworkAttachment {
  * Teacher uploaded links
  */
 export interface ValidatedLink {
-  link: string;
-  validated_link: string;
+	link: string;
+	validated_link: string;
 }
 /**
  * User uploaded attachments
  */
 export interface StudentHomeworkAttachment {
-  id: number;
-  file_name: string;
-  file: string;
-  validated_file: string;
-  teacher_note: string;
-  teacher_homework_attachments: unknown[];
-  can_delete: boolean;
+	id: number;
+	file_name: string;
+	file: string;
+	validated_file: string;
+	teacher_note: string;
+	teacher_homework_attachments: unknown[];
+	can_delete: boolean;
 }
 export interface Homework {
 	lesson: string;
@@ -214,10 +214,10 @@ export interface Homework {
 		mark_relative: number;
 		ticked: "yes" | "no";
 		allow_attachments: boolean;
-    allow_marking_completed: boolean;
+		allow_marking_completed: boolean;
 		first_seen_date: string | null;
 		last_seen_date: string | null;
-		attachments: HomeworkAttachment[];
+		attachments: StudentHomeworkAttachment[];
 		has_feedback: boolean;
 	};
 	validated_links: ValidatedLink[];
@@ -396,10 +396,7 @@ export interface Announcement {
 	pupil_consents: unknown[];
 }
 
-export type AnnouncementsResponse = ClassChartsResponse<
-	Announcement[],
-	[]
->;
+export type AnnouncementsResponse = ClassChartsResponse<Announcement[], []>;
 
 export interface Pupil extends Student {
 	school_name: string;
@@ -446,7 +443,7 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-	status: "present" | "ignore" | string & {};
+	status: "present" | "ignore" | (string & {});
 	late_minutes: number | string;
 	lesson_name?: string;
 	room_name?: string;
