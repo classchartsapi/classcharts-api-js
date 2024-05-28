@@ -190,7 +190,7 @@ export interface StudentHomeworkAttachment {
   file: string;
   validated_file: string;
   teacher_note: string;
-  teacher_homework_attachments: Array<unknown>;
+  teacher_homework_attachments: unknown[];
   can_delete: boolean;
 }
 export interface Homework {
