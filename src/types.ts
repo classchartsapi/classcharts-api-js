@@ -112,15 +112,15 @@ export interface GetActivityOptions {
 
 export interface ActivityPoint {
 	id: number;
-	type: string;
-	polarity: "positive" | "blank" | "negative" | (string & {});
+	type: "detention" | "notice" | "attendance_event" | "question" | "event" | "behaviour"
+	polarity: "positive" | "blank" | "negative" | null;
 	reason: string;
 	score: number;
 	timestamp: string;
 	timestamp_custom_time: string | null;
 	style: {
 		border_color: string | null;
-		custom_class: string | null;
+		custom_class: "notice-color" | "colour-orange" | "colour-blue" | "colour-purple" | "colour-green" | null;
 	};
 	pupil_name: string;
 	lesson_name: string | null;
@@ -364,6 +364,22 @@ export type DetentionsResponse = ClassChartsResponse<
 	DetentionsMeta
 >;
 
+export interface AnnouncementConsent {
+  consent_given: "yes" | "no"
+  comment: string | null
+  parent_name: string
+}
+
+export interface AnnouncementPupilConsent {
+  pupil: {
+    id: string
+    first_name: string
+    last_name: string
+  }
+  can_change_consent: boolean
+  consent: AnnouncementConsent | null
+}
+
 export interface Announcement {
 	id: number;
 	title: string;
@@ -386,8 +402,8 @@ export interface Announcement {
 	priority_pinned: "yes" | "no";
 	requires_consent: "yes" | "no";
 	can_change_consent: boolean;
-	consent: unknown | null;
-	pupil_consents: unknown[];
+	consent: AnnouncementConsent | null;
+	pupil_consents: AnnouncementPupilConsent[];
 }
 
 export type AnnouncementsResponse = ClassChartsResponse<Announcement[], []>;
