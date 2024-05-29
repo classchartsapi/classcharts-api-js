@@ -378,7 +378,7 @@ export interface Announcement {
 		filename: string;
 		url: string;
 	}[];
-	for_pupils: unknown[];
+	for_pupils: string[];
 	comment_visibility: string;
 	allow_comments: "yes" | "no";
 	allow_reactions: "yes" | "no";
