@@ -350,7 +350,7 @@ export interface Detention {
 	} | null;
 	detention_type: {
 		name: string;
-	};
+	} | null;
 }
 
 export type DetentionsData = Detention[];
