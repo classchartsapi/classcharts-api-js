@@ -454,7 +454,7 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-	status: "present" | "ignore" | (string & {});
+  status: "yes" | "present" | "ignore" | "no" | "absent" | "excused" | "late";
 	late_minutes: number | string;
 	lesson_name?: string;
 	room_name?: string;
