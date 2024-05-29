@@ -247,6 +247,7 @@ export interface Lesson {
 	lesson_name: string;
 	subject_name: string;
 	is_alternative_lesson: boolean;
+  is_break?: boolean;
 	period_name: string;
 	period_number: string;
 	room_name: string;
