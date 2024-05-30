@@ -112,7 +112,13 @@ export interface GetActivityOptions {
 
 export interface ActivityPoint {
 	id: number;
-	type: "detention" | "notice" | "attendance_event" | "question" | "event" | "behaviour"
+	type:
+		| "detention"
+		| "notice"
+		| "attendance_event"
+		| "question"
+		| "event"
+		| "behaviour";
 	polarity: "positive" | "blank" | "negative" | null;
 	reason: string;
 	score: number;
@@ -120,7 +126,13 @@ export interface ActivityPoint {
 	timestamp_custom_time: string | null;
 	style: {
 		border_color: string | null;
-		custom_class: "notice-color" | "colour-orange" | "colour-blue" | "colour-purple" | "colour-green" | null;
+		custom_class:
+			| "notice-color"
+			| "colour-orange"
+			| "colour-blue"
+			| "colour-purple"
+			| "colour-green"
+			| null;
 	};
 	pupil_name: string;
 	lesson_name: string | null;
@@ -247,7 +259,7 @@ export interface Lesson {
 	lesson_name: string;
 	subject_name: string;
 	is_alternative_lesson: boolean;
-  is_break?: boolean;
+	is_break?: boolean;
 	period_name: string;
 	period_number: string;
 	room_name: string;
@@ -366,19 +378,19 @@ export type DetentionsResponse = ClassChartsResponse<
 >;
 
 export interface AnnouncementConsent {
-  consent_given: "yes" | "no"
-  comment: string | null
-  parent_name: string
+	consent_given: "yes" | "no";
+	comment: string | null;
+	parent_name: string;
 }
 
 export interface AnnouncementPupilConsent {
-  pupil: {
-    id: string
-    first_name: string
-    last_name: string
-  }
-  can_change_consent: boolean
-  consent: AnnouncementConsent | null
+	pupil: {
+		id: string;
+		first_name: string;
+		last_name: string;
+	};
+	can_change_consent: boolean;
+	consent: AnnouncementConsent | null;
 }
 
 export interface Announcement {
@@ -454,7 +466,7 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-  status: "yes" | "present" | "ignore" | "no" | "absent" | "excused" | "late";
+	status: "yes" | "present" | "ignore" | "no" | "absent" | "excused" | "late";
 	late_minutes: number | string;
 	lesson_name?: string;
 	room_name?: string;
