@@ -112,15 +112,27 @@ export interface GetActivityOptions {
 
 export interface ActivityPoint {
 	id: number;
-	type: string;
-	polarity: "positive" | "blank" | "negative" | (string & {});
+	type:
+		| "detention"
+		| "notice"
+		| "attendance_event"
+		| "question"
+		| "event"
+		| "behaviour";
+	polarity: "positive" | "blank" | "negative" | null;
 	reason: string;
 	score: number;
 	timestamp: string;
 	timestamp_custom_time: string | null;
 	style: {
 		border_color: string | null;
-		custom_class: string | null;
+		custom_class:
+			| "notice-color"
+			| "colour-orange"
+			| "colour-blue"
+			| "colour-purple"
+			| "colour-green"
+			| null;
 	};
 	pupil_name: string;
 	lesson_name: string | null;
@@ -184,7 +196,7 @@ export interface StudentHomeworkAttachment {
 	file: string;
 	validated_file: string;
 	teacher_note: string;
-	teacher_homework_attachments: unknown[];
+	teacher_homework_attachments: TeacherValidatedHomeworkAttachment[];
 	can_delete: boolean;
 }
 export interface Homework {
@@ -204,7 +216,7 @@ export interface Homework {
 	status: {
 		id: number;
 		state: "not_completed" | "late" | "completed" | null;
-		mark: unknown | null;
+		mark: string | null;
 		mark_relative: number;
 		ticked: "yes" | "no";
 		allow_attachments: boolean;
@@ -247,6 +259,7 @@ export interface Lesson {
 	lesson_name: string;
 	subject_name: string;
 	is_alternative_lesson: boolean;
+	is_break?: boolean;
 	period_name: string;
 	period_number: string;
 	room_name: string;
@@ -350,7 +363,7 @@ export interface Detention {
 	} | null;
 	detention_type: {
 		name: string;
-	};
+	} | null;
 }
 
 export type DetentionsData = Detention[];
@@ -363,6 +376,22 @@ export type DetentionsResponse = ClassChartsResponse<
 	DetentionsData,
 	DetentionsMeta
 >;
+
+export interface AnnouncementConsent {
+	consent_given: "yes" | "no";
+	comment: string | null;
+	parent_name: string;
+}
+
+export interface AnnouncementPupilConsent {
+	pupil: {
+		id: string;
+		first_name: string;
+		last_name: string;
+	};
+	can_change_consent: boolean;
+	consent: AnnouncementConsent | null;
+}
 
 export interface Announcement {
 	id: number;
@@ -378,7 +407,7 @@ export interface Announcement {
 		filename: string;
 		url: string;
 	}[];
-	for_pupils: unknown[];
+	for_pupils: string[];
 	comment_visibility: string;
 	allow_comments: "yes" | "no";
 	allow_reactions: "yes" | "no";
@@ -386,8 +415,8 @@ export interface Announcement {
 	priority_pinned: "yes" | "no";
 	requires_consent: "yes" | "no";
 	can_change_consent: boolean;
-	consent: unknown | null;
-	pupil_consents: unknown[];
+	consent: AnnouncementConsent | null;
+	pupil_consents: AnnouncementPupilConsent[];
 }
 
 export type AnnouncementsResponse = ClassChartsResponse<Announcement[], []>;
@@ -437,7 +466,7 @@ export interface GetAttendanceOptions {
 
 export interface AttendancePeriod {
 	code: string;
-	status: "present" | "ignore" | (string & {});
+	status: "yes" | "present" | "ignore" | "no" | "absent" | "excused" | "late";
 	late_minutes: number | string;
 	lesson_name?: string;
 	room_name?: string;
@@ -471,7 +500,7 @@ export type RewardsData = {
 	unable_to_purchase_reason: string;
 	once_per_pupil: boolean;
 	purchased: boolean;
-	purchased_count: string | number;
+	purchased_count: string | 0;
 	price_balance_difference: number;
 }[];
 
