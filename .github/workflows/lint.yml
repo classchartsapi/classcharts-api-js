@@ -1,4 +1,4 @@
-name: test
+name: lint
 on:
   push:
   pull_request:
@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v2
         with:
-          deno-version: 1.x
+          deno-version: v2.x
       - name: Lint Package with Biome
         run: deno task lint
