@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        deno: ["1.x"]
+        deno: ["v2.x"]
     name: Test Deno on Version ${{ matrix.deno }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno }}
       - name: Run tests in Deno
@@ -22,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        deno: ["1.x"]
-        node: ["20", "21"]
+        deno: ["v2.x"]
+        node: ["22", "23"]
     name: Test Node on Version ${{ matrix.node }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno }}
       - uses: actions/setup-node@v4
