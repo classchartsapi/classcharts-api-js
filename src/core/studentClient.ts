@@ -111,9 +111,10 @@ export class StudentClient extends BaseClient {
 	): Promise<GetStudentCodeResponse> {
 		const data = await this.makeAuthedRequest(`${this.API_BASE}/getcode`, {
 			method: "POST",
-			body: JSON.stringify({
-				date: options.dateOfBirth,
-			}),
+			body: `date=${options.dateOfBirth}`,
+			headers: {
+				"content-type": "application/x-www-form-urlencoded",
+			},
 		});
 		return data;
 	}
