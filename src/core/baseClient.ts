@@ -96,7 +96,7 @@ export abstract class BaseClient {
 		const requestOptions = {
 			...fetchOptions,
 			headers: {
-				Cookie: this?.authCookies?.join(";") ?? [],
+				Cookie: this?.authCookies?.join("; ") ?? [],
 				Authorization: `Basic ${this.sessionId}`,
 				"User-Agent":
 					"classcharts-api https://github.com/classchartsapi/classcharts-api-js",

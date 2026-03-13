@@ -61,11 +61,23 @@ export class ParentClient extends BaseClient {
 			);
 		}
 
-		const cookies = String(response.headers.get("set-cookie"));
-		// this.authCookies = cookies.split(";");
-		const sessionCookies = parseCookies(cookies);
+		// Get ALL Set-Cookie headers (get() only returns the first one!)
+		const setCookieHeaders = response.headers.getSetCookie();
+		if (!setCookieHeaders || setCookieHeaders.length < 2) {
+			await response.body?.cancel();
+			throw new Error("Unauthenticated: Missing Set-Cookie headers");
+		}
+
+		// Parse both cookies
+		const cookie1 = parseCookies(setCookieHeaders[0]);
+		const cookie2 = parseCookies(setCookieHeaders[1]);
+
+		// Store only the name=value portion of each Set-Cookie header
+		this.authCookies = setCookieHeaders.map((h) => h.split(";")[0].trim());
+
+		// Get session ID from parent_session_credentials cookie
 		const sessionID = JSON.parse(
-			String(sessionCookies.parent_session_credentials),
+			String(cookie1.parent_session_credentials || cookie2.parent_session_credentials),
 		);
 		this.sessionId = sessionID.session_id;
 		this.pupils = await this.getPupils();
