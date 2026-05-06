@@ -1,4 +1,9 @@
-import type { ChangePasswordResponse, GetPupilsResponse } from "../types.ts";
+import type {
+	ChangePasswordResponse,
+	GetHomeworkOptions,
+	GetPupilsResponse,
+	HomeworksResponse,
+} from "../types.ts";
 
 import { BaseClient } from "../core/baseClient.ts";
 import { API_BASE_PARENT, BASE_URL } from "../utils/consts.ts";
@@ -104,6 +109,74 @@ export class ParentClient extends BaseClient {
 		}
 		throw new Error("No pupil with specified ID returned");
 	}
+
+	/**
+	 * Gets homework for a specific pupil ID without changing the selected pupil permanently.
+	 * @param pupilId Pupil ID obtained from this.pupils or getPupils()
+	 * @param options GetHomeworkOptions
+	 * @returns Homeworks response for the specified pupil
+	 */
+	async getHomeworksForPupil(
+		pupilId: number,
+		options?: GetHomeworkOptions,
+	): Promise<HomeworksResponse> {
+		const previousStudentId = this.studentId;
+		try {
+			this.selectPupil(pupilId);
+			return await this.getHomeworks(options);
+		} finally {
+			this.studentId = previousStudentId;
+		}
+	}
+
+	/**
+	 * Gets homework for multiple pupil IDs.
+	 *
+	 * If no pupil IDs are passed, this fetches homework for every pupil attached
+	 * to the parent account.
+	 *
+	 * @param options GetHomeworkOptions
+	 * @param pupilIds Optional list of pupil IDs to fetch homework for
+	 * @returns A record where each key is a pupil ID and value is that pupil's homework response
+	 */
+	async getHomeworksForEachPupil(
+		options?: GetHomeworkOptions,
+		pupilIds?: number[],
+	): Promise<Record<number, HomeworksResponse>> {
+		const targetPupilIds = pupilIds?.length
+			? pupilIds
+			: this.pupils.map((pupil) => pupil.id);
+
+		if (!targetPupilIds.length) {
+			throw new Error("No pupils available");
+		}
+
+		const invalidPupilIds = targetPupilIds.filter((pupilId) =>
+			!this.pupils.some((pupil) => pupil.id === pupilId)
+		);
+		if (invalidPupilIds.length) {
+			throw new Error(
+				`No pupil with specified ID returned: ${invalidPupilIds.join(", ")}`,
+			);
+		}
+
+		const previousStudentId = this.studentId;
+		const homeworksByPupilId: Record<number, HomeworksResponse> = {};
+
+		try {
+			for (const pupilId of targetPupilIds) {
+				homeworksByPupilId[pupilId] = await this.getHomeworksForPupil(
+					pupilId,
+					options,
+				);
+			}
+		} finally {
+			this.studentId = previousStudentId;
+		}
+
+		return homeworksByPupilId;
+	}
+
 	/**
 	 * Changes the login password for the current parent account
 	 * @param currentPassword Current password

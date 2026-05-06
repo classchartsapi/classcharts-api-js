@@ -353,6 +353,38 @@ Selects a pupil to make subsequent requests for.
 await client.selectPupil(123);
 ```
 
+## `.getHomeworksForPupil`
+
+Gets homework for a specific pupil ID without permanently changing the selected pupil.
+
+```typescript
+const homework = await client.getHomeworksForPupil(123, {
+  from: "2026-05-01",
+  to: "2026-05-31",
+  displayDate: "due_date",
+});
+console.log(homework);
+```
+
+## `.getHomeworksForEachPupil`
+
+Gets homework for each pupil ID. If no IDs are passed, it fetches for all attached pupils.
+
+```typescript
+const allHomework = await client.getHomeworksForEachPupil({
+  from: "2026-05-01",
+  to: "2026-05-31",
+});
+
+const selectedHomework = await client.getHomeworksForEachPupil(
+  { displayDate: "issue_date" },
+  [123, 456],
+);
+
+console.log(allHomework[123]);
+console.log(selectedHomework[456]);
+```
+
 ## `.changePassword`
 
 Changes the parent's password.
