@@ -1,2 +1,8 @@
 npm/
 .cov/
+
+# Local secrets (never commit)
+secrets.json
+secrets.local.json
+.env
+.env.local
