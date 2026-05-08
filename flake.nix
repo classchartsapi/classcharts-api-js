@@ -23,6 +23,7 @@
           biome
           deno
           nodejs_24
+          pnpm
         ];
        };
       };

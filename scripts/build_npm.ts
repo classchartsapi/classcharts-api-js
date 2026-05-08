@@ -55,8 +55,5 @@ await build({
 	async postBuild() {
 		await Deno.copyFile("LICENSE", "npm/LICENSE");
 		await Deno.copyFile("README.md", "npm/README.md");
-		using npmIgnoreFile = await Deno.open("npm/.npmignore", { append: true });
-		const data = new TextEncoder().encode("deps/" + "\n" + "*.map" + "\n");
-		npmIgnoreFile.write(data);
 	},
 });

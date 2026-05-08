@@ -4,7 +4,10 @@ on:
   push:
     tags:
       - "*"
-  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -12,29 +15,31 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    environment: Publish
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: denoland/setup-deno@v2
         with:
-          deno-version: "v2.x"
+          deno-version: "latest"
+
       - name: Get tag version
         if: startsWith(github.ref, 'refs/tags/')
         id: get_tag_version
         run: echo TAG_VERSION=${GITHUB_REF/refs\/tags\//} >> $GITHUB_OUTPUT
-      - uses: actions/setup-node@v4
+        
+      - uses: actions/setup-node@v6
         with:
-          node-version: "22"
-          registry-url: "https://registry.npmjs.org"
-      - uses: pnpm/action-setup@v4
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false  # never use caching in release builds
+
+      - uses: pnpm/action-setup@v6
         with:
-          version: latest
+          version: 11
+  
       - name: npm build
         run: deno task npm ${{steps.get_tag_version.outputs.TAG_VERSION}}
       - name: npm publish
         if: startsWith(github.ref, 'refs/tags/')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd npm && npm publish --provenance
+        run: cd npm && npm publish --provenance --access public
