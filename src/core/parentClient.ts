@@ -62,7 +62,7 @@ export class ParentClient extends BaseClient {
 		}
 
 		const cookies = String(response.headers.get("set-cookie"));
-		// this.authCookies = cookies.split(";");
+		this.authCookies = cookies.split(";");
 		const sessionCookies = parseCookies(cookies);
 		const sessionID = JSON.parse(
 			String(sessionCookies.parent_session_credentials),
