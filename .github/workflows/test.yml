@@ -23,30 +23,25 @@ jobs:
     strategy:
       matrix:
         deno: ["v2.x"]
-        node: ["22", "23"]
+        node: ["26", "25", "24"]
     name: Test Node on Version ${{ matrix.node }}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
       - uses: denoland/setup-deno@v2
         with:
-          deno-version: ${{ matrix.deno }}
-      - uses: actions/setup-node@v4
+          deno-version: "latest"
+    
+      - uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node }}
-      - uses: pnpm/action-setup@v4
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false  # never use caching in release builds
+
+      - uses: pnpm/action-setup@v6
         with:
-          version: latest
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          version: 11
+
       - name: Build and test node
         run: deno task npm 0.0.0
